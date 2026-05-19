@@ -1,6 +1,7 @@
-# Creedengo AI Skills
+# AI Green Skills
 
-This folder contains **AI skills** for the [Creedengo](https://green-code-initiative.org) project.
+This folder contains **AI skills** for sustainable software engineering, with a strong focus on
+[Creedengo](https://green-code-initiative.org), RGESN evidence, and frugal AI.
 
 ---
 
@@ -18,13 +19,12 @@ ChatGPT, Cursor, or any LLM). It tells the agent:
 A skill is not code. It is a **contract between a human and an AI agent**, written in plain
 Markdown so it is readable by both.
 
-### Why skills for Creedengo?
+### Why skills for sustainable software?
 
-The Creedengo project maintains a growing catalog of green code rules across multiple languages.
-Skills allow any AI agent to assist contributors and developers consistently, without
-hallucinating rules, without duplicating the specifications, and always pointing back to
-[`creedengo-rules-specifications`](https://github.com/green-code-initiative/creedengo-rules-specifications)
-as the single source of truth.
+Creedengo maintains a growing catalog of green code rules across multiple languages, while RGESN
+defines a broader eco-design reference framework for digital services. Skills allow any AI agent to
+assist contributors and developers consistently, without hallucinating rules, criteria, or evidence,
+and always pointing back to authoritative sources.
 
 ---
 
@@ -34,6 +34,9 @@ as the single source of truth.
 |---|---|
 | `SKILL_TEMPLATE.md` | Generic template to write a new skill |
 | `SKILL_green_code_review.md` | Skill: detect green code violations in source code |
+| `SKILL_build_rgesn_evidence.md` | Skill: build a traceable RGESN self-assessment dossier with evidence, score, declaration draft, and roadmap |
+| `SKILL_review_frugal_ai.md` | Skill: review AI, ML, LLM, RAG, and agent features for digital sobriety and RGESN Algorithmie evidence |
+| `SKILL_contribute_creedengo_rule.md` | Skill: create, review, or update Creedengo rule specifications and contribution artifacts |
 
 ---
 
@@ -128,10 +131,11 @@ create a new skill using `SKILL_TEMPLATE.md` and open a pull request.
 
 Good candidates for future skills:
 
-- Review a new rule specification (JSON + asciidoc) for completeness
 - Guide a contributor through implementing a rule in a plugin
 - Generate the asciidoc scaffold for a new rule from a plain description
 - Validate a test resource file (compliant/non-compliant annotations)
+- Generate a cross-agent installation package for Copilot, Cursor, Claude, ChatGPT, and Codex
+- Compare a pull request against an existing RGESN evidence dossier
 
 ---
 

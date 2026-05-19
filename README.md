@@ -10,8 +10,11 @@
 
 ```
 skills/
-  SKILL_TEMPLATE.md           # Template for creating a new skill
-  SKILL_green_code_review.md  # Skill: detect green code rule violations
+  SKILL_TEMPLATE.md                    # Template for creating a new skill
+  SKILL_green_code_review.md           # Detect Creedengo green code rule violations
+  SKILL_build_rgesn_evidence.md        # Build an RGESN self-assessment evidence dossier
+  SKILL_review_frugal_ai.md            # Review AI/ML/LLM features for frugality
+  SKILL_contribute_creedengo_rule.md   # Create or review Creedengo rule contributions
 ```
 
 ---
@@ -32,7 +35,8 @@ A **skill** is a Markdown instruction file given to an AI agent. It defines:
 
 1. Open the desired skill file (e.g. `skills/SKILL_green_code_review.md`).
 2. Paste it as a system prompt or instruction into your AI agent.
-3. Provide the source code to analyse — the agent applies the matching Creedengo rules.
+3. Provide the relevant input: source code, repository, product documentation, architecture notes,
+   RGESN scope, or rule idea depending on the selected skill.
 
 ---
 
