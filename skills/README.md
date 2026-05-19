@@ -37,7 +37,53 @@ as the single source of truth.
 
 ---
 
-## How to use `SKILL_TEMPLATE.md` — create a new skill
+## How to use these skills?
+
+A skill should be registered as a **persistent custom instruction** in your AI coding assistant —
+not pasted into a chat. This way the agent applies the skill automatically whenever the trigger
+conditions are met, without you having to repeat anything.
+
+> **Key principle:** a skill is an instruction you give to your assistant once. It stays active
+> for every future interaction in that context.
+
+### GitHub Copilot
+
+Add the skill content to your repository's custom instructions file:
+
+    .github/copilot-instructions.md
+
+Or create a dedicated instructions file with an `applyTo` pattern:
+
+    .github/instructions/green-code-review.instructions.md
+
+Copilot will apply the skill automatically on matching files and requests.
+
+### Cursor
+
+Paste the skill content into your Cursor rules file at the root of your project:
+
+    .cursor/rules/green-code-review.mdc
+
+Cursor applies rules automatically based on the context of each conversation.
+
+### Claude (claude.ai)
+
+Open **Settings → Custom Instructions** (personal) or your **Project Instructions** (project-scoped)
+and paste the skill content there. Claude will apply it to every conversation in that scope.
+
+### ChatGPT
+
+Open **Settings → Personalization → Custom instructions** and paste the skill content.
+For a project-scoped setup, create a **GPT** and add the skill as part of its system instructions.
+
+### Any other LLM tool
+
+Look for the equivalent of "system prompt", "custom instructions", or "persistent context"
+in your tool's settings. Paste the skill content there.
+
+---
+
+## How to create a new skill — `SKILL_TEMPLATE.md`
 
 Use this template whenever you want to define a new capability for an AI agent on the project.
 
@@ -55,97 +101,23 @@ Open `SKILL_my_new_skill.md` and replace every `[placeholder]` with real content
 | **Trigger** | The situations that activate this skill |
 | **Source of Truth** | The files or URLs the agent must consult |
 | **Instructions** | The ordered steps the agent must follow |
+| **Fallback Behavior** | What to do when input is missing, ambiguous, or a source is unreachable |
 | **Output Format** | The exact structure of what the agent produces |
 | **Constraints** | Hard rules: what the agent must never do |
-| **Examples** | At least one input/output pair to validate the skill |
+| **Examples** | At least one happy-path and one edge-case input/output pair |
 | **Related Skills** | Other skills that complement this one |
+| **Changelog** | Version history of breaking changes |
 
 ### Step 3 — Test it manually
 
-Before committing, paste the content of your skill into your AI agent as a system prompt
-or instruction, then give it a realistic input and verify the output matches the format
-and constraints you defined.
+Register the skill in your AI assistant (see "How to use these skills?" above), then give it
+a realistic input and verify the output matches the format and constraints you defined.
 
 ### Step 4 — Name it consistently
 
 Use the naming convention: `SKILL_<verb>_<subject>.md`
 
 Examples: `SKILL_review_rule_spec.md`, `SKILL_implement_rule.md`, `SKILL_generate_asciidoc.md`
-
----
-
-## How to use `SKILL_green_code_review.md`
-
-This skill enables an AI agent to analyse source code and detect violations of Creedengo
-green code rules. It works for any language (Java, Python, PHP, JavaScript, C#, etc.)
-and any tool (Claude, Copilot, ChatGPT, Cursor, etc.).
-
-### What it does
-
-Given a code snippet or a file, the agent:
-
-1. Identifies the programming language
-2. Scans the code for patterns matching Creedengo rules
-3. Verifies each violation against the official `creedengo-rules-specifications`
-4. Reports only rules that apply to the detected language
-5. Provides a compliant fix for every violation found
-
-### How to use it — with a chat-based agent (Claude, ChatGPT, etc.)
-
-**Step 1** — Open a conversation with your AI agent.
-
-**Step 2** — Paste the full content of `SKILL_green_code_review.md` as the first message
-(or as the system prompt if your tool supports it).
-
-**Step 3** — Then send your code:
-
-    Please apply the Green Code Review skill to the following code:
-
-```python
-    import logging
-    name = "world"
-    logging.info(f"Hello {name}")
-```
-
-**Step 4** — The agent will respond with a structured report:
-
-    🌿 [GCI111] — Logging format interpolation
-       Status   : ✅ Implemented
-       Severity : Minor
-       Line(s)  : 3
-       Issue    : f-string is evaluated immediately even if the INFO level is inactive
-       Impact   : CPU cycles wasted on string interpolation that may never be used
-       Fix      : logging.info("Hello %s", name)
-       Cost     : 5min
-       Ref      : https://github.com/green-code-initiative/creedengo-rules-specifications/
-                  blob/main/src/main/rules/GCI111/python/GCI111.asciidoc
-
-    --- Summary ---
-    Language  : Python
-    Violations: 1 (1 ✅ enforced by SonarQube, 0 🚀 not yet)
-
-### How to use it — with Copilot or Cursor
-
-Add the content of `SKILL_green_code_review.md` to your `.github/copilot-instructions.md`
-or your tool's custom instructions file. Then trigger it with a comment in your code:
-
-    # @agent review this file for Creedengo green code violations
-
-### What the status icons mean
-
-| Icon | Meaning |
-|---|---|
-| ✅ | Rule already enforced by SonarQube — will appear in your quality gate |
-| 🚧 | Rule implementation in progress — not yet in SonarQube |
-| 🚀 | Rule specified but not yet implemented — not yet in SonarQube |
-| ❓ | Potential issue — applicability not yet confirmed for this language |
-| 🚫 | Not applicable — never reported for this language |
-
-### Important: the agent does not know the rules by heart
-
-The agent is instructed to always verify rules against `creedengo-rules-specifications`
-before reporting a violation. It will never invent a rule ID or report a violation
-for a language where the rule is marked 🚫.
 
 ---
 
