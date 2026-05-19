@@ -4,7 +4,7 @@
 > **Last updated:** 2026-05-19  
 > **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
 > **File name:** `SKILL_green_code_review.md`  
-> **Description (agent discovery):** Use when: green code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
+> **Description:** Use when: green code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
 
 ---
 
