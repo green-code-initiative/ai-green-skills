@@ -1,8 +1,10 @@
 # SKILL — Green Code Review
 
-> **Version:** 1.0  
+> **Version:** 1.1  
+> **Last updated:** 2026-05-19  
 > **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **File name:** `SKILL_green_code_review.md`
+> **File name:** `SKILL_green_code_review.md`  
+> **Description (agent discovery):** Use when: green code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
 
 ---
 
@@ -66,9 +68,19 @@ Execute the following steps **in order**. Do not skip any step.
 6. **Produce the summary block**  
    After all violation entries, always add the summary block as defined below.
 
-7. **Self-check before responding**  
+7. **Self-check before responding** *(mandatory — never skip)*  
    Verify: every reported rule ID exists in RULES.md, no language column is 🚫, every entry contains  
    a valid specification URL. If any check fails, remove that entry.
+
+---
+
+## Fallback Behavior
+
+| Situation | Agent action |
+|---|---|
+| Language cannot be determined | Ask the user: "What programming language is this code written in?" |
+| No violations found after full scan | Produce the "no violations" output block defined in Output Format |
+| RULES.md or `.asciidoc` specification is unreachable | Inform the user; do not report violations from memory |
 
 ---
 
@@ -188,7 +200,7 @@ The agent **must never**:
     Language  : Java
     Violations: 1 (1 ✅ enforced by SonarQube, 0 🚀 not yet)
 
-### Example 3 — No violations found
+### Example 3 — Python no violations found
 
 **Input:**
 
@@ -202,6 +214,24 @@ The agent **must never**:
 
     --- Summary ---
     Language  : Python
+    Violations: 0
+
+### Example 4 — Java no violations found
+
+**Input:**
+
+    List<Long> userIds = users.stream()
+        .map(User::getId)
+        .collect(Collectors.toList());
+    List<Order> orders = orderRepository.findAllByUserIdIn(userIds);
+    orders.forEach(order -> process(order));
+
+**Expected output:**
+
+    ✅ No Creedengo green code violations detected for Java.
+
+    --- Summary ---
+    Language  : Java
     Violations: 0
 
 ---
@@ -223,3 +253,12 @@ The agent **must never**:
 - For rules marked ❓, the agent may report a **potential** violation prefixed with `❓`
   and note that applicability is not yet confirmed for this language.
 - Remediation cost comes from the `constantCost` field in each rule's `.json` metadata file.
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---|---|---|
+| 1.1 | 2026-05-19 | Added `Last updated` and `Description` metadata; added Fallback Behavior section; added Example 4 (Java — no violations); labelled Example 3 more precisely |
+| 1.0 | 2026-05-19 | Initial version |

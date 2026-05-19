@@ -1,12 +1,34 @@
+<!--
+  SKILL TEMPLATE — copy this file, rename it SKILL_<verb>_<subject>.md, and replace every
+  [placeholder] with real content. Delete all HTML comments before committing.
+-->
+
 # SKILL — [SKILL_NAME]
 
+<!--
+  METADATA
+  --------
+  version      : increment on every breaking change to Instructions or Output Format
+  last-updated : ISO date of the last change
+  description  : CRITICAL — this is the discovery surface used by the agent to decide whether
+                 to load this skill. Write it as "Use when: <trigger phrases>".
+                 Include specific keywords the user or context will contain.
+-->
+
 > **Version:** 1.0  
+> **Last updated:** YYYY-MM-DD  
 > **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **Naming convention:** `SKILL_<verb>_<subject>.md`
+> **Naming convention:** `SKILL_<verb>_<subject>.md`  
+> **Description (agent discovery):** Use when: [trigger phrase 1]; [trigger phrase 2]; [trigger phrase 3].
 
 ---
 
 ## Purpose
+
+<!--
+  One sentence only. What does the agent DO when this skill is active?
+  This sentence also appears as the skill description — make it specific and keyword-rich.
+-->
 
 [One sentence: what the agent does when this skill is active.]
 
@@ -16,9 +38,9 @@
 
 This skill is activated when:
 
-- [Situation 1 that activates this skill]
-- [Situation 2 that activates this skill]
-- [Situation 3 — e.g. a specific user request, comment, or context]
+- [Situation 1 — e.g. user pastes X and asks for Y]
+- [Situation 2 — e.g. a specific annotation or comment is present in the file]
+- [Situation 3 — e.g. user explicitly asks to "apply the [SKILL_NAME] skill"]
 
 ---
 
@@ -31,8 +53,6 @@ It must **never** invent information not present in these sources.
 |---|---|
 | [Primary reference name] | [URL or relative path] |
 | [Secondary reference name] | [URL or relative path] |
-| creedengo-rules-specifications | https://github.com/green-code-initiative/creedengo-rules-specifications |
-| Rules support matrix | https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/RULES.md |
 
 ---
 
@@ -40,30 +60,53 @@ It must **never** invent information not present in these sources.
 
 Execute the following steps **in order**. Do not skip any step.
 
-1. **[Step 1 — e.g. Identify the input]**  
-   [Describe precisely what the agent must do in this step.]
+1. **[Step 1 — Identify and validate the input]**  
+   [Describe precisely what the agent must check. If the input is missing or ambiguous, specify
+   what the agent must ask the user before proceeding — do not guess.]
 
-2. **[Step 2 — e.g. Consult the source of truth]**  
-   [Describe precisely what the agent must look up and verify.]
+2. **[Step 2 — Consult the source of truth]**  
+   [Describe precisely what the agent must look up and verify. Name the source explicitly.]
 
-3. **[Step 3 — e.g. Analyse or transform]**  
-   [Describe the reasoning or processing the agent must apply.]
+3. **[Step 3 — Analyse or transform]**  
+   [Describe the reasoning or processing the agent must apply, step by step.]
 
-4. **[Step 4 — e.g. Produce output]**  
-   [Describe what the agent must produce, in what order.]
+4. **[Step 4 — Produce output]**  
+   [Describe what the agent must produce, in what order, following the Output Format below.]
 
-5. **[Step 5 — e.g. Validate]**  
-   [Describe any self-check the agent must perform before responding.]
+5. **[Step 5 — Self-check before responding]** *(mandatory — never skip)*  
+   Verify that every item in the output: [check 1], [check 2], [check 3].  
+   Remove any item that fails a check. Only then respond to the user.
+
+---
+
+## Fallback Behavior
+
+| Situation | Agent action |
+|---|---|
+| Input is missing or cannot be determined | Ask the user: "[exact question to ask]" |
+| No results found after full analysis | Produce the "no results" output block defined below |
+| A required source of truth is unreachable | Inform the user; do not hallucinate content from memory |
 
 ---
 
 ## Output Format
 
+<!--
+  Use indented text blocks (4-space indent), NOT fenced code blocks (```), to avoid nesting
+  conflicts when this skill file is itself embedded inside another Markdown document.
+-->
+
 The agent **must** produce output in exactly this structure:
 
-    [Output block — describe the exact format, fields, and order]
+    [Output block — describe the exact format, field names, and order]
 
-    [Example output structure — use indented text blocks, not fenced code, to avoid nesting issues]
+    [Field 1]: <value>
+    [Field 2]: <value>
+    [Field N]: <value>
+
+### When no results are found
+
+    [No-results message — define it explicitly so the agent never invents a fallback format]
 
 ---
 
@@ -71,27 +114,23 @@ The agent **must** produce output in exactly this structure:
 
 The agent **must never**:
 
-- [ ] Invent a rule ID or reference not present in creedengo-rules-specifications
-- [ ] Report a violation for a language where the rule is marked 🚫 in RULES.md
-- [ ] Omit the official source URL for every reported item
-- [ ] Produce output in a format different from the one defined above
-- [ ] [Add any skill-specific hard constraint here]
+- [ ] Invent information not present in the declared sources of truth
+- [ ] Skip the self-check step (Step 5) before responding
+- [ ] Produce output in a format different from the one defined in Output Format
+- [ ] Proceed when the input is ambiguous — always ask first (see Fallback Behavior)
+- [ ] [Add skill-specific constraint — e.g. "omit the source URL for any reported item"]
+- [ ] [Add skill-specific constraint — e.g. "report findings for out-of-scope inputs"]
 
 ---
 
 ## Examples
 
-### Example 1 — [Short description of the input]
+<!--
+  Provide at least 2 examples: one happy path, one edge case or negative case.
+  Use 4-space indented blocks for input and output — do not use fenced code blocks.
+-->
 
-**Input:**
-
-    [Paste a realistic input here — use indented block to avoid nesting conflicts]
-
-**Expected output:**
-
-    [Paste the exact expected output here, matching the Output Format section]
-
-### Example 2 — [Short description, e.g. edge case or negative case]
+### Example 1 — [Short description: happy path]
 
 **Input:**
 
@@ -99,7 +138,17 @@ The agent **must never**:
 
 **Expected output:**
 
-    [Paste the exact expected output here]
+    [Paste the exact expected output, matching the Output Format section precisely]
+
+### Example 2 — [Short description: edge case or no-results]
+
+**Input:**
+
+    [Paste a realistic edge-case input here]
+
+**Expected output:**
+
+    [Paste the exact expected output — e.g. the no-results block]
 
 ---
 
@@ -114,4 +163,12 @@ The agent **must never**:
 
 ## Notes
 
-[Optional: any additional context, known limitations, or maintenance notes for contributors.]
+[Optional: known limitations, maintenance notes, or context for contributors.]
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---|---|---|
+| 1.0 | YYYY-MM-DD | Initial version |
