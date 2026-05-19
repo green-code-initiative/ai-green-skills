@@ -1,30 +1,7 @@
 # AI Green Skills
 
 This folder contains **AI skills** for sustainable software engineering, with a strong focus on
-[Creedengo](https://green-code-initiative.org), RGESN evidence, and frugal AI.
-
----
-
-## What is a Skill?
-
-A **skill** is a structured instruction file written for an AI agent (Claude, GitHub Copilot,
-ChatGPT, Cursor, or any LLM). It tells the agent:
-
-- **What** to do — the task to accomplish
-- **How** to reason — the steps to follow, in order
-- **Where** to look — the authoritative references to consult
-- **What to produce** — the exact format of the output
-- **What not to do** — hard constraints to never violate
-
-A skill is not code. It is a **contract between a human and an AI agent**, written in plain
-Markdown so it is readable by both.
-
-### Why skills for sustainable software?
-
-Creedengo maintains a growing catalog of green code rules across multiple languages, while RGESN
-defines a broader eco-design reference framework for digital services. Skills allow any AI agent to
-assist contributors and developers consistently, without hallucinating rules, criteria, or evidence,
-and always pointing back to authoritative sources.
+[Creedengo rules](https://green-code-initiative.org) and [RGESN evidences](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/).
 
 ---
 
