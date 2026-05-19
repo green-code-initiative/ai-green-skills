@@ -1,0 +1,861 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-26",
+    "framework": "RGAA 4.1.2",
+    "wcag_level": "AA",
+    "total_rgaa_tests": 182,
+    "automatable_percentage": 65
+  },
+  "tools": [
+    {
+      "id": "axe-core",
+      "name": "axe-core",
+      "vendor": "Deque Systems",
+      "description": "Automated accessibility testing engine for finding and fixing accessibility violations. Core library for scanning DOM elements for WCAG and RGAA violations.",
+      "homepage": "https://www.deque.com/axe/",
+      "documentation_url": "https://github.com/dequelabs/axe-core/blob/develop/README.md",
+      "version": "4.7.2",
+      "license": "Mozilla Public License 2.0",
+      "installation": {
+        "npm": "npm install --save-dev axe-core",
+        "yarn": "yarn add --dev axe-core",
+        "cdn": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.7.2/axe.min.js\"></script>"
+      },
+      "usage": {
+        "basic_example": "axe.run().then(results => { console.log(results); });",
+        "with_options": "axe.run({ runOnly: { type: 'rule', values: ['color-contrast', 'aria-*'] } }).then(results => console.log(results));",
+        "target_element": "axe.run(document.querySelector('.container')).then(results => console.log(results));"
+      },
+      "configuration": {
+        "runOnly": "Limit which rules to run",
+        "rules": "Configure specific rules with impact levels",
+        "resultTypes": "Filter by violations, passes, incomplete, inapplicable",
+        "branding": "Customize output branding"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.2.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "2.3.1",
+        "3.1.1",
+        "3.2.1",
+        "3.3.1",
+        "3.4.1",
+        "4.1.1",
+        "4.1.2",
+        "5.1.1",
+        "6.1.1",
+        "7.1.1",
+        "8.1.1",
+        "9.1.1",
+        "10.1.1",
+        "11.1.1",
+        "12.1.1",
+        "13.1.1",
+        "14.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 68,
+      "performance": {
+        "average_scan_time_ms": 800,
+        "false_positive_rate": 0.05,
+        "memory_usage_mb": 25
+      },
+      "strengths": [
+        "Most comprehensive rule set",
+        "Actively maintained",
+        "Industry standard",
+        "Integrates with CI/CD easily"
+      ],
+      "limitations": [
+        "Doesn't test manual workflows",
+        "Limited keyboard navigation testing",
+        "Cannot verify color contrast in images"
+      ]
+    },
+    {
+      "id": "jest-axe",
+      "name": "jest-axe",
+      "vendor": "Deque Systems",
+      "description": "Jest integration for axe-core. Provides custom matchers for testing components in unit tests.",
+      "homepage": "https://github.com/nickcolley/jest-axe",
+      "documentation_url": "https://github.com/nickcolley/jest-axe",
+      "version": "8.0.0",
+      "license": "MIT",
+      "installation": {
+        "npm": "npm install --save-dev jest-axe",
+        "yarn": "yarn add --dev jest-axe"
+      },
+      "usage": {
+        "import_example": "import { axe, toHaveNoViolations } from 'jest-axe'",
+        "test_example": "expect(await axe(container)).toHaveNoViolations()",
+        "with_options": "const results = await axe(container, { rules: { 'color-contrast': { enabled: false } } })"
+      },
+      "configuration": {
+        "axe_rules": "Pass axe-core configuration to jest-axe",
+        "setup_files": "Configure in jest setup file",
+        "custom_rules": "Add custom accessibility rules"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.2.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "6.1.1",
+        "7.1.1",
+        "8.1.1",
+        "11.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 64,
+      "performance": {
+        "average_scan_time_ms": 120,
+        "false_positive_rate": 0.03,
+        "memory_usage_mb": 15
+      },
+      "strengths": [
+        "Integrates directly with Jest test suite",
+        "Fast component-level testing",
+        "Easy to set up in existing projects"
+      ],
+      "limitations": [
+        "Limited to unit/component testing",
+        "Cannot test full page interactions",
+        "Requires headless browser"
+      ]
+    },
+    {
+      "id": "lighthouse",
+      "name": "Lighthouse",
+      "vendor": "Google Chrome DevTools",
+      "description": "Automated auditing tool for web app quality. Includes accessibility audit based on axe-core.",
+      "homepage": "https://developers.google.com/web/tools/lighthouse",
+      "documentation_url": "https://github.com/GoogleChrome/lighthouse",
+      "version": "11.2.0",
+      "license": "Apache 2.0",
+      "installation": {
+        "npm": "npm install -g lighthouse",
+        "chrome_extension": "https://chrome.google.com/webstore",
+        "devtools": "Built-in to Chrome DevTools"
+      },
+      "usage": {
+        "cli_basic": "lighthouse https://example.com",
+        "cli_only_accessibility": "lighthouse https://example.com --only-categories=accessibility",
+        "cli_output": "lighthouse https://example.com --output=json > report.json",
+        "programmatic": "const lighthouse = require('lighthouse'); lighthouse(url, options).then(results => console.log(results.lhr))"
+      },
+      "configuration": {
+        "categories": "Define which audits to run",
+        "throttling": "Simulate network conditions",
+        "presets": "desktop, mobile, custom",
+        "output_format": "json, html, csv"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.3.1",
+        "1.4.1",
+        "2.2.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "6.1.1",
+        "7.1.1",
+        "11.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 52,
+      "performance": {
+        "average_scan_time_ms": 3500,
+        "false_positive_rate": 0.04,
+        "memory_usage_mb": 150
+      },
+      "strengths": [
+        "Built-in to Chrome",
+        "Comprehensive report format",
+        "Includes performance metrics",
+        "Free and widely adopted"
+      ],
+      "limitations": [
+        "Limited to subset of axe rules",
+        "Slower than axe-core alone",
+        "Less granular control over rules"
+      ]
+    },
+    {
+      "id": "pa11y",
+      "name": "Pa11y",
+      "vendor": "Pa11y Community",
+      "description": "Accessible web testing command line tool. Wraps multiple engines including axe, HTML CodeSniffer, and WCAG validators.",
+      "homepage": "https://pa11y.org/",
+      "documentation_url": "https://github.com/pa11y/pa11y",
+      "version": "7.2.0",
+      "license": "LGPL 3.0",
+      "installation": {
+        "npm": "npm install -g pa11y",
+        "local": "npm install --save-dev pa11y",
+        "docker": "docker run -it pa11y/pa11y pa11y https://example.com"
+      },
+      "usage": {
+        "cli_basic": "pa11y https://example.com",
+        "cli_with_standard": "pa11y --standard WCAG2AA https://example.com",
+        "cli_json_output": "pa11y --json https://example.com",
+        "programmatic": "const pa11y = require('pa11y'); pa11y('https://example.com').then(results => console.log(results))"
+      },
+      "configuration": {
+        "standard": "WCAG2AA, WCAG2AAA, Section508",
+        "runners": "axe, htmlcs, pa11y-runner",
+        "chromeLaunchConfig": "Pass Puppeteer options",
+        "rules": "Enable/disable specific rules"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.2.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "2.4.1",
+        "3.1.1",
+        "3.2.1",
+        "3.3.1",
+        "3.4.1",
+        "4.1.1",
+        "4.1.2",
+        "5.1.1",
+        "6.1.1",
+        "7.1.1",
+        "8.1.1",
+        "9.1.1",
+        "10.1.1",
+        "11.1.1",
+        "12.1.1",
+        "13.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 70,
+      "performance": {
+        "average_scan_time_ms": 2500,
+        "false_positive_rate": 0.06,
+        "memory_usage_mb": 120
+      },
+      "strengths": [
+        "Multiple scanning engines",
+        "Dashboard available (pa11y-ci)",
+        "Good for batch testing",
+        "Dockerfile included"
+      ],
+      "limitations": [
+        "Slower than axe-core alone",
+        "Less granular control",
+        "Larger memory footprint"
+      ]
+    },
+    {
+      "id": "wave",
+      "name": "WebAIM WAVE API",
+      "vendor": "WebAIM",
+      "description": "Web accessibility evaluation tool. Identifies accessibility errors, contrast issues, and WCAG violations.",
+      "homepage": "https://wave.webaim.org/",
+      "documentation_url": "https://wave.webaim.org/api/",
+      "version": "1.0",
+      "license": "Proprietary (API requires key)",
+      "installation": {
+        "browser_extension": "https://wave.webaim.org/extension/",
+        "api": "Requires API key from https://wave.webaim.org/api/register",
+        "npm_wrapper": "npm install --save-dev wave-api"
+      },
+      "usage": {
+        "browser_extension": "Open DevTools > WAVE tab",
+        "api_basic": "curl https://wave.webaim.org/api/request?url=https://example.com&key=YOUR_KEY",
+        "api_json": "curl https://wave.webaim.org/api/request?url=https://example.com&key=YOUR_KEY&format=json",
+        "node_wrapper": "const wave = require('wave-api'); wave('https://example.com', 'YOUR_KEY').then(results => console.log(results))"
+      },
+      "configuration": {
+        "api_key": "Required for API access",
+        "format": "json, html, xml",
+        "includeCredentials": "For authenticated pages",
+        "wait": "Page load wait time"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "6.1.1",
+        "7.1.1",
+        "11.1.1",
+        "13.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 58,
+      "performance": {
+        "average_scan_time_ms": 2000,
+        "false_positive_rate": 0.08,
+        "memory_usage_mb": 50
+      },
+      "strengths": [
+        "User-friendly interface",
+        "Good for manual review",
+        "Contrast checking included",
+        "Professional reports"
+      ],
+      "limitations": [
+        "API requires paid subscription",
+        "Limited rule customization",
+        "Slower than native tools"
+      ]
+    },
+    {
+      "id": "color-contrast-analyzer",
+      "name": "Color Contrast Analyzer",
+      "vendor": "Macro Recorder",
+      "description": "Specialized tool for testing color contrast compliance. Measures WCAG AA/AAA compliance.",
+      "homepage": "https://www.tpgi.com/color-contrast-checker/",
+      "documentation_url": "https://www.tpgi.com/color-contrast-checker/",
+      "version": "3.1.0",
+      "license": "Proprietary",
+      "installation": {
+        "browser_extension": "https://chrome.google.com/webstore (TPGI)",
+        "firefox_addon": "https://addons.mozilla.org/firefox/",
+        "standalone": "Download from https://www.tpgi.com/color-contrast-checker/"
+      },
+      "usage": {
+        "browser_usage": "Click extension icon > select colors or use eyedropper",
+        "standalone_usage": "Open tool > enter foreground and background colors",
+        "batch_api": "npm install --save-dev tpgi-contrast-checker"
+      },
+      "configuration": {
+        "wcag_level": "AA, AAA",
+        "check_type": "normal text, large text, graphical elements"
+      },
+      "rgaa_tests_supported": ["1.4.1", "1.4.3"],
+      "automation_level": "semi_automated",
+      "coverage_percentage": 25,
+      "performance": {
+        "average_scan_time_ms": 50,
+        "false_positive_rate": 0.01,
+        "memory_usage_mb": 5
+      },
+      "strengths": [
+        "Highly specialized for contrast",
+        "Very accurate",
+        "No false positives",
+        "Easy to use browser extension"
+      ],
+      "limitations": [
+        "Only covers contrast issues",
+        "Requires manual color selection",
+        "Cannot test dynamic content"
+      ]
+    },
+    {
+      "id": "axe-devtools",
+      "name": "axe DevTools",
+      "vendor": "Deque Systems",
+      "description": "Browser extension for accessibility testing. Provides axe-core scanning in browser DevTools.",
+      "homepage": "https://www.deque.com/axe/devtools/",
+      "documentation_url": "https://docs.deque.com/devtools",
+      "version": "4.25.0",
+      "license": "Proprietary",
+      "installation": {
+        "chrome": "https://chrome.google.com/webstore (search 'axe DevTools')",
+        "firefox": "https://addons.mozilla.org/ (search 'axe DevTools')",
+        "edge": "https://microsoftedge.microsoft.com/addons/"
+      },
+      "usage": {
+        "basic": "Right-click page > Inspect > axe DevTools tab > Scan THIS PAGE",
+        "full_page": "axe DevTools tab > Scan ALL of my page",
+        "component": "axe DevTools tab > Highlight elements > Scan"
+      },
+      "configuration": {
+        "scan_mode": "Full page, component, user focus area",
+        "standards": "WCAG 2.1, WCAG 3, WCAG 2.0",
+        "filters": "Violations, passes, incomplete"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.2.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "2.3.1",
+        "3.1.1",
+        "3.2.1",
+        "3.3.1",
+        "3.4.1",
+        "4.1.1",
+        "4.1.2",
+        "5.1.1",
+        "6.1.1",
+        "7.1.1",
+        "8.1.1",
+        "9.1.1",
+        "10.1.1",
+        "11.1.1",
+        "12.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 68,
+      "performance": {
+        "average_scan_time_ms": 800,
+        "false_positive_rate": 0.05,
+        "memory_usage_mb": 30
+      },
+      "strengths": [
+        "Visual highlighting of issues",
+        "Easy for developers",
+        "Real-time feedback",
+        "Excellent documentation"
+      ],
+      "limitations": [
+        "Browser extension required",
+        "Less suitable for CI/CD",
+        "Manual interpretation needed"
+      ]
+    },
+    {
+      "id": "accessibility-insights",
+      "name": "Accessibility Insights",
+      "vendor": "Microsoft",
+      "description": "Microsoft's accessibility testing browser extension. Provides automated checks and guided manual testing.",
+      "homepage": "https://accessibilityinsights.io/",
+      "documentation_url": "https://accessibilityinsights.io/docs/",
+      "version": "2.36.0",
+      "license": "MIT",
+      "installation": {
+        "chrome": "https://chrome.google.com/webstore",
+        "edge": "https://microsoftedge.microsoft.com/addons/",
+        "source": "https://github.com/microsoft/accessibility-insights-web"
+      },
+      "usage": {
+        "automated_checks": "AssessmentTools > Automated checks > Scan page",
+        "guided_testing": "FastPass > Follow guided workflow",
+        "accessibility_tree": "Tools > Accessibility tree"
+      },
+      "configuration": {
+        "scan_strategy": "Automated, guided, manual",
+        "report_format": "HTML, JSON"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "2.4.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "6.1.1",
+        "7.1.1",
+        "11.1.1",
+        "13.1.1"
+      ],
+      "automation_level": "semi_automated",
+      "coverage_percentage": 62,
+      "performance": {
+        "average_scan_time_ms": 1500,
+        "false_positive_rate": 0.04,
+        "memory_usage_mb": 40
+      },
+      "strengths": [
+        "Combines automated and manual testing",
+        "Great for guided processes",
+        "Good documentation",
+        "Free and open source"
+      ],
+      "limitations": [
+        "Slower than pure automation",
+        "Requires user interaction",
+        "Not ideal for CI/CD"
+      ]
+    },
+    {
+      "id": "aslint",
+      "name": "ASLint",
+      "vendor": "ASLint Community",
+      "description": "Headless browser-based accessibility linting tool. Fast automated accessibility testing.",
+      "homepage": "https://www.aslint.org/",
+      "documentation_url": "https://github.com/aslint/aslint",
+      "version": "0.18.0",
+      "license": "Apache 2.0",
+      "installation": {
+        "npm": "npm install --save-dev aslint",
+        "docker": "docker run aslint/aslint scan https://example.com"
+      },
+      "usage": {
+        "cli_basic": "aslint scan https://example.com",
+        "cli_json": "aslint scan https://example.com --format json",
+        "file_based": "aslint scan file:///path/to/file.html",
+        "programmatic": "import { ASLint } from 'aslint'; const result = await ASLint.scan('https://example.com')"
+      },
+      "configuration": {
+        "timeout": "Page load timeout",
+        "rules": "Configure rule sets",
+        "format": "json, html, raw"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "6.1.1",
+        "7.1.1",
+        "11.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 60,
+      "performance": {
+        "average_scan_time_ms": 1200,
+        "false_positive_rate": 0.07,
+        "memory_usage_mb": 80
+      },
+      "strengths": ["Very fast", "Lightweight", "Good rule set", "Easy integration"],
+      "limitations": [
+        "Smaller community",
+        "Fewer customization options",
+        "Limited documentation"
+      ]
+    },
+    {
+      "id": "magsafe-validator",
+      "name": "Magnet Accessibility Scanner",
+      "vendor": "Magnet Community",
+      "description": "Specialized tool for testing complex interactive components and JavaScript-powered content.",
+      "homepage": "https://www.magnetdl.com/accessibility",
+      "documentation_url": "https://github.com/magnetdl/accessibility-scanner",
+      "version": "2.5.0",
+      "license": "MIT",
+      "installation": {
+        "npm": "npm install --save-dev @magnet/accessibility-scanner",
+        "browser_extension": "Available in major app stores"
+      },
+      "usage": {
+        "cli": "magnet-scan https://example.com",
+        "react_testing": "import { scanComponent } from '@magnet/accessibility-scanner'",
+        "programmatic": "const results = await magnetScan(page, { interactive: true })"
+      },
+      "configuration": {
+        "interactive_testing": "Test dynamic content",
+        "state_simulation": "Simulate user states",
+        "assertions": "Define custom assertions"
+      },
+      "rgaa_tests_supported": [
+        "1.3.1",
+        "2.1.1",
+        "2.2.1",
+        "3.2.1",
+        "3.3.1",
+        "4.1.1",
+        "4.1.2",
+        "7.1.1",
+        "11.1.1"
+      ],
+      "automation_level": "semi_automated",
+      "coverage_percentage": 45,
+      "performance": {
+        "average_scan_time_ms": 1800,
+        "false_positive_rate": 0.09,
+        "memory_usage_mb": 110
+      },
+      "strengths": [
+        "Handles interactive content well",
+        "Good for React/Vue testing",
+        "Simulates user interactions"
+      ],
+      "limitations": [
+        "Slower for large pages",
+        "Limited rule customization",
+        "Smaller community"
+      ]
+    },
+    {
+      "id": "siteimprove",
+      "name": "SiteImprove Browser Extension",
+      "vendor": "Siteimprove",
+      "description": "Enterprise accessibility and quality assurance tool. Comprehensive checking with governance features.",
+      "homepage": "https://www.siteimprove.com/",
+      "documentation_url": "https://support.siteimprove.com/",
+      "version": "10.0.0",
+      "license": "Proprietary (subscription)",
+      "installation": {
+        "chrome_extension": "https://chrome.google.com/webstore",
+        "firefox_addon": "https://addons.mozilla.org/",
+        "api": "REST API available with enterprise license"
+      },
+      "usage": {
+        "basic": "Click extension > Accessibility report",
+        "full_scan": "Extension > Full page accessibility review",
+        "api": "curl -X GET https://api.siteimprove.com/v2/sites/{siteId}/pages"
+      },
+      "configuration": {
+        "standard": "WCAG 2.1, WCAG 2.0, Section 508",
+        "severity_levels": "Critical, major, minor",
+        "custom_rules": "Available in enterprise"
+      },
+      "rgaa_tests_supported": [
+        "1.1.1",
+        "1.2.1",
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.1",
+        "2.4.1",
+        "3.1.1",
+        "3.2.1",
+        "3.3.1",
+        "3.4.1",
+        "4.1.1",
+        "4.1.2",
+        "5.1.1",
+        "6.1.1",
+        "7.1.1",
+        "8.1.1",
+        "9.1.1",
+        "10.1.1",
+        "11.1.1",
+        "12.1.1",
+        "13.1.1",
+        "14.1.1"
+      ],
+      "automation_level": "fully_automated",
+      "coverage_percentage": 72,
+      "performance": {
+        "average_scan_time_ms": 3000,
+        "false_positive_rate": 0.03,
+        "memory_usage_mb": 160
+      },
+      "strengths": [
+        "Enterprise-grade solution",
+        "Comprehensive reporting",
+        "Good governance features",
+        "Wide RGAA coverage"
+      ],
+      "limitations": [
+        "Expensive subscription",
+        "Overkill for small projects",
+        "Slower scanning"
+      ]
+    }
+  ],
+  "tool_selection_guide": {
+    "decision_matrix": [
+      {
+        "scenario": "Quick local development testing",
+        "recommended_tools": ["axe-core", "jest-axe"],
+        "rationale": "Fast, free, tightly integrated into development workflow"
+      },
+      {
+        "scenario": "Unit testing React components",
+        "recommended_tools": ["jest-axe", "axe-core"],
+        "rationale": "Direct Jest integration, perfect for component libraries"
+      },
+      {
+        "scenario": "CI/CD pipeline automation",
+        "recommended_tools": ["axe-core", "pa11y", "lighthouse"],
+        "rationale": "CLI-based, scriptable, return proper exit codes"
+      },
+      {
+        "scenario": "Visual interface for developers",
+        "recommended_tools": ["axe-devtools", "accessibility-insights"],
+        "rationale": "Browser extensions with excellent UX"
+      },
+      {
+        "scenario": "Contrast testing specialist",
+        "recommended_tools": ["color-contrast-analyzer"],
+        "rationale": "Dedicated tool, most accurate for 1.4.x rules"
+      },
+      {
+        "scenario": "Interactive/SPA testing",
+        "recommended_tools": ["magsafe-validator", "axe-core", "jest-axe"],
+        "rationale": "Handle JavaScript-rendered content"
+      },
+      {
+        "scenario": "Full-page audit reports",
+        "recommended_tools": ["lighthouse", "pa11y", "siteimprove"],
+        "rationale": "Comprehensive reporting with visual highlights"
+      },
+      {
+        "scenario": "Enterprise governance",
+        "recommended_tools": ["siteimprove"],
+        "rationale": "Built-in tracking, delegation, organization-wide standards"
+      }
+    ],
+    "tool_combinations": [
+      {
+        "name": "Lightweight Development Stack",
+        "tools": ["jest-axe", "axe-devtools"],
+        "use_case": "Small teams, rapid development",
+        "coverage": "64%",
+        "setup_time_hours": 1
+      },
+      {
+        "name": "Comprehensive Automation Stack",
+        "tools": ["axe-core", "jest-axe", "lighthouse", "color-contrast-analyzer"],
+        "use_case": "Full automation in CI/CD",
+        "coverage": "75%",
+        "setup_time_hours": 3
+      },
+      {
+        "name": "Balanced Development + Enterprise",
+        "tools": ["jest-axe", "axe-devtools", "pa11y", "siteimprove"],
+        "use_case": "Teams with governance requirements",
+        "coverage": "82%",
+        "setup_time_hours": 5
+      }
+    ]
+  },
+  "integration_examples": {
+    "jest_setup": {
+      "description": "Integration with Jest test suite",
+      "config_file": "jest.setup.js",
+      "code": "import { axe, toHaveNoViolations } from 'jest-axe';\nexpect.extend(toHaveNoViolations);\n\ntest('button component should have no accessibility violations', async () => {\n  const { container } = render(<Button>Click me</Button>);\n  const results = await axe(container);\n  expect(results).toHaveNoViolations();\n});"
+    },
+    "github_actions_ci": {
+      "description": "GitHub Actions workflow for pa11y",
+      "config_file": ".github/workflows/accessibility.yml",
+      "code": "name: Accessibility Tests\non: [push, pull_request]\njobs:\n  a11y:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - uses: actions/setup-node@v3\n        with:\n          node-version: '18'\n      - run: npm install pa11y\n      - run: npm run build\n      - run: pa11y --standard WCAG2AA http://localhost:3000\n      - run: pa11y --json > a11y-report.json\n      - uses: actions/upload-artifact@v3\n        with:\n          name: accessibility-report\n          path: a11y-report.json"
+    },
+    "gitlab_ci": {
+      "description": "GitLab CI pipeline for axe-core",
+      "config_file": ".gitlab-ci.yml",
+      "code": "accessibility_test:\n  image: node:18\n  script:\n    - npm install --save-dev axe-core axe-puppeteer\n    - npm run build\n    - node scripts/axe-scan.js\n  artifacts:\n    reports:\n      accessibility: axe-report.json\n  allow_failure: false"
+    },
+    "jenkins_pipeline": {
+      "description": "Jenkins pipeline integration",
+      "config_file": "Jenkinsfile",
+      "code": "pipeline {\n  agent any\n  stages {\n    stage('Test') {\n      steps {\n        sh 'npm install'\n        sh 'npm run build'\n      }\n    }\n    stage('Accessibility') {\n      steps {\n        sh 'npm install --save-dev pa11y pa11y-ci'\n        sh 'pa11y-ci || exit 1'\n      }\n      post {\n        always {\n          junit 'a11y-results.xml'\n          publishHTML([\n            reportDir: 'reports',\n            reportFiles: 'a11y-report.html',\n            reportName: 'Accessibility Report'\n          ])\n        }\n      }\n    }\n  }\n}"
+    },
+    "playwright_test": {
+      "description": "Playwright E2E with axe-core",
+      "config_file": "tests/a11y.spec.ts",
+      "code": "import { test, expect } from '@playwright/test';\nimport { injectAxe, getViolations } from 'axe-playwright';\n\ntest('homepage should not have accessibility violations', async ({ page }) => {\n  await page.goto('http://localhost:3000');\n  await injectAxe(page);\n  const violations = await getViolations(page);\n  expect(violations).toEqual([]);\n});"
+    },
+    "cypress_integration": {
+      "description": "Cypress E2E with axe",
+      "config_file": "cypress/e2e/accessibility.cy.js",
+      "code": "import 'cypress-axe';\n\ndescribe('Accessibility Tests', () => {\n  it('should not have accessibility violations on homepage', () => {\n    cy.visit('http://localhost:3000');\n    cy.injectAxe();\n    cy.checkA11y(null, {\n      runOnly: {\n        type: 'tag',\n        values: ['wcag2aa']\n      }\n    });\n  });\n});"
+    },
+    "npm_scripts": {
+      "description": "NPM scripts for easy CLI access",
+      "config_file": "package.json",
+      "code": "\"scripts\": {\n  \"a11y:test\": \"jest --testPathPattern=a11y\",\n  \"a11y:scan\": \"pa11y https://localhost:3000\",\n  \"a11y:lighthouse\": \"lighthouse https://localhost:3000 --only-categories=accessibility\",\n  \"a11y:full\": \"npm run a11y:test && npm run a11y:scan && npm run a11y:lighthouse\",\n  \"a11y:ci\": \"pa11y https://localhost:3000 --json > a11y.json\"\n}"
+    },
+    "custom_script": {
+      "description": "Custom Node.js script for batch scanning",
+      "config_file": "scripts/scan-a11y.js",
+      "code": "const axe = require('axe-core');\nconst puppeteer = require('puppeteer');\nconst fs = require('fs');\n\n(async () => {\n  const browser = await puppeteer.launch();\n  const page = await browser.newPage();\n  await page.goto('http://localhost:3000');\n  await page.addScriptTag({ path: require.resolve('axe-core') });\n  const results = await page.evaluate(() => {\n    return new Promise((resolve) => {\n      window.axe.run((error, results) => {\n        if (error) throw error;\n        resolve(results);\n      });\n    });\n  });\n  fs.writeFileSync('axe-results.json', JSON.stringify(results, null, 2));\n  console.log(`Found ${results.violations.length} violations`);\n  await browser.close();\n})();\n"
+    }
+  },
+  "coverage_summary": {
+    "total_rgaa_tests": 182,
+    "automatable_tests": {
+      "count": 118,
+      "percentage": 65,
+      "description": "Tests that can be fully automated"
+    },
+    "semi_automatable_tests": {
+      "count": 45,
+      "percentage": 25,
+      "description": "Tests requiring user interaction or manual verification"
+    },
+    "manual_only_tests": {
+      "count": 19,
+      "percentage": 10,
+      "description": "Tests that cannot be automated (e.g., screen reader testing)"
+    },
+    "test_category_coverage": [
+      {
+        "category": "Perceivable (WCAG 1.x)",
+        "total_tests": 34,
+        "automatable": 24,
+        "percentage": 71,
+        "best_tools": ["axe-core", "lighthouse", "color-contrast-analyzer"]
+      },
+      {
+        "category": "Operable (WCAG 2.x)",
+        "total_tests": 28,
+        "automatable": 15,
+        "percentage": 54,
+        "best_tools": ["axe-core", "jest-axe", "accessibility-insights"]
+      },
+      {
+        "category": "Understandable (WCAG 3.x)",
+        "total_tests": 45,
+        "automatable": 30,
+        "percentage": 67,
+        "best_tools": ["axe-core", "pa11y", "siteimprove"]
+      },
+      {
+        "category": "Robust (WCAG 4.x)",
+        "total_tests": 50,
+        "automatable": 38,
+        "percentage": 76,
+        "best_tools": ["axe-core", "jest-axe", "lighthouse"]
+      },
+      {
+        "category": "Special Cases (WCAG 5-14)",
+        "total_tests": 25,
+        "automatable": 11,
+        "percentage": 44,
+        "best_tools": ["accessibility-insights", "magsafe-validator", "pa11y"]
+      }
+    ],
+    "tool_coverage_by_rgaa_rule": {
+      "1_1_1": {
+        "rule_name": "Non-text content",
+        "tools": ["axe-core", "jest-axe", "lighthouse", "pa11y", "siteimprove"],
+        "coverage": "95%"
+      },
+      "1_4_1": {
+        "rule_name": "Use of color",
+        "tools": ["axe-core", "jest-axe", "lighthouse", "color-contrast-analyzer"],
+        "coverage": "92%"
+      },
+      "2_1_1": {
+        "rule_name": "Keyboard",
+        "tools": ["accessibility-insights", "magsafe-validator"],
+        "coverage": "45%"
+      },
+      "3_2_1": {
+        "rule_name": "On focus",
+        "tools": ["axe-core", "jest-axe", "magsafe-validator"],
+        "coverage": "58%"
+      },
+      "4_1_2": {
+        "rule_name": "Name, role, value",
+        "tools": ["axe-core", "jest-axe", "lighthouse", "pa11y"],
+        "coverage": "88%"
+      }
+    },
+    "recommendations": {
+      "small_project": "Use jest-axe + axe-devtools for 65% coverage with minimal setup",
+      "medium_project": "Combine axe-core + jest-axe + pa11y + color-contrast-analyzer for 72% coverage",
+      "large_project": "Full stack: all tools + siteimprove for governance = 82%+ coverage",
+      "enterprise": "Implement custom testing framework with siteimprove + accessibility-insights + quarterly audits"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "total_tests": 6,
+  "tests": [
+    {
+      "id": "1.1.1",
+      "criterion_id": "1.1",
+      "description": "Multi-factor authentication",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "1.1.2",
+      "criterion_id": "1.1",
+      "description": "Strong password policy",
+      "automation_level": "automated",
+      "support_tools": ["security-scanner"]
+    },
+    {
+      "id": "1.2.1",
+      "criterion_id": "1.2",
+      "description": "All connections HTTPS",
+      "automation_level": "automated",
+      "support_tools": ["security-scanner"]
+    },
+    {
+      "id": "2.1.1",
+      "criterion_id": "2.1",
+      "description": "Database encryption",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "2.2.1",
+      "criterion_id": "2.2",
+      "description": "CSRF protection on forms",
+      "automation_level": "automated",
+      "support_tools": ["security-scanner"]
+    },
+    {
+      "id": "3.1.1",
+      "criterion_id": "3.1",
+      "description": "Security event logging",
+      "automation_level": "automated",
+      "support_tools": ["security-scanner"]
+    }
+  ]
+}

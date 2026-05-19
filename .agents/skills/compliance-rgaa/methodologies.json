@@ -1,0 +1,1482 @@
+{
+  "version": "4.1.2",
+  "description": "RGAA 4.1.2 detailed testing methodologies - Step-by-step guidance for each test",
+  "total_methodologies": 182,
+  "methodologies": [
+    {
+      "test_id": "1.1.1",
+      "test_name": "Image alt text presence check",
+      "steps": [
+        "1. Open browser DevTools (F12) and go to Elements/Inspector",
+        "2. Find all <img> elements on page",
+        "3. For each image, check for 'alt' attribute",
+        "4. If no 'alt', check for aria-label or aria-labelledby",
+        "5. Verify attribute is not empty (alt='' is ok for decorative)",
+        "6. Use automated tool: run axe-core, jest-axe, or Lighthouse accessibility audit"
+      ],
+      "success_criteria": "All meaningful images have non-empty alt, aria-label, or aria-labelledby attribute",
+      "failure_examples": [
+        "Missing alt attribute: <img src='chart.png' />",
+        "Empty alt: <img src='photo.jpg' alt='' /> (not marked role=presentation)",
+        "Decorative with meaningful role: <img src='icon.svg' alt='' aria-label='Important info'>"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Non-text Content - All non-text content that is presented to the user has a text alternative"
+      }
+    },
+    {
+      "test_id": "1.1.2",
+      "test_name": "Image alt text relevance validation",
+      "steps": [
+        "1. List all images from webpage",
+        "2. For each image, read alt text independently (without seeing image)",
+        "3. Determine if alt text adequately describes image meaning/function",
+        "4. Check alt text doesn't repeat 'image of', 'picture of', 'screenshot'",
+        "5. Test with screen reader (NVDA or JAWS): activate image, listen to announcement",
+        "6. Verify alt text makes sense in context vs out of context"
+      ],
+      "success_criteria": "Alt text accurately describes image purpose and is appropriate for context",
+      "failure_examples": [
+        "alt='Image of chart' - too generic, doesn't describe data",
+        "alt='Pic' - too vague",
+        "alt='Graphic showing 2023 Q1 sales breakdown with pie chart' - too verbose if brief context ok",
+        "alt='' for meaningful image not marked role=presentation"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Non-text Content - Meaningful images must have appropriate text equivalent"
+      }
+    },
+    {
+      "test_id": "1.2.1",
+      "test_name": "Decorative image hiding check",
+      "steps": [
+        "1. Identify decorative images (icons, backgrounds, separators, visual flourishes)",
+        "2. For each decorative image in DOM, inspect for:",
+        "   - role='presentation' attribute",
+        "   - aria-hidden='true' attribute",
+        "   - alt='' (empty alt, no other attrs)",
+        "3. Use browser DevTools to verify element properties",
+        "4. Test with screen reader: should not announce decorative images",
+        "5. Run axe-core automated check for presentation roles"
+      ],
+      "success_criteria": "All decorative images properly hidden from assistive technology",
+      "failure_examples": [
+        "Spacer image without attributes: <img src='spacer.gif'>",
+        "Icon with meaningful alt: <img src='icon.svg' alt='Icon'>",
+        "Background image in src with alt: <img src='bg.jpg' alt='Background'>"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Non-text Content - Decorative images should be skipped by assistive technology"
+      }
+    },
+    {
+      "test_id": "1.3.1",
+      "test_name": "Image alt text relevance - meaningful images",
+      "steps": [
+        "1. Collect all <img> elements with alt text",
+        "2. Separate meaningful from decorative images",
+        "3. For each meaningful image, evaluate alt text against criteria:",
+        "   - Does it convey the essential information?",
+        "   - Is it appropriate length (typically 5-15 words)?",
+        "   - Does it avoid redundant phrases?",
+        "   - Is it contextually accurate?",
+        "4. Read alt text without seeing image - understand meaning?",
+        "5. Compare with screen reader output",
+        "6. For complex images (charts, graphs), verify long description link/aria-describedby"
+      ],
+      "success_criteria": "Alt text is concise, relevant, and conveys image purpose appropriately",
+      "failure_examples": [
+        "Chart: alt='Sales Chart' - too vague, should indicate key data",
+        "Photo: alt='This photo shows a person wearing a blue shirt in front of a white wall' - too detailed",
+        "Logo: alt='The Acme Corp logo which was designed in 1995' - extra info not needed"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Images - Alternative must appropriately convey image purpose and information"
+      }
+    },
+    {
+      "test_id": "1.4.1",
+      "test_name": "CAPTCHA image alt text - function identification",
+      "steps": [
+        "1. Identify CAPTCHA or verification images on page",
+        "2. Check alt attribute of CAPTCHA image",
+        "3. Verify alt text identifies it as CAPTCHA/verification challenge",
+        "4. Alt should include guidance (e.g., 'CAPTCHA: Enter visible characters')",
+        "5. Test with screen reader: is it clear this is a challenge?",
+        "6. Verify alt doesn't give away the answer"
+      ],
+      "success_criteria": "CAPTCHA image identified as such with purpose clear",
+      "failure_examples": [
+        "Missing or empty alt on CAPTCHA",
+        "alt='Image' - doesn't identify it as CAPTCHA",
+        "alt='Enter: aBc2D9' - gives away answer"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "CAPTCHAs and verification images - Alternative must identify the nature and purpose"
+      }
+    },
+    {
+      "test_id": "1.5.1",
+      "test_name": "CAPTCHA alternative access mechanism",
+      "steps": [
+        "1. Locate CAPTCHA on page",
+        "2. Check for alternative access methods:",
+        "   - Audio CAPTCHA option",
+        "   - Email verification link",
+        "   - SMS code alternative",
+        "   - Puzzle-based alternative",
+        "   - Time-extended session",
+        "3. Test alternative: is it as secure as image CAPTCHA?",
+        "4. Verify alternative is equally accessible (if audio, has captions?)",
+        "5. Document which alternative(s) available"
+      ],
+      "success_criteria": "At least one accessible alternative to image CAPTCHA is provided",
+      "failure_examples": [
+        "Only image CAPTCHA with no alternative",
+        "Audio CAPTCHA without transcription as alternative",
+        "'Get code' that requires another CAPTCHA"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Test/CAPTCHA Images - Accessible alternative must exist for CAPTCHA or test images"
+      }
+    },
+    {
+      "test_id": "1.6.1",
+      "test_name": "Complex images - long description presence",
+      "steps": [
+        "1. Identify complex images (charts, diagrams, infographics, graphs)",
+        "2. For each complex image, check for long description using:",
+        "   - <figcaption> within <figure>",
+        "   - aria-describedby pointing to description",
+        "   - longdesc attribute (deprecated but check)",
+        "   - D-link pattern (linked description)",
+        "3. If no long description found: is brief alt sufficient?",
+        "4. Test with screen reader: can user access full description?",
+        "5. Verify description is reachable and comprehensive"
+      ],
+      "success_criteria": "Complex images have accessible long description when needed",
+      "failure_examples": [
+        "Chart with only alt='Sales data' - needs long description",
+        "Diagram with aria-describedby pointing to non-existent element",
+        "figcaption not within <figure> with image"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Complex Images - Meaningful complex images must have detailed description"
+      }
+    },
+    {
+      "test_id": "1.7.1",
+      "test_name": "Long description - relevance validation",
+      "steps": [
+        "1. Find all images with long descriptions (figcaption, aria-describedby, etc)",
+        "2. For each description, evaluate:",
+        "   - Does it capture essential information from image?",
+        "   - Is it accurate and complete?",
+        "   - Does it avoid redundancy with alt text?",
+        "   - Is it clearly written and organized?",
+        "3. Compare provided description to image content",
+        "4. Test with screen reader: description announced with image?",
+        "5. Check if description helps understand image purpose"
+      ],
+      "success_criteria": "Long descriptions are accurate, complete, and appropriately detailed",
+      "failure_examples": [
+        "Chart alt='Sales' + figcaption='See chart above' - description adds nothing",
+        "figcaption='' where it should have content",
+        "Description that's longer than useful or too technical"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Long Descriptions - Must be appropriate and meaningful"
+      }
+    },
+    {
+      "test_id": "1.8.1",
+      "test_name": "Text images - replacement with styled text",
+      "steps": [
+        "1. Search page for images containing readable text",
+        "2. For each text image found:",
+        "   - Determine if it's essential (logos, trademark)? If yes, ok with alt",
+        "   - Is regular text replacement possible? If yes, should be used",
+        "3. Check CSS/HTML: is text available as HTML+CSS instead?",
+        "4. Verify if image is only method or preference",
+        "5. Make replacement recommendation if HTML text more appropriate",
+        "6. Check if replacement exists elsewhere (link to HTML version)"
+      ],
+      "success_criteria": "Text in images is avoided; HTML text with styling used instead when possible",
+      "failure_examples": [
+        "Page title as image text without HTML equivalent",
+        "Buttons text only in images",
+        "Form labels as images"
+      ],
+      "wcag_mapping": {
+        "level": "AA",
+        "criterion": "1.4.5",
+        "description": "Images of Text - Text should not be presented as images unless essential"
+      }
+    },
+    {
+      "test_id": "1.9.1",
+      "test_name": "Image captions - association with images",
+      "steps": [
+        "1. Find all images that have captions/legends",
+        "2. Check structure for association:",
+        "   - <figure> containing <img> and <figcaption>?",
+        "   - aria-describedby linking image to caption ID?",
+        "   - Nearby text in <figure> element?",
+        "3. Test with screen reader: is association announced?",
+        "4. Verify semantic correctness of association",
+        "5. Check caption text is grouped with image"
+      ],
+      "success_criteria": "Image captions are properly associated with images semantically",
+      "failure_examples": [
+        "Image followed by text, not in <figure>",
+        "<figure><figcaption>...</figcaption><img> (wrong order)",
+        "Multiple figures with overlapping captions"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Captions - Images and their captions must be properly associated"
+      }
+    },
+    {
+      "test_id": "2.1.1",
+      "test_name": "Frame title presence check",
+      "steps": [
+        "1. Use DevTools to find all <iframe> and <frame> elements",
+        "2. For each frame element:",
+        "   - Check for 'title' attribute presence",
+        "   - Ensure title is non-empty and meaningful",
+        "3. Run axe-core: check for 'Frame title' violations",
+        "4. Verify all frames have accessible name via title or aria-label"
+      ],
+      "success_criteria": "All frames have meaningful title attribute",
+      "failure_examples": [
+        "<iframe src='content.html'></iframe> (missing title)",
+        "<iframe title='' src='...'></iframe> (empty)",
+        "<iframe title='iframe 1' src='...'></iframe> (not descriptive enough)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.2",
+        "description": "Frames - Each frame element must have a title"
+      }
+    },
+    {
+      "test_id": "2.2.1",
+      "test_name": "Frame title - relevance validation",
+      "steps": [
+        "1. List all iframes with titles from page",
+        "2. For each title, evaluate:",
+        "   - Does it describe frame content/purpose?",
+        "   - Is it clear and meaningful to user?",
+        "   - Would user understand why frame exists?",
+        "3. Test with screen reader: title announced on frame focus?",
+        "4. Compare title to actual frame content",
+        "5. Check for redundant titles (e.g., multiple 'iframe 1')"
+      ],
+      "success_criteria": "Frame titles accurately describe purpose/content",
+      "failure_examples": [
+        "title='Content' - not descriptive",
+        "title='Frame' - generic",
+        "title='Embedded video from YouTube' - more descriptive, ok"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.2",
+        "description": "Frame titles - Must have relevant and meaningful titles"
+      }
+    },
+    {
+      "test_id": "3.1.1",
+      "test_name": "Non-color-dependent information",
+      "steps": [
+        "1. Open browser DevTools or use online tool to convert page to grayscale",
+        "2. Review page in grayscale: information still understandable?",
+        "3. Check for information conveyed by color alone:",
+        "   - Status indicators (red=error, green=ok)",
+        "   - Required fields (only red asterisk)",
+        "   - Charts/graphs (color-coded only)",
+        "4. Identify each color-dependent element",
+        "5. Check for alternatives: text, patterns, icons",
+        "6. Verify color is reinforcement, not primary method"
+      ],
+      "success_criteria": "All information is not conveyed by color alone; alternatives exist",
+      "failure_examples": [
+        "Form field outline turns red on error; only red (no text)",
+        "Charts using only color to distinguish (no patterns/labels)",
+        "Legend: 'Click red items to delete' (color-dependent instruction)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.4.1",
+        "description": "Use of Color - Information must not be conveyed by color alone"
+      }
+    },
+    {
+      "test_id": "3.2.1",
+      "test_name": "Text contrast ratio verification",
+      "steps": [
+        "1. Use color contrast analyzer tool (built-in or browser extension)",
+        "2. Identify all text on page that has background",
+        "3. For each text element:",
+        "   - Measure foreground (text) color RGB",
+        "   - Measure background color RGB",
+        "   - Calculate contrast ratio using formula: (L1+0.05)/(L2+0.05)",
+        "   - Compare to WCAG AA minimum: 4.5:1 normal, 3:1 large",
+        "4. Large text = 18pt+ or 14pt+ bold",
+        "5. Flag all failures for remediation",
+        "6. Run Lighthouse/axe for automated check"
+      ],
+      "success_criteria": "Text contrast minimum 4.5:1 (normal) or 3:1 (large), AA level",
+      "failure_examples": [
+        "#FFFFFF text on #FFFFFF bg = 1:1 contrast (fail)",
+        "#999999 text on #FFFFFF = ~2.5:1 contrast (fail)",
+        "#000000 text on #FFFFFF = 21:1 contrast (pass)"
+      ],
+      "wcag_mapping": {
+        "level": "AA",
+        "criterion": "1.4.3",
+        "description": "Contrast (Minimum): Text must have sufficient contrast ratio"
+      }
+    },
+    {
+      "test_id": "3.3.1",
+      "test_name": "UI components and graphics contrast",
+      "steps": [
+        "1. Identify UI visual components: buttons, sliders, icons, indicators",
+        "2. For each component with color-coded meaning:",
+        "   - Measure color contrast between component color and background",
+        "   - Minimum 3:1 ratio for UI components (AA)",
+        "3. Check focus states: visible outline present?",
+        "4. Check disabled states: sufficient contrast maintained?",
+        "5. Test interactive elements (focus, hover, active states)",
+        "6. Run axe-core 'Non-text contrast' check"
+      ],
+      "success_criteria": "UI components have 3:1 minimum contrast ratio",
+      "failure_examples": [
+        "Button using light gray on white background (low contrast)",
+        "Progress bar with color-only indication, poor contrast",
+        "Focus outline same color as background (invisible)"
+      ],
+      "wcag_mapping": {
+        "level": "AA",
+        "criterion": "2.4.7",
+        "description": "Focus Visible / Non-text Contrast - UI components must be distinguishable"
+      }
+    },
+    {
+      "test_id": "4.1.1",
+      "test_name": "Prerecorded temporal media - transcript or audio description",
+      "steps": [
+        "1. Locate all video/audio content on page",
+        "2. For each prerecorded media, check for:",
+        "   - Transcript (text file or in-page)",
+        "   - Audio description track (in video player)",
+        "   - Integrated captions + audio description",
+        "3. Transcript should capture: all speech + important sounds",
+        "4. Audio description: separate track or integrated",
+        "5. Verify transcript is accessible (linked, associated with media)",
+        "6. Check if alternative (transcript) is prominently offered"
+      ],
+      "success_criteria": "Prerecorded media has transcript OR audio description",
+      "failure_examples": [
+        "Video without transcript or audio description",
+        "Audio podcast without transcript",
+        "Transcript not linked/accessible from video"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.1",
+        "description": "Audio-only and Video-only (Prerecorded) - Must have alternative"
+      }
+    },
+    {
+      "test_id": "4.1.2",
+      "test_name": "Prerecorded video - audio description track presence",
+      "steps": [
+        "1. Find all video content with visual-only critical information",
+        "2. Check video player for audio description option:",
+        "   - Secondary audio track",
+        "   - Described video toggle/button",
+        "   - Settings menu with audio description",
+        "3. If audio description exists, verify it's:",
+        "   - Synchronized with video",
+        "   - Covers important visual elements",
+        "   - Doesn't conflict with dialogue",
+        "4. Test activating audio description in player"
+      ],
+      "success_criteria": "Video with visual-critical content has audio description track",
+      "failure_examples": [
+        "Video with no audio description option",
+        "Only transcript available (not enough)",
+        "Audio description out of sync with video"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.3",
+        "description": "Audio Description or Media Alternative (Prerecorded) - Video must have audio description"
+      }
+    },
+    {
+      "test_id": "4.2.1",
+      "test_name": "Temporal media transcript/description - relevance check",
+      "steps": [
+        "1. Play media and read/listen to transcript/description provided",
+        "2. Cross-reference transcript with actual audio:",
+        "   - Does transcript capture all dialogue accuracy?",
+        "   - Are important sounds included [screams], [door slams]?",
+        "   - Any missing segments?",
+        "3. For audio description:",
+        "   - Does it convey visual information accurately?",
+        "   - Are descriptions properly timed?",
+        "   - Supplementary info clearly marked?",
+        "4. Compare transcript length/detail to content complexity",
+        "5. Verify accuracy of speaker identification"
+      ],
+      "success_criteria": "Transcript/description is accurate, complete, and appropriately detailed",
+      "failure_examples": [
+        "Transcript missing dialogue sections",
+        "Audio description poorly timed (misses visual events)",
+        "Speaker identification unclear (multiple speakers)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.1",
+        "description": "Multimedia transcripts/descriptions - Must be accurate and complete"
+      }
+    },
+    {
+      "test_id": "4.3.1",
+      "test_name": "Synchronized media - captions presence",
+      "steps": [
+        "1. Locate video with audio dialogue",
+        "2. Check for captions/subtitles in video player:",
+        "   - CC (closed captions) toggle present?",
+        "   - Subtitle language options?",
+        "   - Can enable captions without player controls?",
+        "3. Verify captions coverage: does video have captions?",
+        "4. Test caption activation (CC button, settings)",
+        "5. Check caption format: .vtt, .srt, or embedded?"
+      ],
+      "success_criteria": "Video with audio dialogue has caption track available",
+      "failure_examples": [
+        "Video with no caption option",
+        "Caption toggle disabled/hidden",
+        "Only subtitle (translation) available, no captions (English)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.2",
+        "description": "Captions (Prerecorded) - Synchronized media must have captions"
+      }
+    },
+    {
+      "test_id": "4.4.1",
+      "test_name": "Captions - accuracy and completeness",
+      "steps": [
+        "1. Enable captions on video",
+        "2. While watching, verify captions:",
+        "   - Match audio dialogue word-for-word or closely?",
+        "   - Capture speaker identification [JOHN]:?",
+        "   - Include important non-speech sounds (music), [dramatic music]?",
+        "   - Timing synchronized with audio?",
+        "   - No missing segments?",
+        "3. Check caption formatting: readable, not overlapping?",
+        "4. Test on different video players/sizes"
+      ],
+      "success_criteria": "Captions accurately capture all dialogue and important audio information",
+      "failure_examples": [
+        "Captions out of sync (appear after dialogue ends)",
+        "Missing parts of conversation",
+        "Sounds not indicated: [doorbell rings] missing"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.2",
+        "description": "Captions accuracy - Must be synchronized and complete"
+      }
+    },
+    {
+      "test_id": "4.5.1",
+      "test_name": "Video - audio description track activation",
+      "steps": [
+        "1. Open video with visual-critical information",
+        "2. Locate audio description toggle in player controls/settings",
+        "3. Verify audio description is available (not just caption option)",
+        "4. Activate audio description track",
+        "5. Listen: is alternate audio track playing with descriptions?",
+        "6. Check if description fits into natural conversation pauses",
+        "7. Verify description doesn't create audio conflicts"
+      ],
+      "success_criteria": "Audio description track is available and can be activated in video player",
+      "failure_examples": [
+        "No audio description option in player",
+        "Only subtitles available (not audio description)",
+        "Audio description settings disabled/grayed out"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.3",
+        "description": "Audio Description (Prerecorded) - Video must have audio description option"
+      }
+    },
+    {
+      "test_id": "4.6.1",
+      "test_name": "Audio description - quality and timing",
+      "steps": [
+        "1. Play video with audio description enabled",
+        "2. Listen to audio description track and verify:",
+        "   - Descriptions fit naturally in dialogue pauses?",
+        "   - Describe important visual elements (characters, actions, text)?",
+        "   - Descriptions are clear and concise?",
+        "   - Not redundant with dialogue?",
+        "3. Compare to original video: key visuals described?",
+        "4. Check audio quality of description track",
+        "5. Verify description volume appropriate (not too quiet)"
+      ],
+      "success_criteria": "Audio descriptions are appropriately timed, concise, and accurately convey visual information",
+      "failure_examples": [
+        "Descriptions interrupt natural dialogue flow",
+        "Audio description too fast, hard to follow",
+        "Missing descriptions of important visual elements (text on screen)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.2.3",
+        "description": "Audio description quality - Must be accurate and appropriately detailed"
+      }
+    },
+    {
+      "test_id": "4.7.1",
+      "test_name": "Media identification - title/label presence",
+      "steps": [
+        "1. Find all audio/video media on page",
+        "2. Check for identifying information near player:",
+        "   - Title above/below player",
+        "   - Descriptive text or caption",
+        "   - Duration/file size information",
+        "3. Verify title is visible (not hidden in player only)",
+        "4. Check accessibility: is title in accessible text format?",
+        "5. For multiple media: can user distinguish between them?"
+      ],
+      "success_criteria": "Each media has visible, descriptive title/identification",
+      "failure_examples": [
+        "Video player with no title or description",
+        "Untitled embedded videos",
+        "Title only in filename, not user-visible"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.4.4",
+        "description": "Link Purpose - Media must be clearly identifiable"
+      }
+    },
+    {
+      "test_id": "4.8.1",
+      "test_name": "Non-temporal media - alternative provision",
+      "steps": [
+        "1. Find non-temporal media (applets, Flash, animations, interactive content)",
+        "2. For each non-temporal element:",
+        "   - Is it essential functionality or decorative?",
+        "   - If essential: is alternative provided?",
+        "   - Check for<noscript>, fallback text, or linked alternative",
+        "3. Verify alternative offers same functionality/information",
+        "4. Test on device/browser without required plugin",
+        "5. Check for <embed>, <object>, <applet> tags"
+      ],
+      "success_criteria": "Essential non-temporal media has accessible alternative",
+      "failure_examples": [
+        "Flash animation with no fallback (decorative is ok)",
+        "Interactive applet with no HTML alternative",
+        "<noscript> present but empty"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Non-text Content - Non-temporal media must have alternative"
+      }
+    },
+    {
+      "test_id": "4.9.1",
+      "test_name": "Non-temporal media alternative - relevance check",
+      "steps": [
+        "1. Find non-temporal media with alternatives",
+        "2. Compare alternative to original media:",
+        "   - Does alternative convey same information/function?",
+        "   - Can user perform same actions with alternative?",
+        "   - Is alternative in accessible format?",
+        "3. Test both original and alternative",
+        "4. Verify alternative is not 'See Flash content' (too generic)",
+        "5. Check if alternative is prominently offered to all users"
+      ],
+      "success_criteria": "Alternatives to non-temporal media are equivalent and accessible",
+      "failure_examples": [
+        "Flash calculator with alternative 'Use HTML form' but form missing",
+        "Interactive applet with alternative='N/A'",
+        "Applet alternative hidden/hard to find"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Animation/Media alternatives - Must be meaningful and equivalent"
+      }
+    },
+    {
+      "test_id": "4.10.1",
+      "test_name": "Autoplaying audio - user control check",
+      "steps": [
+        "1. Identify audio that starts playing automatically",
+        "2. Check for user control mechanism:",
+        "   - Pause/stop button visible before audio starts?",
+        "   - Mute option available?",
+        "   - Auto-pause after < 3 seconds?",
+        "3. Verify control is NOT dependent on mouseover/hover",
+        "4. Test with keyboard: can pause with keyboard?",
+        "5. Check volume: not loudly surprising user?"
+      ],
+      "success_criteria": "Autoplaying audio is controllable and pausable by user within 3 seconds",
+      "failure_examples": [
+        "Background music auto-playing on page load without control",
+        "Audio starts before corresponding video plays",
+        "Audio plays at max volume without mute option"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.4.2",
+        "description": "Audio Control - Automatically playing audio must be pausable"
+      }
+    },
+    {
+      "test_id": "4.11.1",
+      "test_name": "Media player keyboard accessibility",
+      "steps": [
+        "1. Locate video/audio player on page",
+        "2. Test keyboard navigation:",
+        "   - Tab to player: does it receive focus?",
+        "   - Tab through controls: all buttons accessible?",
+        "3. Test player controls via keyboard:",
+        "   - Space/Enter: play/pause?",
+        "   - Arrow keys: volume, seek?",
+        "   - 'M': mute? 'F': fullscreen?",
+        "4. Test caption toggle: keyboard accessible?",
+        "5. Check for keyboard trap: can exit player with Escape?"
+      ],
+      "success_criteria": "Media player fully controllable via keyboard",
+      "failure_examples": [
+        "Play button only accessible via mouse click",
+        "Volume slider requires drag-drop (no keyboard alternative)",
+        "Keyboard focus trapped in fullscreen player"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.1.1",
+        "description": "Keyboard - Media player must be fully keyboard accessible"
+      }
+    },
+    {
+      "test_id": "4.12.1",
+      "test_name": "Non-temporal media - keyboard and pointer control",
+      "steps": [
+        "1. Identify non-temporal media (applets, animations, interactive)",
+        "2. Test keyboard access:",
+        "   - Tab to element: focus received?",
+        "   - Keyboard operations possible?",
+        "3. Test pointer/mouse access:",
+        "   - Click to activate? Drag?",
+        "   - Confirm mouse operations work",
+        "4. Test touch access (if applicable)",
+        "5. Verify no single-modality dependency (keyboard-only or mouse-only)"
+      ],
+      "success_criteria": "Non-temporal media controllable by keyboard and pointer/pointer-alternative",
+      "failure_examples": [
+        "Drag-only interaction (no keyboard alternative)",
+        "Flash applet with no keyboard control",
+        "Touch-only pinch-zoom (no keyboard zoom)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.1.1",
+        "description": "Keyboard - Interactive multimedia must be keyboard accessible"
+      }
+    },
+    {
+      "test_id": "4.13.1",
+      "test_name": "Media player - assistive technology compatibility",
+      "steps": [
+        "1. Locate media player element",
+        "2. Test with screen reader (NVDA, JAWS, VoiceOver):",
+        "   - Tab to player: announced?",
+        "   - Controls labeled (play, pause, etc.)?",
+        "   - ARIA roles present (region, button)?",
+        "3. Verify player controls have accessible names",
+        "4. Check for aria-live regions (status updates announced)",
+        "5. Test closed captions toggle: announced as available?",
+        "6. Verify audio description option announced"
+      ],
+      "success_criteria": "Media player fully accessible with screen reader",
+      "failure_examples": [
+        "Player controls with no aria-labels (announced as 'button' only)",
+        "No play/pause announcement",
+        "Captions/audio description toggles not discoverable"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.2",
+        "description": "Name, Role, Value - Media player must be AT-compatible"
+      }
+    },
+    {
+      "test_id": "5.1.1",
+      "test_name": "Complex table - summary presence",
+      "steps": [
+        "1. Identify complex data tables (multi-row headers, merged cells, cross-tabulated data)",
+        "2. For each complex table, check for summary:",
+        "   - <caption> element in <table>",
+        "   - summary attribute (deprecated but check):",
+        "   - Descriptive text before/after table",
+        "3. Verify summary is accessible (visible and/or AT-read)",
+        "4. Test with screen reader: is summary reachable?",
+        "5. Determine if summary is actually needed (very simple tables may not need)"
+      ],
+      "success_criteria": "Complex tables have accessible summary",
+      "failure_examples": [
+        "Complex cross-tabulated table with no caption or summary",
+        "Summary hidden in title attribute only",
+        "Empty <caption></caption> in complex table"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Complex tables - Tables must have summaries/captions"
+      }
+    },
+    {
+      "test_id": "5.2.1",
+      "test_name": "Table summary - relevance check",
+      "steps": [
+        "1. Locate table with summary/caption",
+        "2. Read summary and evaluate:",
+        "   - Does it describe table purpose/structure?",
+        "   - Does it help users navigate the table?",
+        "   - Is it concise but complete?",
+        "   - Explains cross-tabulation if applicable?",
+        "3. Compare summary to actual table structure",
+        "4. Test missing summary: would table be confusing without it?",
+        "5. Verify summary accurate for data shown"
+      ],
+      "success_criteria": "Table summary accurately describes structure and purpose",
+      "failure_examples": [
+        "Caption: 'Table' or 'Data Table' (not descriptive)",
+        "Summary: 'See table above' (adds no value)",
+        "Summary describes wrong data or outdated"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Table captions - Must be meaningful and accurate"
+      }
+    },
+    {
+      "test_id": "5.3.1",
+      "test_name": "Layout tables - linear content comprehension",
+      "steps": [
+        "1. Identify tables used for layout (not data structure)",
+        "2. Verify table does NOT contain data (no <th>, no scope, no summary)",
+        "3. Read table content via screen reader or disable CSS",
+        "4. Assess: is layout table content understandable when linearized?",
+        "5. Example: two-column layout becomes single column; order still makes sense?",
+        "6. Check for visual-only layout clues (empty cells for spacing)"
+      ],
+      "success_criteria": "Layout table content remains intelligible when read linearly",
+      "failure_examples": [
+        "Layout table: left col=nav, right col=content; linearized lost nav context",
+        "Spacer cells used for layout (impacts reading order)",
+        "Content in wrong reading order when CSS disabled"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Layout tables - Content must be understandable without layout styling"
+      }
+    },
+    {
+      "test_id": "5.4.1",
+      "test_name": "Data table title - association verification",
+      "steps": [
+        "1. Find data table with title/caption",
+        "2. Check semantic association:",
+        "   - <caption> first child of <table>?",
+        "   - Or <h2> before table + aria-labelledby?",
+        "   - Or aria-labelledby ID matches <caption> ID?",
+        "3. Test with screen reader:**table announced with caption?",
+        "4. Verify association works across browsers",
+        "5. Check for redundancy (caption + title both present?)"
+      ],
+      "success_criteria": "Table title semantically associated with table element",
+      "failure_examples": [
+        "<h2>Sales Data</h2> ... <table> (not associated)",
+        "<caption id='t1'></caption>, <table aria-labelledby='t2'> (wrong ID)",
+        "Multiple <caption> elements in table"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Table association - Title must be properly linked to table"
+      }
+    },
+    {
+      "test_id": "5.5.1",
+      "test_name": "Table title - relevance assessment",
+      "steps": [
+        "1. Read table caption/title",
+        "2. Evaluate for relevance:",
+        "   - Does it describe what data the table contains?",
+        "   - Is it specific (not just 'Table' or 'Data')?",
+        "   - Would user understand table purpose from title alone?",
+        "   - Is it unique if multiple tables?",
+        "3. Check for redundancy with surrounding text",
+        "4. Verify accuracy of table title to actual data"
+      ],
+      "success_criteria": "Table title accurately and specifically describes table content",
+      "failure_examples": [
+        "Caption: 'Table 1' (not descriptive)",
+        "Caption: 'Important Data' (too vague)",
+        "Caption: 'Q1 Sales' but table shows Q4 data (inaccurate)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Table captions - Must be relevant and clear"
+      }
+    },
+    {
+      "test_id": "5.6.1",
+      "test_name": "Table headers - declaration check",
+      "steps": [
+        "1. Inspect table structure using DevTools",
+        "2. For each table:",
+        "   - <thead> contain column headers <th scope='col'>?",
+        "   - First column <th scope='row'> if row headers?",
+        "   - Verify <th> used, NOT <td> with bold text",
+        "3. Test with axe-core: 'Table header errors'",
+        "4. Check header row arrangement (typically top row)",
+        "5. Verify scope attributes present on all <th>"
+      ],
+      "success_criteria": "All table headers declared with <th scope='col|row'>",
+      "failure_examples": [
+        "<td><strong>Header</strong></td> (should be <th scope='col'>)",
+        "<th> without scope attribute",
+        "<tbody><th scope='row'> (should be in <thead>)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Table Headers - Must be declared semantically"
+      }
+    },
+    {
+      "test_id": "5.7.1",
+      "test_name": "Table cell-to-header association",
+      "steps": [
+        "1. Examine table complexity:simple (2-level headers) vs complex (multi-level, merged cells)",
+        "2. For simple tables: verify <th scope='col|row'> adequate",
+        "3. For complex tables: check headers/id association:",
+        "   - Each <th> has id attribute",
+        "   - Each <td> has headers='id1 id2' listing header IDs",
+        "4. Test with screen reader: cell-header relationships announced?",
+        "5. Run axe-core: proper association verification"
+      ],
+      "success_criteria": "Complex tables have properly associated headers and cell data",
+      "failure_examples": [
+        "<td>200</td> without headers attribute (unclear which row/col header)",
+        "headers='h1' but <th id='h1'> missing",
+        "Complex table with scope only (not enough for multi-level headers)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Table Associations - Cell-header relationships must be clear"
+      }
+    },
+    {
+      "test_id": "5.8.1",
+      "test_name": "Layout tables - semantic element absence",
+      "steps": [
+        "1. Identify tables used for layout (not data)",
+        "2. Verify table lacks data semantics:",
+        "   - No <th> elements?",
+        "   - No scope attributes?",
+        "   - No <caption>?",
+        "   - No summary attribute?",
+        "3. Check table structure: is it purely for visual alignment?",
+        "4. Recommend migrating to CSS Grid/Flexbox",
+        "5. Run axe-core: detects layout table misuse"
+      ],
+      "success_criteria": "Layout tables have no data semantics (no <th>, scope, caption, summary)",
+      "failure_examples": [
+        "Layout table with <th> or summary (semantic confusion)",
+        "<table> used for multi-column text layout (should use CSS)",
+        "Layout table with scope='col' (misuse of semantics)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Layout tables - Must not use data table semantics"
+      }
+    },
+    {
+      "test_id": "6.1.1",
+      "test_name": "Link text - explicitness check",
+      "steps": [
+        "1. List all links on page",
+        "2. For each link, read text independently (out of context):",
+        "   - Is destination/purpose clear?",
+        "   - Avoids generic 'Click here', 'Read more', 'More', 'Link'?",
+        "   - Unique from surrounding links?",
+        "3. Test with screen reader: link text announced clearly?",
+        "4. Check aria-label/aria-labelledby if link text insufficient",
+        "5. Assess: would user understand without visual context?"
+      ],
+      "success_criteria": "Link text is explicit and meaningful out of context",
+      "failure_examples": [
+        "Link: 'click here' (not explicit)",
+        "Link: '...' (no meaning)",
+        "Link: 'Read' (ambiguous)",
+        "Multiple 'More' links on same page (not unique)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.4.4",
+        "description": "Link Purpose - Must be clear from link text alone"
+      }
+    },
+    {
+      "test_id": "6.2.1",
+      "test_name": "Link accessible name - presence check",
+      "steps": [
+        "1. Inspect all <a> elements",
+        "2. For each link, verify accessible name via:",
+        "   - Visible link text (most common)",
+        "   - aria-label attribute",
+        "   - aria-labelledby pointing to descriptor",
+        "   - title attribute (backup only)",
+        "3. Run axe-core: check for 'button-name' violations",
+        "4. Verify computed name is not empty",
+        "5. Check icon-only links: do they have aria-label?"
+      ],
+      "success_criteria": "All links have accessible name (visible text or ARIA)",
+      "failure_examples": [
+        "<a href='#'></a> (empty link)",
+        "<a href='#'><img alt=''></a> (image no alt)",
+        "<a href='#' title='Search'> (only title, no visible text)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.2",
+        "description": "Link Name - Must have accessible name"
+      }
+    },
+    {
+      "test_id": "7.1.1",
+      "test_name": "Script compatibility with assistive technology",
+      "steps": [
+        "1. Identify JavaScript interactions (buttons, dropdowns, modals, form validation)",
+        "2. Test each with screen reader:",
+        "   - Dynamic content changes announced?",
+        "   - ARIA live regions for updates?",
+        "   - Role/state/property changes announced?",
+        "3. Check React/Vue/Angular: a11y hooks present?",
+        "4. Verify ARIA attributes: aria-label, aria-live, aria-expanded, aria-selected",
+        "5. Test keyboard: all JS interactions keyboard accessible?",
+        "6. Check focus management: maintained after dynamic updates?"
+      ],
+      "success_criteria": "JavaScript interactions are compatible with screen readers and keyboard",
+      "failure_examples": [
+        "Dropdown menu opened via JS, no state change announced",
+        "Form validation error message not announced",
+        "Modal opens, focus not managed (focus moves to hidden area)",
+        "Autocomplete suggestions not announced"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.2",
+        "description": "Name/Role/Value - Dynamic content must have accessible interactions"
+      }
+    },
+    {
+      "test_id": "7.2.1",
+      "test_name": "Script alternatives - fallback adequacy",
+      "steps": [
+        "1. Identify critical JS functionality",
+        "2. Disable JavaScript (browser setting or extension)",
+        "3. For each JS feature, check fallback:",
+        "   - Link alternatives exist (e.g., <noscript> with <a> tag)?",
+        "   - Form submission works without JS?",
+        "   - Content still accessible?",
+        "4. Scenario: does fallback offer same functionality?",
+        "5. Test on multiple browsers with JS disabled"
+      ],
+      "success_criteria": "Critical functionality has accessible non-JS alternatives",
+      "failure_examples": [
+        "JS-only form submission (no non-JS fallback)",
+        "<noscript> only shows 'Enable JavaScript' (not helpful)",
+        "Navigation only works via JS dropdown (no link fallback)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.1.1",
+        "description": "Script fallbacks - Alternatives required if content JS-dependent"
+      }
+    },
+    {
+      "test_id": "7.3.1",
+      "test_name": "Script keyboard control and pointer access",
+      "steps": [
+        "1. Identify all interactive JS elements (custom buttons, sliders, date pickers)",
+        "2. Test each for keyboard accessibility:",
+        "   - Tab focus received?",
+        "   - Enter/Space activate?",
+        "   - Arrow keys operate (sliders, menus)?",
+        "   - Escape to exit (modals)?",
+        "3. Test pointer/mouse (alternative to keyboard)",
+        "4. Check for keyboard-only operations: all have mouse alternative?",
+        "5. Verify no keyboard traps"
+      ],
+      "success_criteria": "All JS interactions work with keyboard and pointer/mouse",
+      "failure_examples": [
+        "Drag-drop with no keyboard alternative",
+        "Custom slider only keyboard operable (no mouse drag)",
+        "Autocomplete only activates on mouse hover (not keyboard)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.1.1",
+        "description": "Keyboard - JS interactions must be keyboard accessible"
+      }
+    },
+    {
+      "test_id": "7.4.1",
+      "test_name": "Script-triggered context changes - user warning",
+      "steps": [
+        "1. Identify JS that changes context:",
+        "   - Opens new window: e.g., window.open()",
+        "   - Navigates away: e.g., location.href=",
+        "   - Submits form on change: e.g., <select> onchange='submit()'",
+        "   - Auto-refreshes: e.g., meta refresh",
+        "2. For each context change:",
+        "   - Does user expect it? (e.g., clicking 'Go' button)",
+        "   - If unexpected: alert/warning user?",
+        "   - User can prevent it?",
+        "3. Verify warning before action (not after)"
+      ],
+      "success_criteria": "Unexpected context changes are warned or preventable",
+      "failure_examples": [
+        "Clicking radio button submits form unexpectedly (no warning)",
+        "Page auto-redirects after 5 seconds (no control)",
+        "Opening new window without user action (target='_blank' on link is ok)",
+        "Form changes page focus without notice"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.2.2",
+        "description": "Context Changes - User must be warned or have control"
+      }
+    },
+    {
+      "test_id": "7.5.1",
+      "test_name": "Status messages - ARIA live region restitution",
+      "steps": [
+        "1. Identify status messages (e.g., 'Saving...', '3 results found', 'Error occurred')",
+        "2. Check implementation:",
+        "   - role='status' with aria-live='polite'?",
+        "   - role='alert' with aria-live='assertive'?",
+        "   - Or aria-live='polite|assertive' on parent?",
+        "3. Test with screen reader:",
+        "   - Status message announced when it appears?",
+        "   - Update announced if text changes?",
+        "4. Check ARIA values: live='polite' (normal), 'assertive' (urgent)"
+      ],
+      "success_criteria": "Status messages announced to screen reader users",
+      "failure_examples": [
+        "Status div without aria-live or role",
+        "role='status' but message inside nested <div> outside region",
+        "live='rude' (user interrupts, too aggressive)",
+        "aria-live on element that changes before message appears"
+      ],
+      "wcag_mapping": {
+        "level": "AAA",
+        "criterion": "4.1.3",
+        "description": "Status Messages - Must be announced to AT users"
+      }
+    },
+    {
+      "test_id": "8.1.1",
+      "test_name": "Document type declaration",
+      "steps": [
+        "1. View page source (Ctrl+U or View > Page Source)",
+        "2. Check first line for DOCTYPE:",
+        "   - HTML5: <!DOCTYPE html>",
+        "   - HTML4: <!DOCTYPE html PUBLIC \"...html 4.01 Transitional//EN\"...>",
+        "   - XHTML: <!DOCTYPE html PUBLIC \"...xhtml 1.0 Transitional//EN\"...>",
+        "3. Verify DOCTYPE is present and unsplit",
+        "4. DOCTYPE must be first (before <html> tag)",
+        "5. No BOM (Byte Order Mark) before DOCTYPE"
+      ],
+      "success_criteria": "Valid DOCTYPE declaration present as first line",
+      "failure_examples": [
+        "Missing <!DOCTYPE>",
+        "DOCTYPE after whitespace: '\n<!DOCTYPE html>' (wrong position)",
+        "DOCTYPE with typo: '<!DOCTYPE html>' (misspelled)",
+        "Multiple DOCTYPEs (invalid)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.1",
+        "description": "Parsing - Document must have valid DOCTYPE"
+      }
+    },
+    {
+      "test_id": "8.2.1",
+      "test_name": "HTML source validity check",
+      "steps": [
+        "1. Validate HTML using W3C Markup Validator or Nu HTML Checker",
+        "2. Input page URL or upload HTML file",
+        "3. Review validation results for errors:",
+        "   - Critical: duplicate IDs, unclosed tags, invalid elements",
+        "   - Non-critical: warnings about deprecated attributes",
+        "4. Check error count and severity",
+        "5. Valid HTML: no errors, warnings acceptable",
+        "6. Test locally and on production"
+      ],
+      "success_criteria": "HTML source is valid with no critical errors",
+      "failure_examples": [
+        "<div><p>Text</div></p> (improper nesting)",
+        "id='form1' ... id='form1' (duplicate ID)",
+        "<iframe id='frame' attr='value'> (invalid attribute)",
+        "Unclosed <div>, <p>, <table> tags"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "4.1.1",
+        "description": "Parsing - HTML source must be valid"
+      }
+    },
+    {
+      "test_id": "8.3.1",
+      "test_name": "Default language declaration",
+      "steps": [
+        "1. Check <html> element for lang attribute",
+        "2. Verify: <html lang='...'> present at root",
+        "3. Language code must be valid BCP47 (RFC 5646):",
+        "   -  'fr' = French",
+        "   - 'en' = English",
+        "   - 'de' = German",
+        "   - 'fr-CA' = French (Canada)",
+        "4. lang attribute must not be empty",
+        "5. Check HTTP Content-Language header if lang missing"
+      ],
+      "success_criteria": "Page has valid lang attribute on <html> element",
+      "failure_examples": [
+        "<html> (missing lang)",
+        "<html lang=''> (empty lang)",
+        "<html lang='xyz'> (invalid code)",
+        "lang only in <p>, not <html>"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.1.1",
+        "description": "Language of Page - Default language must be identified"
+      }
+    },
+    {
+      "test_id": "8.4.1",
+      "test_name": "Language code validity and appropriateness",
+      "steps": [
+        "1. Check <html lang='...'> provided from previous test",
+        "2. Validate language code format:",
+        "   - Single subtag (e.g., 'fr', 'en'): valid",
+        "   - Subtag + region (e.g., 'fr-CA', 'en-US'): valid",
+        "   - Invalid: '1234', 'frr' (misspelled), 'xx' (reserved)",
+        "3. Compare code to actual page language",
+        "4. Test with screen reader: language detected/spoken appropriately?",
+        "5. Verify code matches content language"
+      ],
+      "success_criteria": "Language code is valid BCP47 and matches page content",
+      "failure_examples": [
+        "lang='fr' but page is in English (mismatch)",
+        "lang='frr' (invalid code, should be 'fr')",
+        "lang='FR' (should be lowercase 'fr')"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.1.1",
+        "description": "Language of Page - Code must be valid and appropriate"
+      }
+    },
+    {
+      "test_id": "8.5.1",
+      "test_name": "Page title presence",
+      "steps": [
+        "1. View page source or DevTools 'Elements'",
+        "2. Check <head> for <title> element",
+        "3. Verify <title>Text</title> present and non-empty",
+        "4. Check browser tab: does title text appear?",
+        "5. Test page load: title shown in history?",
+        "6. All pages should have unique title"
+      ],
+      "success_criteria": "<title> element present with meaningful text",
+      "failure_examples": [
+        "Missing <title>",
+        "<title></title> (empty)",
+        "All pages share same generic title (e.g., 'Page' everywhere)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.4.2",
+        "description": "Page Titled - Every page must have a title"
+      }
+    },
+    {
+      "test_id": "8.6.1",
+      "test_name": "Page title - relevance and uniqueness",
+      "steps": [
+        "1. Collect titles from multiple pages on site (at least 5-10 pages)",
+        "2. For each title, evaluate:",
+        "   - Does it describe page content/purpose?",
+        "   - Is info unique per page?",
+        "   - Avoids generic 'Untitled', 'Page 1', 'Document'?",
+        "   - Most distinctive info first (for screen readers)?",
+        "3. Check if title helps user identify page in history/tabs",
+        "4. Example good: 'Contact Us - Acme Corp', Example bad: 'Contact'"
+      ],
+      "success_criteria": "Page titles are descriptive, unique, and distinctive.",
+      "failure_examples": [
+        "All pages titled 'My Website'",
+        "Title: 'Web Page' (too generic)",
+        "Title: '404' (should be 'Page Not Found - Acme Corp')"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "2.4.2",
+        "description": "Page Title - Must be descriptive and relevant"
+      }
+    },
+    {
+      "test_id": "8.7.1",
+      "test_name": "Language changes - declaration check",
+      "steps": [
+        "1. Scan page for text in languages other than default (lang from <html>)",
+        "2. For each language change, check for lang attribute on element",
+        "3. Examples: <span lang='es'>Hola</span>, <p lang='de'>Guten Tag</p>",
+        "4. Verify elements with lang mark all foreign language content",
+        "5. Include proper nouns that might not be translated",
+        "6. Test with screen reader: language switches announced?"
+      ],
+      "success_criteria": "All language changes marked with lang attribute",
+      "failure_examples": [
+        "Foreign word without lang: 'Say hello: Bonjour' (no lang on Bonjour)",
+        "Mixed language paragraph without lang markers",
+        "lang on wrong element hierarchy"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.1.2",
+        "description": "Language of Parts - Language changes must be identified"
+      }
+    },
+    {
+      "test_id": "8.8.1",
+      "test_name": "Language change codes - validity and accuracy",
+      "steps": [
+        "1. Extract all lang attributes used for language changes",
+        "2. Validate each code:",
+        "   - BCP47 format correct?",
+        "   - Code matches actual language (lang='fr' on French text)?",
+        "   - No typos ('frr' vs 'fr')?",
+        "3. Check consistency: same language same code throughout",
+        "4. Verify case: BCP47 specifies lowercase language, uppercase region",
+        "5. Example: lang='fr-CA' (French-Canada, correct), lang='FR-ca' (incorrect)"
+      ],
+      "success_criteria": "Language codes are valid BCP47 and match declared language",
+      "failure_examples": [
+        "lang='fr' on Spanish text (wrong code)",
+        "lang='frenchfr' (invalid code format)",
+        "Inconsistency: French marked as 'fr' in one place, 'fra' in another"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.1.2",
+        "description": "Language of Parts - Codes must be valid and appropriate"
+      }
+    },
+    {
+      "test_id": "8.9.1",
+      "test_name": "Semantic HTML usage - not presentation-only",
+      "steps": [
+        "1. Inspect HTML for non-semantic usage:",
+        "   - <b>, <i> for styling instead of <strong>, <em>?",
+        "   - <div>, <span> for structure instead of <section>, <article>, <header>, <nav>?",
+        "   - CSS classes instead of semantic elements?",
+        "2. Run axe-core or Wave for semantic warnings",
+        "3. Check heading structure: h1-h6 used or <div class='title'>?",
+        "4. List items: <ul>/<ol> or <div> containers?",
+        "5. Navigation: <nav> or <div id='menu'>?"
+      ],
+      "success_criteria": "HTML uses semantic elements for structure, not presentation",
+      "failure_examples": [
+        "<div class='title'> instead of <h1>",
+        "<b>Bold text</b> for emphasis (should be <strong>)",
+        "<i>Italic</i> for styling (should be <em> or <span>)",
+        "Layout <div> containers instead of <section>, <article>"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Info and Relationships - Must use semantic HTML"
+      }
+    },
+    {
+      "test_id": "8.10.1",
+      "test_name": "Right-to-left (RTL) content direction marking",
+      "steps": [
+        "1. Scan page for right-to-left languages (Arabic, Hebrew, Farsi, etc.)",
+        "2. For any RTL text, check for dir attribute:",
+        "   - Page default RTL: <html dir='rtl'>",
+        "   - Specific element: <p dir='rtl'>العربية</p>",
+        "   - Bidirectional text: <bdi> or <p dir='auto'>",
+        "3. Verify dir affects only intended text",
+        "4. Test with screen reader: direction read correctly?",
+        "5. Check if content renders correctly RTL"
+      ],
+      "success_criteria": "RTL content properly marked with dir attribute",
+      "failure_examples": [
+        "Arabic text without dir='rtl' (renders incorrectly)",
+        "<html> not marked dir='rtl' on Arabic-only site",
+        "dir='rtl' on element containing mixed LTR/RTL without proper structuring"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.2",
+        "description": "Meaningful Sequence - Text direction changes must be identified"
+      }
+    },
+    {
+      "test_id": "9.1.1",
+      "test_name": "Heading hierarchy presence and structure",
+      "steps": [
+        "1. Extract all headings from page (h1-h6)",
+        "2. Verify heading hierarchy:",
+        "   - One h1 (typically page title)?",
+        "   - Logical: h1 -> h2 -> h3 (no jumps to h4 without h3)?",
+        "   - Structure follows content outline?",
+        "3. Use browser extensions (HeadingsMap, Outline view) to visualize",
+        "4. Run axe-core: 'Heading order' check",
+        "5. Test with screen reader: outline/navigation functional?"
+      ],
+      "success_criteria": "Proper h1-h6 hierarchy with logical structure",
+      "failure_examples": [
+        "No h1 on page",
+        "Multiple h1 (should be one per page)",
+        "Jump from h1 to h3 (missing h2)",
+        "h6 followed by h1 (illogical nesting)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Info and Relationships - Headings must have logical hierarchy"
+      }
+    },
+    {
+      "test_id": "9.2.1",
+      "test_name": "Document structure - coherence validation",
+      "steps": [
+        "1. Generate page outline using heading structure",
+        "2. Evaluate outline logic:",
+        "   - Does document flow logically?",
+        "   - Sections properly grouped under headings?",
+        "   - No orphaned content (content not under any heading)?",
+        "3. Test with screen reader outline (NVDA Outline, VoiceOver Rotor)",
+        "4. Compare to visual document structure",
+        "5. Check semantic landmarks: <nav>, <main>, <aside>, <header>, <footer>"
+      ],
+      "success_criteria": "Document structure is logical and coherent",
+      "failure_examples": [
+        "Heading outline doesn't match visual page sections",
+        "Content floating between unrelated headings",
+        "No landmarks (nav, main, aside) for region organization"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Info and Relationships - Structure must be coherent"
+      }
+    },
+    {
+      "test_id": "9.3.1",
+      "test_name": "List structure - semantic markup validation",
+      "steps": [
+        "1. Find all lists on page (bulleted, numbered, definition)",
+        "2. For each list, verify semantic structure:",
+        "   - <ul> for unordered lists",
+        "   - <ol> for ordered lists",
+        "   - <dl>, <dt>, <dd> for definition lists",
+        "   - All items wrapped in <li> (for ul/ol)",
+        "3. Check nesting: proper <li> containing nested <ul>/<ol>",
+        "4. Run axe-core 'List structure' check",
+        "5. Test with screen reader: list announced with item count?"
+      ],
+      "success_criteria": "Lists use proper semantic elements (ul, ol, li, dl, dt, dd)",
+      "failure_examples": [
+        "<div class='list'> with <div class='item'> (should be <ul><li>)",
+        "<ul><p>Item</p></ul> (should be <ul><li>Item</li>)",
+        "Nested list not inside <li>: <ul><ul> (should be <ul><li><ul>)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "1.3.1",
+        "description": "Info and Relationships - Lists must use semantic structure"
+      }
+    },
+    {
+      "test_id": "9.4.1",
+      "test_name": "Quotations - semantic markup check",
+      "steps": [
+        "1. Identify all quotations on page",
+        "2. For each quote, verify markup:",
+        "   - Block quote: <blockquote>",
+        "   - Inline quote: <q>",
+        "   - Source attribution: <cite> element or cite attribute",
+        "3. Avoid CSS quotes only: use <q> or <blockquote>",
+        "4. Test with screen reader: quote semantic announced?",
+        "5. Check citation method: clear source information provided"
+      ],
+      "success_criteria": "Quotations use semantic <blockquote> or <q> with <cite> source",
+      "failure_examples": [
+        "Block quote text without <blockquote> (missed semantic markup)",
+        "<blockquote> without <cite> (source unclear)",
+        "CSS-only quotes: '\"' { content: '\"' } (not semantic)"
+      ],
+      "wcag_mapping": {
+        "level": "A",
+        "criterion": "3.2 A",
+        "description": "Structure and Relationships - Quotes must be marked semantically"
+      }
+    }
+  ]
+}

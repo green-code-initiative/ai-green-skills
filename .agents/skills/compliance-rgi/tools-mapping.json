@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "description": "Data-driven tools with validation patterns",
+  "last_updated": "2026-03-25",
+  "tools": {
+    "api-analyzer": {
+      "name": "API ANALYZER",
+      "category": "automated",
+      "automation_level": "fully_automated",
+      "validation_patterns": [
+        {
+          "applies_to_tests": ["1.1.1"],
+          "type": "regex_match",
+          "pattern": "openapi|swagger",
+          "expect": "present",
+          "error_message": "OpenAPI documentation missing",
+          "severity": "HIGH"
+        }
+      ]
+    }
+  }
+}

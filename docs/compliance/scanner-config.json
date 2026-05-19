@@ -1,0 +1,191 @@
+{
+  "name": "Project",
+  "description": "Engagement platform with web app + component library",
+  "auth": {
+    "type": "local",
+    "loginUrl": "http://localhost:3000/login",
+    "usernameSelector": "input[type='text']",
+    "passwordSelector": "input[type='password']",
+    "submitSelector": "button[type='submit']",
+    "personas": [
+      {
+        "name": "Client",
+        "username": "amorgaut",
+        "password": "password",
+        "description": "Standard user accessing learning content"
+      },
+      {
+        "name": "Administrator",
+        "username": "bcauwet",
+        "password": "password",
+        "description": "Admin user managing platform and users"
+      },
+      {
+        "name": "Contributor",
+        "username": "jmsmith",
+        "password": "password",
+        "description": "Content contributor creating workshops"
+      }
+    ]
+  },
+  "targets": [
+    {
+      "name": "Web App",
+      "type": "web",
+      "url": "http://localhost:3000",
+      "routes": [
+        {
+          "path": "/login",
+          "personas": ["*"],
+          "description": "Login page - accessible to all"
+        },
+        {
+          "path": "/profile",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "User profile page"
+        },
+        {
+          "path": "/dashboard",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "Main dashboard"
+        },
+        {
+          "path": "/workshops",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "Workshops list"
+        },
+        {
+          "path": "/sessions",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "Sessions list"
+        },
+        {
+          "path": "/requests",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "Learning requests"
+        },
+        {
+          "path": "/recommendations",
+          "personas": ["Client", "Administrator", "Contributor"],
+          "description": "Personalized recommendations"
+        },
+        {
+          "path": "/keywords",
+          "personas": ["Administrator", "Contributor"],
+          "description": "Keyword management"
+        },
+        {
+          "path": "/users",
+          "personas": ["Administrator"],
+          "description": "User management (admin only)"
+        },
+        {
+          "path": "/admin",
+          "personas": ["Administrator"],
+          "description": "Administration panel (admin only)"
+        }
+      ],
+      "startCommand": "yarn start web"
+    },
+    {
+      "name": "Component Library (Storybook)",
+      "type": "components",
+      "url": "http://localhost:4400",
+      "discovery": "storybook",
+      "startCommand": "yarn start ui:storybook"
+    }
+  ],
+  "projectMapping": {
+    "web": "web",
+    "ui": "components",
+    "web-home-feature": "components",
+    "web-home-ui": "components",
+    "web-profile-feature-details": "components",
+    "web-profile-ui-details": "components",
+    "web-profile-data-access": "web",
+    "web-profile": "components",
+    "web-shared-components-keyword-search": "components",
+    "web-shared-components-user-search": "components",
+    "web-shared-components-list-author-info": "components",
+    "web-shared-types": "components",
+    "web-shared-contexts": "components",
+    "web-shared-assets": "components",
+    "web-user-list-data-access": "web",
+    "web-request-list-data-access": "web",
+    "web-session-list-data-access": "web",
+    "web-recommendations-list-data-access": "web",
+    "web-dummy-feature": "components",
+    "legacy-web": "components",
+    "mailer": "web",
+    "mailer-templates": "components",
+    "mailer-mail": "components",
+    "web-e2e": "web",
+    "ui-e2e": "components",
+    "mailer-e2e": null,
+    "api": null,
+    "api-workshop": null,
+    "api-keyword": null,
+    "api-profile": null,
+    "api-common": null,
+    "api-typeorm-migrations": null,
+    "server-config-rabbitmq": null,
+    "server-infra-graph-api": null,
+    "server-config-typeorm": null,
+    "server-config-logger": null,
+    "server-infra-typeorm": null,
+    "server-interceptors": null,
+    "server-repositories": null,
+    "server-infra-logger": null,
+    "server-config-mail": null,
+    "server-decorators": null,
+    "server-entities": null,
+    "server-guards": null,
+    "server-events": null,
+    "cli-keyword": null,
+    "cli-keyword-e2e": null,
+    "svc-degreed": null,
+    "svc-degreed-http": null,
+    "svc-degreed-session": null,
+    "svc-degreed-e2e": null,
+    "shared-constants": null,
+    "shared-domain": null,
+    "shared-dto": null,
+    "shared-types": null,
+    "shared-fixtures": null,
+    "shared-utils-recurrence-mapper": null,
+    "shared-utils-markdown": null,
+    "storybook-host": "components",
+    "web-shared-data-access-common": "web",
+    "web-shared-utils-merge-refs": "components",
+    "web-shared-utils-constants": "components",
+    "web-shared-utils-axios": "web",
+    "web-shared-utils-i18n": "components",
+    "web-shared-utils-url": "web",
+    "web-workshop-ui-form": "components",
+    "web-workshop-utils-context-actions": "components",
+    "web-request-list-feature": "web",
+    "web-session-list-feature": "web",
+    "web-recommendations-list-feature": "web",
+    "web-user-list-feature": "web"
+  },
+  "axeConfig": {
+    "runOnly": {
+      "type": "tag",
+      "values": ["wcag2a", "wcag2aa", "best-practice"]
+    },
+    "resultTypes": ["violations", "incomplete"]
+  },
+  "reportSettings": {
+    "outputDir": "./reports",
+    "saveJson": true,
+    "includeManualTests": true,
+    "scanTimeout": 300000
+  },
+  "teamAssignments": {
+    "color-contrast": "Design team",
+    "image-alt": "Content team",
+    "label": "Frontend team",
+    "heading": "Frontend team",
+    "link-name": "Frontend team"
+  }
+}

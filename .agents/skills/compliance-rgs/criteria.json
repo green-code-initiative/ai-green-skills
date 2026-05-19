@@ -1,0 +1,57 @@
+{
+  "version": "2.0",
+  "released": "2014-06",
+  "official_url": "https://www.ssi.gouv.fr/uploads/2014/11/RGS_v2_0.pdf",
+  "description": "Référentiel Général de Sécurité - French Security Standards",
+  "total_criteria": 12,
+  "themes": [
+    {
+      "id": "1",
+      "name": "Authentication & Authorization",
+      "criteria": [
+        {
+          "id": "1.1",
+          "question": "Strong authentication is implemented?",
+          "tests": ["1.1.1", "1.1.2"],
+          "references": ["RGS 4.3"]
+        },
+        {
+          "id": "1.2",
+          "question": "HTTPS/TLS for all connections?",
+          "tests": ["1.2.1"],
+          "references": ["RGS 4.1.1"]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Data Protection",
+      "criteria": [
+        {
+          "id": "2.1",
+          "question": "Encryption at rest implemented?",
+          "tests": ["2.1.1"],
+          "references": ["RGS 4.11"]
+        },
+        {
+          "id": "2.2",
+          "question": "CSRF tokens on forms?",
+          "tests": ["2.2.1"],
+          "references": ["RGS 4.6.1"]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Audit & Logging",
+      "criteria": [
+        {
+          "id": "3.1",
+          "question": "Security events logged?",
+          "tests": ["3.1.1"],
+          "references": ["RGS 5.2.1"]
+        }
+      ]
+    }
+  ]
+}

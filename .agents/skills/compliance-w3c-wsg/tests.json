@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "total_tests": 5,
+  "tests": [
+    {
+      "id": "1.1.1",
+      "criterion_id": "1.1",
+      "description": "prefers-color-scheme media query",
+      "automation_level": "automated",
+      "support_tools": ["css-analyzer"]
+    },
+    {
+      "id": "1.2.1",
+      "criterion_id": "1.2",
+      "description": "Minimal animation duration",
+      "automation_level": "automated",
+      "support_tools": ["css-analyzer"]
+    },
+    {
+      "id": "2.1.1",
+      "criterion_id": "2.1",
+      "description": "Gzip/Brotli compression",
+      "automation_level": "automated",
+      "support_tools": ["header-analyzer"]
+    },
+    {
+      "id": "2.2.1",
+      "criterion_id": "2.2",
+      "description": "loading='lazy' on images",
+      "automation_level": "automated",
+      "support_tools": ["dom-analyzer"]
+    },
+    {
+      "id": "3.1.1",
+      "criterion_id": "3.1",
+      "description": "Service Worker with cache",
+      "automation_level": "automated",
+      "support_tools": ["js-analyzer"]
+    }
+  ]
+}

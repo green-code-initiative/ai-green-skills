@@ -1,0 +1,23 @@
+{
+  "targets": [
+    {
+      "name": "web",
+      "path": "apps/web",
+      "description": "React SPA - compliance scan runs against component library + e2e tests"
+    },
+    {
+      "name": "components",
+      "path": "libs/ui",
+      "description": "Atomic design components library"
+    }
+  ],
+  "projectMapping": {
+    "web": "web",
+    "legacy-web": "web",
+    "ui": "components",
+    "api": null,
+    "mailer": null,
+    "cli-keyword": null,
+    "svc-degreed": null
+  }
+}

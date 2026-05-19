@@ -1,0 +1,153 @@
+{
+  "version": "2018-04-27",
+  "released": "2018-04-27",
+  "total_tests": 18,
+  "description": "GDPR/RGPD - Test methodologies for data protection compliance",
+  "tests": [
+    {
+      "id": "1.1.1",
+      "criterion_id": "1.1",
+      "criterion_title": "Une politique de confidentialité est-elle accessible ?",
+      "description": "Verify privacy policy is accessible and contains required information",
+      "methodology": "Find link to /privacy, /privacy-policy, or /mentions-legales. Verify page loads and contains GDPR-required sections",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator", "manual-review"],
+      "references": ["RGPD Art. 13, 14"]
+    },
+    {
+      "id": "1.1.2",
+      "criterion_id": "1.1",
+      "criterion_title": "Une politique de confidentialité est-elle accessible ?",
+      "description": "Verify privacy policy is easily findable from homepage",
+      "methodology": "From homepage, check for visible link/footer link to privacy policy. Should be within 2 clicks",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "1.1.3",
+      "criterion_id": "1.1",
+      "criterion_title": "Une politique de confidentialité est-elle accessible ?",
+      "description": "Manual review of privacy policy content completeness",
+      "methodology": "Review privacy policy covers: data controller, processing purposes, legal basis, data categories, recipient, retention periods",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "1.2.1",
+      "criterion_id": "1.2",
+      "criterion_title": "Les informations sur le traitement des données sont-elles claires ?",
+      "description": "Verify data processing information is transparent",
+      "methodology": "Check privacy policy and consent forms mention: purpose, legal basis, retention, recipients",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "1.2.2",
+      "criterion_id": "1.2",
+      "criterion_title": "Les informations sur le traitement des données sont-elles claires ?",
+      "description": "Automated check for common data processing sections",
+      "methodology": "Search for French text mentioning: finalité, fondement, durée, destinataires",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "1.3.1",
+      "criterion_id": "1.3",
+      "criterion_title": "Un responsable de protection des données (DPO) est-il désigné ?",
+      "description": "Verify DPO contact information is provided",
+      "methodology": "Look for DPO contact in privacy policy or footer. Should include email or contact form",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.1.1",
+      "criterion_id": "2.1",
+      "criterion_title": "Le consentement est-il explicite et granulaire ?",
+      "description": "Verify cookie/consent banner is present and clear",
+      "methodology": "Page load should show consent banner. Check for granular options (analytics, marketing, etc.)",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.1.2",
+      "criterion_id": "2.1",
+      "criterion_title": "Le consentement est-il explicite et granulaire ?",
+      "description": "Verify opt-in (not opt-out) and reject button is prominent",
+      "methodology": "Consent banner should have 'Accept All', 'Reject All', and 'Customize' buttons. Reject should be as easy as Accept",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.2.1",
+      "criterion_id": "2.2",
+      "criterion_title": "L'utilisateur peut-il accéder à ses données ?",
+      "description": "Verify user data export functionality exists",
+      "methodology": "User profile/settings should have 'Download my data' or 'Export data' button. Formats: JSON, CSV, etc.",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.3.1",
+      "criterion_id": "2.3",
+      "criterion_title": "L'utilisateur peut-il supprimer ses données ?",
+      "description": "Verify account deletion feature exists",
+      "methodology": "User profile/settings should have 'Delete account' button or similar. Should trigger deletion workflow",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.4.1",
+      "criterion_id": "2.4",
+      "criterion_title": "L'utilisateur peut-il rectifier ses données ?",
+      "description": "Verify user can edit their profile information",
+      "methodology": "User profile page should allow editing: name, email, preferences. Save button functional",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "2.5.1",
+      "criterion_id": "2.5",
+      "criterion_title": "L'utilisateur peut-il s'opposer au traitement ?",
+      "description": "Verify opt-out mechanisms for non-essential processing",
+      "methodology": "Settings should allow disabling: email notifications, marketing, analytics tracking",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "3.1.1",
+      "criterion_id": "3.1",
+      "criterion_title": "Les données sont-elles chiffrées en transit et au repos ?",
+      "description": "Verify HTTPS/TLS is enforced",
+      "methodology": "All pages should be served over HTTPS. No plaintext HTTP connections",
+      "automation_level": "automated",
+      "support_tools": ["custom-validator"]
+    },
+    {
+      "id": "3.1.2",
+      "criterion_id": "3.1",
+      "criterion_title": "Les données sont-elles chiffrées en transit et au repos ?",
+      "description": "Manual review of encryption at rest practices",
+      "methodology": "Review architecture documentation for database encryption, key management",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "3.2.1",
+      "criterion_id": "3.2",
+      "criterion_title": "Y a-t-il un processus de notification des fuites de données ?",
+      "description": "Verify breach notification policy is documented",
+      "methodology": "Privacy policy should mention data breach procedures, CNIL notification, user notification",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    },
+    {
+      "id": "4.1.1",
+      "criterion_id": "4.1",
+      "criterion_title": "Les transferts vers pays tiers sont-ils encadrés ?",
+      "description": "Verify international data transfers are authorized",
+      "methodology": "Review privacy policy for transfers (US, Asia). Check for adequacy decisions or standard clauses",
+      "automation_level": "manual",
+      "support_tools": ["manual-review"]
+    }
+  ]
+}

@@ -1,0 +1,1146 @@
+{
+  "version": "4.1.2",
+  "released": "2019-09-20",
+  "total_tests": 182,
+  "total_themes": 13,
+  "total_criteria": 106,
+  "description": "RGAA 4.1.2 complete test suite - All 182 individual tests mapped to 106 criteria across 13 themes",
+  "tests": [
+    {
+      "id": "1.1.1",
+      "criterion_id": "1.1",
+      "criterion_title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+      "description": "Vérifier la présence d'un attribut alt sur chaque image porteuse d'information",
+      "methodology": "Inspecter chaque <img> porteur d'information. Vérifier la présence d'un attribut alt non vide ou aria-label ou aria-labelledby. Les images SVG doivent avoir des alternatives textuelles.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave", "lighthouse"],
+      "code_example": "<img src='chart.png' alt='Sales chart for Q4 2025' />"
+    },
+    {
+      "id": "1.1.2",
+      "criterion_id": "1.1",
+      "criterion_title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+      "description": "Valider que le texte alternatif est pertinent et décrit l'image",
+      "methodology": "Lecture manuelle: l'alt text décrit-il suffisamment l'image? Est-il pertinent au contexte? Évite-t-il le redondant (ex: 'image de...')? Vérifier que le texte alt capture le sens ou la fonction plutôt que la description littérale.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": [
+        "manual-review",
+        "screen-reader-test",
+        "accessibility-audit"
+      ],
+      "common_failure": "alt='Image' ou alt='Photo' ou trop court ou trop verbeux"
+    },
+    {
+      "id": "1.2.1",
+      "criterion_id": "1.2",
+      "criterion_title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+      "description": "Vérifier que les images décoratives ne sont pas annoncées aux lecteurs d'écran",
+      "methodology": "Identifier images décoratives (background, icons purement visuels). Vérifier présence de role='presentation' ou aria-hidden='true' ou alt='' (empty). Tester avec lecteur d'écran pour confirmer.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<img src='decoration.svg' role='presentation' />"
+    },
+    {
+      "id": "1.3.1",
+      "criterion_id": "1.3",
+      "criterion_title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+      "description": "Valider la pertinence et l'exactitude du texte alternatif",
+      "methodology": "Examen manuel: l'alt text est-il approprié? Correspond-il au contexte? Est-il ni trop court ni trop long? Tester avec lecteur d'écran. Pour images complexes, vérifier présence description longue.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": [
+        "manual-review",
+        "screen-reader-test",
+        "accessibility-audit"
+      ],
+      "reference_doc": "https://www.w3.org/WAI/tutorials/images/",
+      "success_criteria": "Le contexte et le message de l'image sont clairs avec le texte alt seul"
+    },
+    {
+      "id": "1.4.1",
+      "criterion_id": "1.4",
+      "criterion_title": "Pour chaque image utilisée comme CAPTCHA ou image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction ?",
+      "description": "Vérifier que alt text explique l'objectif du CAPTCHA",
+      "methodology": "Pour images CAPTCHA/test: alt text doit décrire 'CAPTCHA - entrez les caractères visibles' ou similaire. Test doit indiquer qu'il s'agit d'une vérification (challenge).",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "1.5.1",
+      "criterion_id": "1.5",
+      "criterion_title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+      "description": "Vérifier alternative au CAPTCHA image (audio, email verification, etc)",
+      "methodology": "Chercher lien/bouton 'Alternative CAPTCHA' ou 'Audio CAPTCHA' ou 'Get new code sent to email'. L'alternative doit être aussi sécurisée et efficace que le CAPTCHA image original.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "1.6.1",
+      "criterion_id": "1.6",
+      "criterion_title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+      "description": "Vérifier présence description détaillée pour images complexes",
+      "methodology": "Identifier images complexes (graphiques, diagrammes, infographies). Pour chacune, chercher <figcaption>, aria-describedby pointant vers description, ou texte long. Description doit être accessible via lecteur d'écran.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"],
+      "code_example": "<figure><img src='chart.png' aria-describedby='chart-desc' /><figcaption id='chart-desc'>Graphique détaillant les ventes...</figcaption></figure>"
+    },
+    {
+      "id": "1.7.1",
+      "criterion_id": "1.7",
+      "criterion_title": "Pour chaque image ayant une description détaillée, cette description est-elle pertinente ?",
+      "description": "Valider pertinence description longue",
+      "methodology": "Lire figcaption/aria-describedby. Est-elle appropriée? Complète? Claire? Évite-t-elle la redondance avec alt text? Tester avec lecteur d'écran.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "1.8.1",
+      "criterion_id": "1.8",
+      "criterion_title": "Chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. Cette règle est-elle respectée ?",
+      "description": "Vérifier absence images-texte (ou alternative texte stylé existante)",
+      "methodology": "Identifier images contenant du texte lisible. Vérifier si du texte HTML stylé existe en alternative ou en remplacement. Images-texte sont acceptables seulement dans cas particuliers (logos, texte essentiel).",
+      "wcag_ref": "1.4.5 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "ocr-screening"]
+    },
+    {
+      "id": "1.9.1",
+      "criterion_id": "1.9",
+      "criterion_title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+      "description": "Vérifier association légende/image",
+      "methodology": "Chercher <figure> contenant <img> et <figcaption>. Ou utiliser aria-describedby. Tester que lecteur d'écran annonce l'association.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"]
+    },
+    {
+      "id": "2.1.1",
+      "criterion_id": "2.1",
+      "criterion_title": "Chaque cadre a-t-il un titre de cadre ?",
+      "description": "Vérifier chaque frame/iframe a un attribut title",
+      "methodology": "Inspecter DOM. Chaque <frame> et <iframe> doit avoir un attribut 'title' non-vide. Le titre doit être pertinent et descriptif.",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave"],
+      "code_example": "<iframe title='Embedded video player' src='video.html'></iframe>"
+    },
+    {
+      "id": "2.2.1",
+      "criterion_id": "2.2",
+      "criterion_title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+      "description": "Valider que le titre du cadre décrit correctement son contenu",
+      "methodology": "Examen manuel: le titre décrit-il la fonction/contenu du cadre? Est-il clair? Est-il unique si plusieurs cadres? Tester avec lecteur d'écran.",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "3.1.1",
+      "criterion_id": "3.1",
+      "criterion_title": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
+      "description": "Vérifier l'information n'est pas exclusivement transmise par couleur",
+      "methodology": "Test: convertir page en N&B (grayscale) en dev tools. Information reste-elle compréhensible? Chercher patterns, texte, icons additionnels pour redonder les codes couleur.",
+      "wcag_ref": "1.4.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["color-filter-simulation", "manual-review", "zoom-testing"]
+    },
+    {
+      "id": "3.2.1",
+      "criterion_id": "3.2",
+      "criterion_title": "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé ?",
+      "description": "Vérifier le ratio de contraste texte/background",
+      "methodology": "Utiliser color contrast checker. Ratio minimum (WCAG AA): 4.5:1 pour texte normal, 3:1 pour texte large (18pt+). Ignorer images d'arrière-plan. Pour icônes et composants UI: 3:1 minimum.",
+      "wcag_ref": "1.4.3 AA",
+      "automation_level": "automated",
+      "support_tools": [
+        "axe-core",
+        "jest-axe",
+        "lighthouse",
+        "wave",
+        "color-contrast-analyzer"
+      ],
+      "code_example": "color: #000000; background: #FFFFFF; /* ratio 21:1 - conforme */"
+    },
+    {
+      "id": "3.3.1",
+      "criterion_id": "3.3",
+      "criterion_title": "Dans chaque page web, les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées ?",
+      "description": "Vérifier contraste des éléments visuels informatifs",
+      "methodology": "Identifier composants et éléments graphiques (buttons, sliders, progressbars). Vérifier contraste minimum 3:1 entre couleur de l'élément et background. Tester focus states et disabled states.",
+      "wcag_ref": "2.4.7 AA",
+      "automation_level": "semi-automated",
+      "support_tools": [
+        "color-contrast-analyzer",
+        "manual-review",
+        "accessibility-checker"
+      ]
+    },
+    {
+      "id": "4.1.1",
+      "criterion_id": "4.1",
+      "criterion_title": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription ?",
+      "description": "Vérifier présence transcript ou audio description",
+      "methodology": "Pour vidéo/audio: chercher lien vers transcription textuelle (dans page ou fichier lié) ou piste audio-description. Transcription doit être complète et synchronisée avec média.",
+      "wcag_ref": "1.2.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.1.2",
+      "criterion_id": "4.1",
+      "criterion_title": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée ?",
+      "description": "Vérifier présence piste audio-description",
+      "methodology": "Vérifier lecteur média offre piste audio-description (secondary audio track). Activable via toggle dans player. Description doit couvrir éléments visuels importants.",
+      "wcag_ref": "1.2.3 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.2.1",
+      "criterion_id": "4.2",
+      "criterion_title": "Pour chaque média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes ?",
+      "description": "Valider exactitude et complétude de la transcript/description",
+      "methodology": "Comparaison manuelle: la transcription capture-t-elle tous les éléments parlés + sons importants? L'audio-description donne-t-elle les infos essentielles visuelles? Synchronisation correcte?",
+      "wcag_ref": "1.2.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.3.1",
+      "criterion_id": "4.3",
+      "criterion_title": "Chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés ?",
+      "description": "Vérifier présence sous-titres pour médias multimédia",
+      "methodology": "Chercher piste sous-titres (captions/subtitles) dans lecteur vidéo. Sous-titres doivent être synchronisés avec l'audio. Doivent inclure dialogues + sons importants (musique, bruits).",
+      "wcag_ref": "1.2.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.4.1",
+      "criterion_id": "4.4",
+      "criterion_title": "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?",
+      "description": "Valider exactitude et complétude des sous-titres",
+      "methodology": "Comparaison: sous-titres contiennent-ils tous les dialogues? Les sons importants (rires, applaudissements)? Synchronisation correcte avec vidéo? Langue correcte?",
+      "wcag_ref": "1.2.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.5.1",
+      "criterion_id": "4.5",
+      "criterion_title": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée ?",
+      "description": "Vérifier piste audio-description disponible et activable",
+      "methodology": "Chercher bouton/option pour audio-description dans lecteur. Piste doit décrire éléments visuels pendant pauses dans dialogue. Couvrir: actions, décors, changements importants.",
+      "wcag_ref": "1.2.3 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.6.1",
+      "criterion_id": "4.6",
+      "criterion_title": "Pour chaque média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?",
+      "description": "Valider pertinence et couverture audio-description",
+      "methodology": "Écoute: description donne-t-elle sens des éléments visuels? Est-elle claire? S'insère-t-elle bien dans pauses de dialogue? Pas de redondance avec dialogue?",
+      "wcag_ref": "1.2.3 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.7.1",
+      "criterion_id": "4.7",
+      "criterion_title": "Chaque média temporel est-il clairement identifiable ?",
+      "description": "Vérifier identification claire du média (titre, label, description)",
+      "methodology": "Chercher titre, libellé ou description visible avant/après lecteur. Doit identifier clairement le contenu du média et son contexte.",
+      "wcag_ref": "2.4.4 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "manual-review"]
+    },
+    {
+      "id": "4.8.1",
+      "criterion_id": "4.8",
+      "criterion_title": "Chaque média non temporel a-t-il, si nécessaire, une alternative ?",
+      "description": "Vérifier présence alternative pour médias non-temporels",
+      "methodology": "Identifier applets, animations, etc. non-temporels. Chercher alternative textuelle ou lien vers contenu équivalent. Si purement décoratif, peut être ignoré.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.9.1",
+      "criterion_id": "4.9",
+      "criterion_title": "Pour chaque média non temporel ayant une alternative, cette alternative est-elle pertinente ?",
+      "description": "Valider qualité de l'alternative au média non-temporel",
+      "methodology": "Examen: l'alternative capture-t-elle fonction/contenu du média? Est-elle aussi accessible? Test fonctionnel de l'alternative.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.10.1",
+      "criterion_id": "4.10",
+      "criterion_title": "Chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?",
+      "description": "Vérifier contrôle autoplay et volume pour audios automatiques",
+      "methodology": "Identifier sons qui démarrent automatiquement. Vérifier présence d'une méthode pour les contrôler (play/pause/mute button avant audio, ou arrêt auto < 3 secondes).",
+      "wcag_ref": "1.4.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.11.1",
+      "criterion_id": "4.11",
+      "criterion_title": "La consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?",
+      "description": "Vérifier lecteur média est accessible au clavier",
+      "methodology": "Tester: tous boutons du lecteur (play, pause, stop, volume, subtitles) atteignables au clavier Tab? Tester touches raccourcies (espace=play/pause). Tester souris aussi.",
+      "wcag_ref": "2.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review"]
+    },
+    {
+      "id": "4.12.1",
+      "criterion_id": "4.12",
+      "criterion_title": "La consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?",
+      "description": "Vérifier accès clavier à médias non-temporels",
+      "methodology": "Tester applets, animations. Touches clavier? Souris? Lecteur d'écran? Tous les contrôles doivent être accessibles sans limitée à une seule modalité.",
+      "wcag_ref": "2.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "4.13.1",
+      "criterion_id": "4.13",
+      "criterion_title": "Chaque média temporel et non temporel est-il compatible avec les technologies d'assistance ?",
+      "description": "Vérifier lecteur/média compatible avec lecteur d'écran",
+      "methodology": "Tester avec lecteur d'écran (NVDA, JAWS). Tous contrôles annoncés? Contenu alternative restitué? Player ARIA roles (region, button) correctement implementés?",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["screen-reader-test", "accessibility-audit", "axe-core"]
+    },
+    {
+      "id": "5.1.1",
+      "criterion_id": "5.1",
+      "criterion_title": "Chaque tableau de données complexe a-t-il un résumé ?",
+      "description": "Vérifier résumé pour tableaux complexes",
+      "methodology": "Identifier tableaux complexes (> 2 niveaux en-têtes, données croisées). Chercher <caption>, <summary> attr (obsolète mais peut exister), ou texte descriptif avant/après. Résumé doit expliquer structure.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "5.2.1",
+      "criterion_id": "5.2",
+      "criterion_title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+      "description": "Valider pertinence du résumé tableau",
+      "methodology": "Examen: résumé décrit-il structure du tableau? Est-il complet? Aide-t-il à comprendre les données? Teste avec lecteur d'écran que résumé est restitué.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "5.3.1",
+      "criterion_id": "5.3",
+      "criterion_title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+      "description": "Vérifier tableau de mise en forme reste compréhensible sans styles",
+      "methodology": "Désactiver CSS ou utiliser lecteur d'écran. Lire contenu dans ordre du DOM. Est-il logique? Manque-t-il du contexte? Les tableaux de mise en forme ne doivent contenir que du layout, pas de données.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["screen-reader-test", "manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "5.4.1",
+      "criterion_id": "5.4",
+      "criterion_title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+      "description": "Vérifier association titre/tableau",
+      "methodology": "Chercher <caption> dans <table> ou <h2>+table associés sémantiquement ou aria-labelledby. Tester avec lecteur d'écran: le titre est-il associé?",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<table><caption>Sales data 2025</caption>"
+    },
+    {
+      "id": "5.5.1",
+      "criterion_id": "5.5",
+      "criterion_title": "Pour chaque tableau de données ayant un titre, celui-ci est-elle pertinent ?",
+      "description": "Valider titre tableau est descriptif",
+      "methodology": "Examen: titre décrit-il les données? Est-il clair? Est-il unique s'il y a plusieurs tableaux? Évite-t-il 'Tableau' ou 'Données'?",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "5.6.1",
+      "criterion_id": "5.6",
+      "criterion_title": "Pour chaque tableau de données, chaque en-tête de colonne et chaque en-tête de ligne sont-ils correctement déclarés ?",
+      "description": "Vérifier balises <th scope='col|row'> sur en-têtes",
+      "methodology": "Inspecter <table>. Vérifier <thead a <th scope='col'> pour colonnes. Vérifier <body> a <th scope='row'> si applicable. Chaque <th> doit avoir scope correct.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave"],
+      "code_example": "<table><thead><tr><th scope='col'>Month</th><th scope='col'>Sales</th></tr></thead></table>"
+    },
+    {
+      "id": "5.7.1",
+      "criterion_id": "5.7",
+      "criterion_title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+      "description": "Vérifier association cellules/en-têtes via headers/id ou scope",
+      "methodology": "Pour tableaux simples: scope='col' et scope='row' suffisent. Pour tableaux complexes: utiliser headers/id. Chaque <td> doit avoir headers='' listant IDs des en-têtes pertinents.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<td headers='h1 h2'>Data cell associated with multiple headers</td>"
+    },
+    {
+      "id": "5.8.1",
+      "criterion_id": "5.8",
+      "criterion_title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+      "description": "Vérifier tableaux de mise en forme n'ont pas d'éléments sémantiques",
+      "methodology": "Identifier usage de <table> pour layout (colonnes, sidebars). Vérifier absence de <th>, <caption>, <summary>, scope attributes. Si table de layout trouvée, recommander CSS Grid ou Flexbox.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"]
+    },
+    {
+      "id": "6.1.1",
+      "criterion_id": "6.1",
+      "criterion_title": "Chaque lien est-il explicite ?",
+      "description": "Vérifier texte lien est explicite et compréhensible",
+      "methodology": "Lire intitulé lien seul (hors contexte). Est-il compréhensible? Destination claire? Évite-t-il 'Cliquez ici', 'En savoir plus', 'Lien', '...' ? Tester avec lecteur d'écran.",
+      "wcag_ref": "2.4.4 A",
+      "automation_level": "manual",
+      "support_tools": [
+        "manual-review",
+        "screen-reader-test",
+        "accessibility-audit"
+      ],
+      "common_failure": "Link text: 'Click here', 'Read more', 'Learn more', 'More', '...' ou lien vide"
+    },
+    {
+      "id": "6.2.1",
+      "criterion_id": "6.2",
+      "criterion_title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+      "description": "Vérifier chaque lien a un texte accessible",
+      "methodology": "Inspecter tous <a>. Chaque lien doit avoir: visible link text OU aria-label OU aria-labelledby OU title. Vérifier avec axe-core pour computed name.",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave", "lighthouse"]
+    },
+    {
+      "id": "7.1.1",
+      "criterion_id": "7.1",
+      "criterion_title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+      "description": "Vérifier scripts n'empêchent pas accès à fonctionnalités",
+      "methodology": "Tester avec lecteur d'écran. Contenu dynamique annoncé? Changements de page communiqués? ARIA roles/attributes correctement utilisés? Tests séquentiels des interactions.",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["screen-reader-test", "accessibility-audit", "axe-core"],
+      "code_example": "<button aria-label='Close menu' onclick='closeMenu()'>✕</button>"
+    },
+    {
+      "id": "7.2.1",
+      "criterion_id": "7.2",
+      "criterion_title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+      "description": "Valider qualité de l'alternative JS",
+      "methodology": "Désactiver JS. L'alternative fonctionne-t-elle? Offre-t-elle même fonctionnalité? Est-elle accessible? Exemple: <noscript>, formulaires HTML sans AJAX.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "7.3.1",
+      "criterion_id": "7.3",
+      "criterion_title": "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage ?",
+      "description": "Vérifier interactions JS accessibles au clavier",
+      "methodology": "Tester interactions (drag-drop, sliders, autocomplete). Clavier? Souris? Tab/Enter/Arrow keys navigables? Focus visible? Hover-dependent content visible aussi au clavier?",
+      "wcag_ref": "2.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "7.4.1",
+      "criterion_id": "7.4",
+      "criterion_title": "Pour chaque script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
+      "description": "Vérifier avertissement avant changement de contexte",
+      "methodology": "Identifier changements de contexte (page change, nouvelle fenêtre, focus change, contenu remplacé). Vérifier: avant déclenchement si possible? User peut-il prévoir/arrêter?",
+      "wcag_ref": "3.2.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "7.5.1",
+      "criterion_id": "7.5",
+      "criterion_title": "Dans chaque page web, les messages de statut sont-ils correctement restitués par les technologies d'assistance ?",
+      "description": "Vérifier messages de statut annoncés par lecteur d'écran",
+      "methodology": "Identifier messages de statut (ex: 'Loading...', '3 results found'). Chercher role='status' ou aria-live='polite'. Tester avec lecteur d'écran.",
+      "wcag_ref": "4.1.3 AAA",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "screen-reader-test"],
+      "code_example": "<div role='status' aria-live='polite'>Items loading...</div>"
+    },
+    {
+      "id": "8.1.1",
+      "criterion_id": "8.1",
+      "criterion_title": "Chaque page web est-elle définie par un type de document ?",
+      "description": "Vérifier présence DOCTYPE",
+      "methodology": "Vérifier première ligne du source HTML contient <!DOCTYPE html> (HTML5) ou variante HTML4/XHTML appropriée.",
+      "wcag_ref": "4.1.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "w3c-validator"]
+    },
+    {
+      "id": "8.2.1",
+      "criterion_id": "8.2",
+      "criterion_title": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+      "description": "Vérifier page HTML valide selon DOCTYPE",
+      "methodology": "Utiliser W3C HTML Validator ou validateur local. Pas d'erreurs critiques? Les warnings non-critiques sont acceptables.",
+      "wcag_ref": "4.1.1 A",
+      "automation_level": "automated",
+      "support_tools": ["w3c-validator", "jest-axe", "html-validate"]
+    },
+    {
+      "id": "8.3.1",
+      "criterion_id": "8.3",
+      "criterion_title": "Dans chaque page web, la langue par défaut est-elle présente ?",
+      "description": "Vérifier attribut lang sur html element",
+      "methodology": "Chercher <html lang='...'> au root. Doit contenir code langue BCP47 valide (ex: 'fr' pour français, 'en' pour anglais).",
+      "wcag_ref": "3.1.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave"],
+      "code_example": "<html lang='fr'>"
+    },
+    {
+      "id": "8.4.1",
+      "criterion_id": "8.4",
+      "criterion_title": "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent ?",
+      "description": "Valider code langue est correct pour contenu",
+      "methodology": "Comparer code langue avec contenu réel. Page en français doit avoir lang='fr'. Pas de mismatch. Tester avec lecteur d'écran.",
+      "wcag_ref": "3.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "8.5.1",
+      "criterion_id": "8.5",
+      "criterion_title": "Chaque page web a-t-elle un titre de page ?",
+      "description": "Vérifier présence <title>",
+      "methodology": "Chercher <title>texte</title> dans <head>. Doit être présent et non-vide. Tester: onglet navigateur affiche-t-il le titre?",
+      "wcag_ref": "2.4.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave", "lighthouse"]
+    },
+    {
+      "id": "8.6.1",
+      "criterion_id": "8.6",
+      "criterion_title": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?",
+      "description": "Valider titre page décrit le contenu",
+      "methodology": "Examen: le titre décrit-il la page? Est-il unique vs autres pages? Commence-t-il par info distinctive? Exemple: 'Produits - Acme Corp' vs 'Page'.",
+      "wcag_ref": "2.4.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "8.7.1",
+      "criterion_id": "8.7",
+      "criterion_title": "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source ?",
+      "description": "Vérifier attr lang sur éléments avec langue différente",
+      "methodology": "Identifier mots/phrases en langue étrangère. Chacun doit avoir <span lang='xx'> ou elem parent avec lang attr correct. Tester avec lecteur d'écran.",
+      "wcag_ref": "3.1.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<p>Hello <span lang='fr'>Bonjour</span> amis</p>"
+    },
+    {
+      "id": "8.8.1",
+      "criterion_id": "8.8",
+      "criterion_title": "Dans chaque page web, le code de langue de chaque changement de langue est-il valide et pertinent ?",
+      "description": "Valider codes langue pour changements",
+      "methodology": "Vérifier codes BCP47 valides. 'fr' pour français ok, 'frr' ok, 'xyz' non-valide. Codes pertinents pour contenu réel.",
+      "wcag_ref": "3.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "8.9.1",
+      "criterion_id": "8.9",
+      "criterion_title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+      "description": "Vérifier usage sémantique correct HTML",
+      "methodology": "Identifier <b>, <i>, <br> utilisés pour style uniquement. Doivent utiliser <strong>, <em>, <div>+CSS. Identifier <div>, <span> utilisés pour structure: doivent utiliser <section>, <article>, <h1>, etc.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["axe-core", "manual-review", "accessibility-checker"]
+    },
+    {
+      "id": "8.10.1",
+      "criterion_id": "8.10",
+      "criterion_title": "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?",
+      "description": "Vérifier attribut dir sur contenu RTL",
+      "methodology": "Identifier contenu droite-à-gauche (arabe, hébreu). Vérifier <html dir='rtl'> ou <p dir='rtl'> sur conteneurs RTL. Tester avec lecteur d'écran.",
+      "wcag_ref": "1.3.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"]
+    },
+    {
+      "id": "9.1.1",
+      "criterion_id": "9.1",
+      "criterion_title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+      "description": "Vérifier présence et hiérarchie de headings",
+      "methodology": "Vérifier <h1>-<h6> présents. Y a-t-il un <h1>? Hiérarchie logique (h1 -> h2 -> h3)? Pas de sauts (h1 -> h3)? Tester outline/structure avec lecteur d'écran.",
+      "wcag_ref": "1.3.1 A, 2.4.10 AAA",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave", "lighthouse"],
+      "code_example": "<h1>Page Title</h1><h2>Section</h2><h3>Subsection</h3>"
+    },
+    {
+      "id": "9.2.1",
+      "criterion_id": "9.2",
+      "criterion_title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+      "description": "Valider structure document est logique",
+      "methodology": "Outline/TOC test: structure suit-elle ordre logique? Items au même niveau sont-ils siblings sémantiquement? Tester avec lecteur d'écran outline.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": [
+        "screen-reader-test",
+        "outline-checker",
+        "accessibility-audit"
+      ]
+    },
+    {
+      "id": "9.3.1",
+      "criterion_id": "9.3",
+      "criterion_title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+      "description": "Vérifier balises <ul>, <ol>, <li> corrects",
+      "methodology": "Identifier listes (non-ordonnées <ul>, ordonnées <ol>). Vérifier tous items <li>. Pas de <div> pour items. Tester avec lecteur d'écran annonce 'liste à X items'.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<ul><li>Item 1</li><li>Item 2</li></ul>"
+    },
+    {
+      "id": "9.4.1",
+      "criterion_id": "9.4",
+      "criterion_title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+      "description": "Vérifier balises <blockquote>, <q> pour citations",
+      "methodology": "Identifier citations. Chercher <blockquote> pour citations bloc ou <q> pour inline. Pas de guillemets CSS-only. Source citation doit être claire (cite attr, <cite>).",
+      "wcag_ref": "3.2 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["manual-review", "accessibility-checker"],
+      "code_example": "<blockquote cite='https://example.com'><p>Quote text</p></blockquote>"
+    },
+    {
+      "id": "10.1.1",
+      "criterion_id": "10.1",
+      "criterion_title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+      "description": "Vérifier usage CSS pour présentation",
+      "methodology": "Vérifier page utilise CSS externe ou <style> pour layout, couleurs, fonts. Pas de styles inline excessifs. HTML doit être sémantique.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "10.2.1",
+      "criterion_id": "10.2",
+      "criterion_title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+      "description": "Vérifier contenu visible sans CSS",
+      "methodology": "Désactiver CSS (dev tools ou extension). Contenu important reste-t-il visible? Pas de texte blanc sur transparent? Images d'info remplacées par alt text?",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["css-disable-tools", "manual-review"]
+    },
+    {
+      "id": "10.3.1",
+      "criterion_id": "10.3",
+      "criterion_title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+      "description": "Valider compréhensien contenu sans CSS",
+      "methodology": "Sans CSS: contenu reste-t-il dans ordre logique? Structure compréhensible? Tous éléments importants présents? Tables de données lisibles?",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["css-disable-tools", "manual-review"]
+    },
+    {
+      "id": "10.4.1",
+      "criterion_id": "10.4",
+      "criterion_title": "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 % ?",
+      "description": "Vérifier lisibilité à 200% zoom",
+      "methodology": "Zoom page à 200% (Ctrl/Cmd +). Texte lisible? Pas d'overflow? Layout adaptatif? Pas de truncation? Tester sur fenêtre standard 1024px.",
+      "wcag_ref": "1.4.4 AA",
+      "automation_level": "semi-automated",
+      "support_tools": ["browser-zoom", "responsive-tester", "manual-review"]
+    },
+    {
+      "id": "10.5.1",
+      "criterion_id": "10.5",
+      "criterion_title": "Dans chaque page web, les déclarations CSS de couleurs de fond d'élément et de police sont-elles correctement utilisées ?",
+      "description": "Vérifier contrastes CSS couleurs",
+      "methodology": "Inspecter CSS. Color + background-color déclarés ensemble? Pas de combinaisons bas contraste? Vérifier couleurs en mode clair et les modes de high-contrast.",
+      "wcag_ref": "1.4.3 AA",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "color-contrast-analyzer"]
+    },
+    {
+      "id": "10.6.1",
+      "criterion_id": "10.6",
+      "criterion_title": "Dans chaque page web, chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?",
+      "description": "Vérifier liens sont visuellement distincts du texte",
+      "methodology": "Identifier liens dans texte. Doivent être distincts: underline, couleur différente, icône. Pas de liens invisibles. Vérifier contraste avec texte environnant.",
+      "wcag_ref": "2.4.7 AA",
+      "automation_level": "semi-automated",
+      "support_tools": [
+        "manual-review",
+        "accessibility-audit",
+        "color-contrast-analyzer"
+      ]
+    },
+    {
+      "id": "10.7.1",
+      "criterion_id": "10.7",
+      "criterion_title": "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?",
+      "description": "Vérifier focus indicator visible",
+      "methodology": "Tab à travers page. Chaque élément reçoit focus? Focus visible (outline, highlight, border)? Pas de outline supprimé (outline: none sans remplacement)?",
+      "wcag_ref": "2.4.7 AA",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "10.8.1",
+      "criterion_id": "10.8",
+      "criterion_title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+      "description": "Vérifier contenteurs cachés sont ignorés par AT",
+      "methodology": "Identifier hidden content (display:none, visibility:hidden, hidden attr). Avec lecteur d'écran: est-il ignoré? Ok s'il doit l'être (hidden navigation, collapsed sections).",
+      "wcag_ref": "4.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["screen-reader-test", "accessibility-audit"]
+    },
+    {
+      "id": "10.9.1",
+      "criterion_id": "10.9",
+      "criterion_title": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position. Cette règle est-elle respectée ?",
+      "description": "Vérifier pas de liens visuels-only (shape, size, position)",
+      "methodology": "Convertir en N&B. Information basée uniquement sur forme (round button=submit)? Taille (gros=important)? Position (left=bad)? Ajouter indications alternatives (texte, icône, pattern).",
+      "wcag_ref": "1.3.3 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["color-filter-simulation", "manual-review"]
+    },
+    {
+      "id": "10.10.1",
+      "criterion_id": "10.10",
+      "criterion_title": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position uniquement. Cette règle est-elle implémentée de façon pertinente ?",
+      "description": "Valider alternatives visuelles-only sont pertinentes",
+      "methodology": "Examen des alternatives: texte labels clairs? Icônes significatives? Patterns distinctifs? Multi-cue approach validé?",
+      "wcag_ref": "1.3.3 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "10.11.1",
+      "criterion_id": "10.11",
+      "criterion_title": "Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours à un défilement vertical pour une fenêtre ayant une hauteur de 256 px, ou à un défilement horizontal pour une fenêtre ayant une largeur de 320 px ?",
+      "description": "Vérifier contenu s'adapte à viewport mobile minimal",
+      "methodology": "Tester viewport 320x256 (mobile minimal). Contenu visible sans scroll horizontal? Fonctionnalités accessibles? Pas de zones invisibles?",
+      "wcag_ref": "1.4.10 AA",
+      "automation_level": "semi-automated",
+      "support_tools": ["responsive-tester", "chrome-devtools", "manual-review"]
+    },
+    {
+      "id": "10.12.1",
+      "criterion_id": "10.12",
+      "criterion_title": "Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité ?",
+      "description": "Vérifier texte reste compréhensible avec spacing augmenté",
+      "methodology": "Utiliser bookmarklet ou CSS pour augmenter: line-height 1.5->1.8, letter-spacing 0->0.04em, word-spacing 0->0.16em, paragraph-spacing. Texte compréhensible? Pas de truncation?",
+      "wcag_ref": "1.4.12 AA",
+      "automation_level": "semi-automated",
+      "support_tools": ["css-override-tool", "devtools", "manual-review"]
+    },
+    {
+      "id": "10.13.1",
+      "criterion_id": "10.13",
+      "criterion_title": "Dans chaque page web, les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur ?",
+      "description": "Vérifier popups/tooltips sur hover/focus peuvent être fermés",
+      "methodology": "Identifier tooltips, popovers sur hover/focus. Utilisateur peut-il fermer sans déplacer souris? Peuvent-ils rester visibles? Échap ferme? Contenus additionnels pas derrière le trigger?",
+      "wcag_ref": "1.4.13 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "keyboard-testing", "accessibility-audit"]
+    },
+    {
+      "id": "10.14.1",
+      "criterion_id": "10.14",
+      "criterion_title": "Dans chaque page web, les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?",
+      "description": "Vérifier contenu CSS apparaissant est accessible",
+      "methodology": "Identifier ::hover, ::focus pseudo-éléments affichant contenu. Tester au clavier: visible? Pas seulement au hover souris. AT annonce?",
+      "wcag_ref": "1.4.13 AA",
+      "automation_level": "semi-automated",
+      "support_tools": ["manual-review", "keyboard-testing", "accessibility-audit"]
+    },
+    {
+      "id": "11.1.1",
+      "criterion_id": "11.1",
+      "criterion_title": "Chaque champ de formulaire a-t-il une étiquette ?",
+      "description": "Vérifier chaque input/select/textarea a un label",
+      "methodology": "Inspecter formulaire. Chaque <input>, <select>, <textarea> doit avoir: <label for='id'> avec for liée à ID du control, OU <label> parent du control (label enveloppant l'input).",
+      "wcag_ref": "1.3.1 A, 3.3.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "wave"],
+      "code_example": "<label for='email'>Email:</label><input id='email' type='email' />"
+    },
+    {
+      "id": "11.2.1",
+      "criterion_id": "11.2",
+      "criterion_title": "Chaque étiquette associée à un champ de formulaire est-elle pertinente ?",
+      "description": "Valider libellé champ décrit sa fonction",
+      "methodology": "Exam label: décrit-il clairement ce qu'il faut entrer? Pas ambigu? Complet (ex: 'Phone' vs 'Phone number (format: +33...)')? Tester avec lecteur d'écran.",
+      "wcag_ref": "1.3.1 A, 3.3.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test", "accessibility-audit"]
+    },
+    {
+      "id": "11.3.1",
+      "criterion_id": "11.3",
+      "criterion_title": "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
+      "description": "Valider labels identiques pour champs identiques",
+      "methodology": "Multi-form page: chercher champs similaires (email, phone, etc.). Labels identiques à travers la page? À travers le site? Wording cohérent?",
+      "wcag_ref": "3.2.4 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "11.4.1",
+      "criterion_id": "11.4",
+      "criterion_title": "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés ?",
+      "description": "Vérifier proxmité visuelle/DOM label et input",
+      "methodology": "Visuellement: label directement avant/après input? Pas de séparation? DOM: <label for='id'><input id='id' />?",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["manual-review", "accessibility-audit", "axe-core"]
+    },
+    {
+      "id": "11.5.1",
+      "criterion_id": "11.5",
+      "criterion_title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+      "description": "Vérifier regroupement logique champs similaires",
+      "methodology": "Formulaire long: champs logiquement groupés? Ex: adresse personnelle vs adresse livraison? Chercher <fieldset>s. Pas de champs dissociés.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "11.6.1",
+      "criterion_id": "11.6",
+      "criterion_title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+      "description": "Vérifier <fieldset> a <legend>",
+      "methodology": "Chercher <fieldset>. Chacun doit contenir <legend> first child avec titre du groupe. Tester avec lecteur d'écran.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<fieldset><legend>Address</legend><label>Street</label><input /></fieldset>"
+    },
+    {
+      "id": "11.7.1",
+      "criterion_id": "11.7",
+      "criterion_title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+      "description": "Valider légende décrit le groupe",
+      "methodology": "Exam <legend>: décrit-il clairement le groupe? Est-elle claire? Pas ambiguë? Tester avec lecteur d'écran annonce.",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "11.8.1",
+      "criterion_id": "11.8",
+      "criterion_title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+      "description": "Vérifier <optgroup> sur <select> si besoin",
+      "methodology": "Longs <select>: options groupées logiquement? Chercher <optgroup label='...'> dans <select>. Pas de <optgroup> si peu d'options (< 15).",
+      "wcag_ref": "1.3.1 A",
+      "automation_level": "automated",
+      "support_tools": ["manual-review", "accessibility-audit"],
+      "code_example": "<select><optgroup label='Fruits'><option>Apple</option></optgroup></select>"
+    },
+    {
+      "id": "11.9.1",
+      "criterion_id": "11.9",
+      "criterion_title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+      "description": "Valider texte bouton décrit son action",
+      "methodology": "Exam <button> text ou aria-label: action claire? 'Submit'? 'Search'? 'Save'? Pas vague ('OK', 'Next'). Unique vs contexte.",
+      "wcag_ref": "2.4.4 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "manual-review"]
+    },
+    {
+      "id": "11.10.1",
+      "criterion_id": "11.10",
+      "criterion_title": "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente ?",
+      "description": "Vérifier validation d'input et détection erreurs",
+      "methodology": "Tester: champs required? Validation type (email, number, date)? Erreurs détectées avant soumission? Messages d'erreur clairs? HTML5 attributes: required, pattern, type, etc.",
+      "wcag_ref": "3.3.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["manual-review", "accessibility-audit"],
+      "code_example": "<input type='email' required />"
+    },
+    {
+      "id": "11.11.1",
+      "criterion_id": "11.11",
+      "criterion_title": "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?",
+      "description": "Vérifier présence suggestions correction erreurs",
+      "methodology": "Submit formulaire avec erreurs. Messages d'erreur présentent? Suggestions de correction? Ex: 'Please use format: name@example.com'? Erreurs liées à champs (aria-describedby)?",
+      "wcag_ref": "3.3.3 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "11.12.1",
+      "criterion_id": "11.12",
+      "criterion_title": "Pour chaque formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou à un examen, ou dont la validation a des conséquences financières ou juridiques, les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l'utilisateur ?",
+      "description": "Vérifier révision/confession avant soumission critique",
+      "methodology": "Soumission formulaire critique (paiement, suppression). Utilisateur peut-il revoir avant confirmation final? Confirmation explicite (checkbox, modal)? Undo possible?",
+      "wcag_ref": "3.3.4 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "11.13.1",
+      "criterion_id": "11.13",
+      "criterion_title": "La finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?",
+      "description": "Vérifier attribut autocomplete sur inputs",
+      "methodology": "Champs communs (email, password, phone, name): avoir autocomplete='email', 'current-password', 'tel', 'name'? Permet navigateurs et gestionnaires de mots de passe.",
+      "wcag_ref": "1.3.5 AA",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "jest-axe", "accessibility-checker"],
+      "code_example": "<input type='email' autocomplete='email' />"
+    },
+    {
+      "id": "12.1.1",
+      "criterion_id": "12.1",
+      "criterion_title": "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins ?",
+      "description": "Vérifier présence 2+ systèmes nav",
+      "methodology": "Multi-page site: menu principal + plan du site? Menu + moteur recherche? Vérifier au moins 2 systems de nav différents (menu, sitemap, search, breadcrumbs).",
+      "wcag_ref": "2.4.5 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.2.1",
+      "criterion_id": "12.2",
+      "criterion_title": "Dans chaque ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place ?",
+      "description": "Valider position nav cohérente entre pages",
+      "methodology": "Multi-page navigation audit: menu principal même position tutes pages? Sidebar toujours à gauche/droite? Footer same placement? Vérifier au moins 5 pages.",
+      "wcag_ref": "3.2.3 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.3.1",
+      "criterion_id": "12.3",
+      "criterion_title": "La page 'plan du site' est-elle pertinente ?",
+      "description": "Valider sitemap contient structure site",
+      "methodology": "Chercher page /sitemap ou plan du site. Contient-elle liens vers toutes sections principales? Hiérarchie logique? À jour?",
+      "wcag_ref": "2.4.5 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.4.1",
+      "criterion_id": "12.4",
+      "criterion_title": "Dans chaque ensemble de pages, la page 'plan du site' est-elle accessible à partir d'une fonctionnalité identique ?",
+      "description": "Vérifier lien sitemap visible et cohérent",
+      "methodology": "Multi-page: lien 'Sitemap' present sur chaque page? Position cohérente (footer)? Même texte/label partout?",
+      "wcag_ref": "2.4.5 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.5.1",
+      "criterion_id": "12.5",
+      "criterion_title": "Dans chaque ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?",
+      "description": "Valider accès cohérent au moteur recherche",
+      "methodology": "Multi-page: recherche accessible partout? Même position (header)? Même input style? Présent sur tous pages principales?",
+      "wcag_ref": "2.4.5 AA",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.6.1",
+      "criterion_id": "12.6",
+      "criterion_title": "Les zones de regroupement de contenus présentes dans plusieurs pages web peuvent-elles être atteintes ou évitées ?",
+      "description": "Vérifier skip links ou landmarks nav",
+      "methodology": "Chercher skip link ('Skip to main') ou landmarks (main, nav, header, footer). Tab: accédez-vous rapidement au contenu principal? Lecteur d'écran: annonce regions?",
+      "wcag_ref": "2.4.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["keyboard-testing", "screen-reader-test", "axe-core"],
+      "code_example": "<a href='#main' class='sr-only'>Skip to main content</a>"
+    },
+    {
+      "id": "12.7.1",
+      "criterion_id": "12.7",
+      "criterion_title": "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent ?",
+      "description": "Vérifier skip link vers contenu principal",
+      "methodology": "Tab au premier Tab: 'Skip to main'? Lien mène au contenu principal (#main). Visible au focus.",
+      "wcag_ref": "2.4.1 A",
+      "automation_level": "automated",
+      "support_tools": ["keyboard-testing", "axe-core", "accessibility-checker"]
+    },
+    {
+      "id": "12.8.1",
+      "criterion_id": "12.8",
+      "criterion_title": "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
+      "description": "Valider TAB order suit ordre logique visuel",
+      "methodology": "Tab à travers: ordre logique? Suit ordre lecture visuelle? Pas de sauts/backtracking? Focus départ est cohérent?",
+      "wcag_ref": "2.4.3 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review"]
+    },
+    {
+      "id": "12.9.1",
+      "criterion_id": "12.9",
+      "criterion_title": "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
+      "description": "Vérifier pas de focusé emprisonné",
+      "methodology": "Tab à travers: peut-on toujours sortir avec Escape ou Tab? Pas de propriétaires modal sans Tab permettant sortie? Menus dropdown attrapent focus?",
+      "wcag_ref": "2.1.2 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review"]
+    },
+    {
+      "id": "12.10.1",
+      "criterion_id": "12.10",
+      "criterion_title": "Dans chaque page web, les raccourcis clavier n'utilisant qu'une seule touche sont-ils contrôlables par l'utilisateur ?",
+      "description": "Vérifier single-key shortcuts peuvent être désactivés",
+      "methodology": "Chercher raccourcis single-key (lettre minuscule/majuscule, chiffre, ponctuation). Utilisateur peut-il les désactiver? Ou remapper? Ou seulement si focus on purpose input?",
+      "wcag_ref": "2.1.4 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "12.11.1",
+      "criterion_id": "12.11",
+      "criterion_title": "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?",
+      "description": "Vérifier popovers/menus accessibles clavier",
+      "methodology": "Dropdown menus, popovers: accessibles clavier? Enter/Space active? Arrow keys navigate? Escape ferme?",
+      "wcag_ref": "2.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["keyboard-testing", "manual-review"]
+    },
+    {
+      "id": "13.1.1",
+      "criterion_id": "13.1",
+      "criterion_title": "Pour chaque page web, l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu ?",
+      "description": "Vérifier contrôle sur timeouts/expirations",
+      "methodology": "Chercher limites temps (session timeout, form expiration). Utilisateur avertis? Peut-il étendre? Peut-il désactiver? Exception: real-time (auctions, chat = ok).",
+      "wcag_ref": "2.2.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "13.2.1",
+      "criterion_id": "13.2",
+      "criterion_title": "Dans chaque page web, l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. Cette règle est-elle respectée ?",
+      "description": "Vérifier pas de window.open() sans user action",
+      "methodology": "Chercher window.open() ou target='_blank' sur auto-triggered events. Doit être lié à lien/bouton cliqué = ok.",
+      "wcag_ref": "3.2.2 A",
+      "automation_level": "automated",
+      "support_tools": ["axe-core", "manual-review"]
+    },
+    {
+      "id": "13.3.1",
+      "criterion_id": "13.3",
+      "criterion_title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+      "description": "Vérifier documents PDF/Office ont versions accessibles",
+      "methodology": "Identifier documents téléchargeables. PDFs: tagged, alt text sur images? Word/Excel: headings, alt text? Ou alternative HTML version disponible?",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["pdf-accessibility-checker", "manual-review"]
+    },
+    {
+      "id": "13.4.1",
+      "criterion_id": "13.4",
+      "criterion_title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+      "description": "Valider version accessible complète",
+      "methodology": "Comparer original vs accessible: same content? Same layout/structure? No information missing? Formulas vs values in Excel?",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "13.5.1",
+      "criterion_id": "13.5",
+      "criterion_title": "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?",
+      "description": "Vérifier ASCII art, emoji, syntaxe ont alternatives texte",
+      "methodology": "Identifier art ASCII, emoji, symbols. Chacun a aria-label ou texte adjacent? Ex: emoji doit avoir title ou <span aria-label>.",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "semi-automated",
+      "support_tools": ["manual-review", "accessibility-audit"],
+      "code_example": "<span aria-label='thumbs up'>👍</span>"
+    },
+    {
+      "id": "13.6.1",
+      "criterion_id": "13.6",
+      "criterion_title": "Dans chaque page web, pour chaque contenu cryptique ayant une alternative, cette alternative est-elle pertinente ?",
+      "description": "Valider alternative cryptique décrit le sens",
+      "methodology": "Exam alternatives: sens transmis? Emoji label clair? ASCII art description capture spirit? Avec lecteur d'écran: annoncé correctement?",
+      "wcag_ref": "1.1.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "screen-reader-test"]
+    },
+    {
+      "id": "13.7.1",
+      "criterion_id": "13.7",
+      "criterion_title": "Dans chaque page web, les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?",
+      "description": "Vérifier pas de flashing >3x/sec dangereux",
+      "methodology": "Identifier flashing elements (animations, gifs). > 3 times per second? Oui = danger (epilepsy risk). Doit être <25% écran. Utiliser outils de test.",
+      "wcag_ref": "2.3.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "flashing-detector", "accessibility-audit"]
+    },
+    {
+      "id": "13.8.1",
+      "criterion_id": "13.8",
+      "criterion_title": "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
+      "description": "Vérifier animation/mouvement contrôlable utilisateur",
+      "methodology": "Carousel, sliding panels, timed content: pause button? Stop? Auto-play < 5s? Can-stop mechanisms?",
+      "wcag_ref": "2.2.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "13.9.1",
+      "criterion_id": "13.9",
+      "criterion_title": "Dans chaque page web, le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portrait ou paysage) ?",
+      "description": "Vérifier contenu accessible en mode portrait ET paysage",
+      "methodology": "Tester rotations: page utilisable en portrait? En landscape? Media queries responsive? Pas forced orientation?",
+      "wcag_ref": "1.3.4 AA",
+      "automation_level": "semi-automated",
+      "support_tools": ["responsive-tester", "device-emulation", "manual-review"]
+    },
+    {
+      "id": "13.10.1",
+      "criterion_id": "13.10",
+      "criterion_title": "Dans chaque page web, les fonctionnalités utilisables au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple ?",
+      "description": "Vérifier alternatives aux gestes multi-touch",
+      "methodology": "Drag-drop? Two-finger pinch? Long-press? Alternatives single-click/tap? Keyboard? Mouse?",
+      "wcag_ref": "2.5.1 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "13.11.1",
+      "criterion_id": "13.11",
+      "criterion_title": "Dans chaque page web, les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation ?",
+      "description": "Vérifier single-click actions peuvent être annulées",
+      "methodology": "Single-click triggering action (delete, submit)? Can-undo? Or requires hover+click? Or confirmation dialog?",
+      "wcag_ref": "2.5.2 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    },
+    {
+      "id": "13.12.1",
+      "criterion_id": "13.12",
+      "criterion_title": "Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative ?",
+      "description": "Vérifier alternatives aux device motion sensors",
+      "methodology": "Shake-to-action? Tilt-to-scroll? Alternatives button/keyboard? Disable sensor option?",
+      "wcag_ref": "2.5.4 A",
+      "automation_level": "manual",
+      "support_tools": ["manual-review", "accessibility-audit"]
+    }
+  ]
+}

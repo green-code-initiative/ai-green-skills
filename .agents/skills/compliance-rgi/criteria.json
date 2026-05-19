@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "description": "Référentiel Général d'Interopérabilité - Interoperability Standards",
+  "total_criteria": 4,
+  "themes": [
+    {
+      "id": "1",
+      "name": "API Design",
+      "criteria": [
+        {
+          "id": "1.1",
+          "question": "RESTful API design?",
+          "tests": ["1.1.1"],
+          "references": ["RGI 4.3"]
+        },
+        {
+          "id": "1.2",
+          "question": "OpenAPI documentation?",
+          "tests": ["1.2.1"],
+          "references": ["RGI 4.1"]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Data Exchange",
+      "criteria": [
+        {
+          "id": "2.1",
+          "question": "JSON/XML formats supported?",
+          "tests": ["2.1.1"],
+          "references": ["RGI 4.7"]
+        },
+        {
+          "id": "2.2",
+          "question": "CORS configured?",
+          "tests": ["2.2.1"],
+          "references": ["RGI 4.2"]
+        }
+      ]
+    }
+  ]
+}

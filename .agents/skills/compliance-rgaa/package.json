@@ -1,0 +1,34 @@
+{
+  "name": "compliance-rgaa-scanner",
+  "version": "1.0.0",
+  "description": "Generic RGAA/WCAG 2.1 Compliance Scanner - Configuration-driven framework for any project",
+  "scripts": {
+    "scan": "node ./scripts/scan-compliance.js",
+    "scan:verbose": "node ./scripts/scan-compliance.js --verbose",
+    "scan:json": "node ./scripts/scan-compliance.js --json",
+    "scan:all": "node ./scripts/scan-compliance.js --json --verbose",
+    "validate:criteria": "node ./scripts/validate-criteria.js",
+    "validate:criteria:help": "node ./scripts/validate-criteria.js --help"
+  },
+  "keywords": [
+    "accessibility",
+    "RGAA",
+    "WCAG",
+    "WCAG 2.1",
+    "a11y",
+    "compliance",
+    "scanner",
+    "axe-core",
+    "generic",
+    "configuration-driven"
+  ],
+  "author": "Project Team",
+  "license": "MIT",
+  "repository": "https://github.com/my-org/my-project",
+  "notes": {
+    "framework_type": "GENERIC - applicable to any project",
+    "project_config_location": "docs/compliance/scanner-config.json",
+    "documentation": "See IMPLEMENTATION-PATTERN.md for setup",
+    "example": "See ../../docs/compliance/ROBOT-SCANNER-GUIDE.md"
+  }
+}

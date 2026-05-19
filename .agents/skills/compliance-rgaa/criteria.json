@@ -1,0 +1,1094 @@
+{
+  "version": "4.1.2",
+  "released": "2019-09-20",
+  "official_url": "https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/",
+  "rgaa5_note": "RGAA 5 en cours de rédaction, publication prévue fin 2026",
+  "total_themes": 13,
+  "total_criteria": 106,
+  "themes": [
+    {
+      "id": "1",
+      "name": "Images",
+      "criteria": [
+        {
+          "id": "1.1",
+          "question": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "test_methods": [
+            "Alt text presence",
+            "Verification via inspect element or screen reader"
+          ],
+          "tests": ["1.1.1", "1.1.2"],
+          "test_description": "See tests.json for detailed test methodologies",
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.2",
+          "question": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "test_methods": [
+            "Check aria-hidden or role=presentation",
+            "Screen reader test"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.3",
+          "question": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?",
+          "test_methods": [
+            "Manual review of alt text relevance",
+            "Context evaluation"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": "Cases particuliers (images texte, logos, etc.)"
+        },
+        {
+          "id": "1.4",
+          "question": "Pour chaque image utilisée comme CAPTCHA ou image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "test_methods": ["Manual review", "Screen reader verification"],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.5",
+          "question": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "test_methods": ["Functional testing", "Alternative access verification"],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.6",
+          "question": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "test_methods": ["Check for longdesc or nearby text", "Manual assessment"],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.7",
+          "question": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "test_methods": [
+            "Manual review of description content",
+            "Context evaluation"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "1.8",
+          "question": "Chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. Cette règle est-elle respectée (hors cas particuliers) ?",
+          "test_methods": [
+            "Inspect for text alternatives",
+            "CSS styling verification"
+          ],
+          "references": ["WCAG 1.4.5 AA"],
+          "exceptions": "Cas particuliers (logos, essential imagery)"
+        },
+        {
+          "id": "1.9",
+          "question": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "test_methods": ["Check figure/figcaption association", "Manual review"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Cadres",
+      "criteria": [
+        {
+          "id": "2.1",
+          "question": "Chaque cadre a-t-il un titre de cadre ?",
+          "test_methods": [
+            "Check iframe title attribute",
+            "Name computation verification"
+          ],
+          "references": ["WCAG 2.4.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "2.2",
+          "question": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "test_methods": ["Manual review of title relevance", "Screen reader test"],
+          "references": ["WCAG 2.4.1 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Couleurs",
+      "criteria": [
+        {
+          "id": "3.1",
+          "question": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
+          "test_methods": [
+            "Visual inspection",
+            "Grayscale rendering test",
+            "Text/icon decoration verification"
+          ],
+          "references": ["WCAG 1.4.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "3.2",
+          "question": "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers) ?",
+          "test_methods": [
+            "Contrast ratio calculation (WCAG AA: 4.5:1 normal text, 3:1 large text)",
+            "Tool: axe, WAVE, Lighthouse"
+          ],
+          "references": ["WCAG 1.4.3 AA"],
+          "exceptions": "Large text (18pt+), decorative elements, logos, disabled components"
+        },
+        {
+          "id": "3.3",
+          "question": "Dans chaque page web, les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées (hors cas particuliers) ?",
+          "test_methods": [
+            "Contrast ratio verification",
+            "Component focus state testing"
+          ],
+          "references": ["WCAG 2.4.7 AA"],
+          "exceptions": "Inactive/disabled states, large UI components"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Multimédia",
+      "criteria": [
+        {
+          "id": "4.1",
+          "question": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription (hors cas particuliers) ?",
+          "test_methods": [
+            "Check for transcript or audio description",
+            "Video/audio player inspection"
+          ],
+          "references": ["WCAG 1.2.1 A"],
+          "exceptions": "Media alternatives, captions for audio-only content"
+        },
+        {
+          "id": "4.2",
+          "question": "Pour chaque média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes (hors cas particuliers) ?",
+          "test_methods": [
+            "Manual review of transcript/description accuracy",
+            "Sync verification"
+          ],
+          "references": ["WCAG 1.2.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.3",
+          "question": "Chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés (hors cas particuliers) ?",
+          "test_methods": [
+            "Check video for captions",
+            "Subtitle synchronization test"
+          ],
+          "references": ["WCAG 1.2.2 A"],
+          "exceptions": "Audio-only content alternative provided"
+        },
+        {
+          "id": "4.4",
+          "question": "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?",
+          "test_methods": [
+            "Manual review of caption accuracy and completeness",
+            "Timing verification"
+          ],
+          "references": ["WCAG 1.2.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.5",
+          "question": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée (hors cas particuliers) ?",
+          "test_methods": ["Check for audio description track", "Player inspection"],
+          "references": ["WCAG 1.2.3 A"],
+          "exceptions": "Full captions provided for video content"
+        },
+        {
+          "id": "4.6",
+          "question": "Pour chaque média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?",
+          "test_methods": [
+            "Manual review of description accuracy",
+            "Sync verification"
+          ],
+          "references": ["WCAG 1.2.3 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.7",
+          "question": "Chaque média temporel est-il clairement identifiable (hors cas particuliers) ?",
+          "test_methods": [
+            "Visual/text identification near player",
+            "Label inspection"
+          ],
+          "references": ["WCAG 2.4.4 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.8",
+          "question": "Chaque média non temporel a-t-il, si nécessaire, une alternative (hors cas particuliers) ?",
+          "test_methods": ["Check for alternative text/link", "Functional test"],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": "Decorative content"
+        },
+        {
+          "id": "4.9",
+          "question": "Pour chaque média non temporel ayant une alternative, cette alternative est-elle pertinente ?",
+          "test_methods": [
+            "Manual review of alternative content",
+            "Functionality verification"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.10",
+          "question": "Chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?",
+          "test_methods": [
+            "Audio autoplay detection",
+            "Control mechanism verification"
+          ],
+          "references": ["WCAG 1.4.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.11",
+          "question": "La consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?",
+          "test_methods": [
+            "Keyboard navigation of player",
+            "Screen reader control test"
+          ],
+          "references": ["WCAG 2.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.12",
+          "question": "La consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?",
+          "test_methods": ["Keyboard accessibility test", "Pointer device test"],
+          "references": ["WCAG 2.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "4.13",
+          "question": "Chaque média temporel et non temporel est-il compatible avec les technologies d'assistance (hors cas particuliers) ?",
+          "test_methods": [
+            "Screen reader compatibility test",
+            "Keyboard + AT verification"
+          ],
+          "references": ["WCAG 4.1.2 A"],
+          "exceptions": "Third-party content plugins"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Tableaux",
+      "criteria": [
+        {
+          "id": "5.1",
+          "question": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "test_methods": [
+            "Check for summary attribute or nearby text",
+            "Table structure inspection"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.2",
+          "question": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "test_methods": [
+            "Manual review of summary accuracy",
+            "Completeness check"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.3",
+          "question": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "test_methods": [
+            "Remove CSS, test readability",
+            "Screen reader linearization test"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.4",
+          "question": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "test_methods": [
+            "Check caption/title association",
+            "Name computation verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.5",
+          "question": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "test_methods": ["Manual review of title relevance", "Context assessment"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.6",
+          "question": "Pour chaque tableau de données, chaque en-tête de colonne et chaque en-tête de ligne sont-ils correctement déclarés ?",
+          "test_methods": ["Check th elements, scope attributes", "DOM inspection"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "5.7",
+          "question": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée (hors cas particuliers) ?",
+          "test_methods": [
+            "Check headers/id association",
+            "Complex table navigation test"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": "Simple tables, assistive technology fallback"
+        },
+        {
+          "id": "5.8",
+          "question": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "test_methods": [
+            "Inspect th, caption, summary, scope attributes",
+            "Structure verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Liens",
+      "criteria": [
+        {
+          "id": "6.1",
+          "question": "Chaque lien est-il explicite (hors cas particuliers) ?",
+          "test_methods": [
+            "Check link text/aria-label clarity",
+            "Decontextualized link test"
+          ],
+          "references": ["WCAG 2.4.4 A"],
+          "exceptions": "Context-dependent links with visible extended labels"
+        },
+        {
+          "id": "6.2",
+          "question": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "test_methods": [
+            "Check for visible text or aria-label",
+            "Name computation"
+          ],
+          "references": ["WCAG 4.1.2 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Scripts",
+      "criteria": [
+        {
+          "id": "7.1",
+          "question": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "test_methods": [
+            "Screen reader test of dynamic content",
+            "Keyboard functionality test",
+            "ARIA event binding verification"
+          ],
+          "references": ["WCAG 4.1.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "7.2",
+          "question": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "test_methods": [
+            "Functional test of fallback",
+            "Manual review of alternative"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "7.3",
+          "question": "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage (hors cas particuliers) ?",
+          "test_methods": [
+            "Keyboard navigation of interactive elements",
+            "Mouse/touch control test"
+          ],
+          "references": ["WCAG 2.1.1 A"],
+          "exceptions": "Gestures requiring specific hardware"
+        },
+        {
+          "id": "7.4",
+          "question": "Pour chaque script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
+          "test_methods": [
+            "Check for beforeunload, alert, form submission warning",
+            "User confirmation test"
+          ],
+          "references": ["WCAG 3.2.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "7.5",
+          "question": "Dans chaque page web, les messages de statut sont-ils correctement restitués par les technologies d'assistance ?",
+          "test_methods": [
+            "Check for role=status, aria-live regions",
+            "Screen reader announcement test"
+          ],
+          "references": ["WCAG 4.1.3 AAA"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Éléments obligatoires",
+      "criteria": [
+        {
+          "id": "8.1",
+          "question": "Chaque page web est-elle définie par un type de document ?",
+          "test_methods": [
+            "Check for DOCTYPE declaration",
+            "Source code inspection"
+          ],
+          "references": ["WCAG 4.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.2",
+          "question": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+          "test_methods": ["W3C HTML validator", "XHTML schema validation"],
+          "references": ["WCAG 4.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.3",
+          "question": "Dans chaque page web, la langue par défaut est-elle présente ?",
+          "test_methods": [
+            "Check lang attribute on html element",
+            "HTTP header inspection"
+          ],
+          "references": ["WCAG 3.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.4",
+          "question": "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent ?",
+          "test_methods": [
+            "Verify BCP47 language code validity",
+            "Content language matching"
+          ],
+          "references": ["WCAG 3.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.5",
+          "question": "Chaque page web a-t-elle un titre de page ?",
+          "test_methods": ["Check for title element", "Browser tab verification"],
+          "references": ["WCAG 2.4.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.6",
+          "question": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?",
+          "test_methods": ["Manual review of title relevance", "Context assessment"],
+          "references": ["WCAG 2.4.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.7",
+          "question": "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
+          "test_methods": [
+            "Check lang attribute on elements",
+            "Source code inspection"
+          ],
+          "references": ["WCAG 3.1.2 A"],
+          "exceptions": "Proper nouns, words unknown to the language"
+        },
+        {
+          "id": "8.8",
+          "question": "Dans chaque page web, le code de langue de chaque changement de langue est-il valide et pertinent ?",
+          "test_methods": ["Verify BCP47 code validity", "Language accuracy check"],
+          "references": ["WCAG 3.1.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.9",
+          "question": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "test_methods": [
+            "Check for div/span over semantic elements",
+            "CSS styling verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "8.10",
+          "question": "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?",
+          "test_methods": [
+            "Check for dir attribute on RTL content",
+            "Bidi text handling verification"
+          ],
+          "references": ["WCAG 1.3.2 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Structuration de l'information",
+      "criteria": [
+        {
+          "id": "9.1",
+          "question": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "test_methods": ["Check h1-h6 hierarchy", "Heading structure test"],
+          "references": ["WCAG 1.3.1 A, 2.4.10 AAA"],
+          "exceptions": ""
+        },
+        {
+          "id": "9.2",
+          "question": "Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?",
+          "test_methods": [
+            "Outline view verification",
+            "Heading hierarchy test",
+            "Screen reader structure test"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": "Dynamically generated content"
+        },
+        {
+          "id": "9.3",
+          "question": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "test_methods": ["Check ul/ol/li usage", "List nesting verification"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "9.4",
+          "question": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "test_methods": [
+            "Check blockquote/q element usage",
+            "Source attribution verification"
+          ],
+          "references": ["WCAG 3.2 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Présentation de l'information",
+      "criteria": [
+        {
+          "id": "10.1",
+          "question": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "test_methods": [
+            "Check for CSS usage",
+            "Inline style vs external sheet inspection"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.2",
+          "question": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "test_methods": ["Disable CSS test", "Content visibility without styles"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.3",
+          "question": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "test_methods": [
+            "Disable CSS and test comprehensibility",
+            "Reading order verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.4",
+          "question": "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 %, au moins (hors cas particuliers) ?",
+          "test_methods": [
+            "Text zoom test to 200%",
+            "Reflow and readability verification"
+          ],
+          "references": ["WCAG 1.4.4 AA"],
+          "exceptions": "Captions, subtitles, essential text in images"
+        },
+        {
+          "id": "10.5",
+          "question": "Dans chaque page web, les déclarations CSS de couleurs de fond d'élément et de police sont-elles correctement utilisées ?",
+          "test_methods": [
+            "CSS inspection for color declarations",
+            "Contrast verification"
+          ],
+          "references": ["WCAG 1.4.3 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.6",
+          "question": "Dans chaque page web, chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?",
+          "test_methods": [
+            "Visual distinction of links",
+            "Underline/color contrast test"
+          ],
+          "references": ["WCAG 2.4.7 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.7",
+          "question": "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?",
+          "test_methods": [
+            "Tab through page and check focus indicators",
+            "Focus visibility test"
+          ],
+          "references": ["WCAG 2.4.7 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.8",
+          "question": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "test_methods": [
+            "Check hidden /display:none/visibility:hidden elements",
+            "AT behavior verification"
+          ],
+          "references": ["WCAG 4.1.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.9",
+          "question": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position. Cette règle est-elle respectée ?",
+          "test_methods": ["Visual-only cue detection", "Text alternative check"],
+          "references": ["WCAG 1.3.3 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.10",
+          "question": "Dans chaque page web, l'information ne doit pas être donnée par la forme, taille ou position uniquement. Cette règle est-elle implémentée de façon pertinente ?",
+          "test_methods": [
+            "Manual review of alternative cues",
+            "Multi-cue verification"
+          ],
+          "references": ["WCAG 1.3.3 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.11",
+          "question": "Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours soit à un défilement vertical pour une fenêtre ayant une hauteur de 256 px, soit à un défilement horizontal pour une fenêtre ayant une largeur de 320 px (hors cas particuliers) ?",
+          "test_methods": [
+            "Mobile viewport testing (256px height, 320px width)",
+            "Content reflow verification"
+          ],
+          "references": ["WCAG 1.4.10 AA"],
+          "exceptions": "Essential content requiring specific dimensions"
+        },
+        {
+          "id": "10.12",
+          "question": "Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité (hors cas particuliers) ?",
+          "test_methods": [
+            "Text spacing override test (line-height, letter-spacing, word-spacing)",
+            "Content preservation check"
+          ],
+          "references": ["WCAG 1.4.12 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.13",
+          "question": "Dans chaque page web, les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur (hors cas particuliers) ?",
+          "test_methods": [
+            "Hover/focus popup interaction test",
+            "Dismissal mechanism verification"
+          ],
+          "references": ["WCAG 1.4.13 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "10.14",
+          "question": "Dans chaque page web, les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?",
+          "test_methods": [
+            "CSS-only content visibility test",
+            "Keyboard accessibility of CSS menus"
+          ],
+          "references": ["WCAG 1.4.13 AA"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Formulaires",
+      "criteria": [
+        {
+          "id": "11.1",
+          "question": "Chaque champ de formulaire a-t-il une étiquette ?",
+          "test_methods": [
+            "Check label element or aria-label",
+            "Name computation verification"
+          ],
+          "references": ["WCAG 1.3.1 A, 3.3.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.2",
+          "question": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?",
+          "test_methods": [
+            "Manual review of label text clarity",
+            "Context assessment"
+          ],
+          "references": ["WCAG 1.3.1 A, 3.3.2 A"],
+          "exceptions": "Apparent from context"
+        },
+        {
+          "id": "11.3",
+          "question": "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
+          "test_methods": [
+            "Compare repeated field labels",
+            "Consistency verification"
+          ],
+          "references": ["WCAG 3.2.4 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.4",
+          "question": "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés (hors cas particuliers) ?",
+          "test_methods": [
+            "Visual/DOM proximity check",
+            "Screen reader association test"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.5",
+          "question": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "test_methods": [
+            "Check for fieldset/legend usage",
+            "Grouping logic verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.6",
+          "question": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "test_methods": [
+            "Check legend element in fieldset",
+            "Group labeling verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.7",
+          "question": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "test_methods": ["Manual review of legend clarity", "Context assessment"],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.8",
+          "question": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "test_methods": [
+            "Check optgroup usage",
+            "Option grouping logic verification"
+          ],
+          "references": ["WCAG 1.3.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.9",
+          "question": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent (hors cas particuliers) ?",
+          "test_methods": [
+            "Check button text or aria-label",
+            "Name computation and clarity"
+          ],
+          "references": ["WCAG 2.4.4 A"],
+          "exceptions": "Icon buttons with visible labels elsewhere"
+        },
+        {
+          "id": "11.10",
+          "question": "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers) ?",
+          "test_methods": [
+            "Check input validation and error detection",
+            "Error message presence"
+          ],
+          "references": ["WCAG 3.3.1 A"],
+          "exceptions": "Essential submissions (test responses, legal)"
+        },
+        {
+          "id": "11.11",
+          "question": "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?",
+          "test_methods": [
+            "Error message review",
+            "Correction suggestion verification"
+          ],
+          "references": ["WCAG 3.3.3 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.12",
+          "question": "Pour chaque formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou à un examen, ou dont la validation a des conséquences financières ou juridiques, les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l'utilisateur ?",
+          "test_methods": [
+            "Functional test of data modification/recovery",
+            "Undo mechanism verification"
+          ],
+          "references": ["WCAG 3.3.4 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "11.13",
+          "question": "La finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?",
+          "test_methods": [
+            "Check autocomplete attribute",
+            "Field purpose detection"
+          ],
+          "references": ["WCAG 1.3.5 AA"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Navigation",
+      "criteria": [
+        {
+          "id": "12.1",
+          "question": "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins (hors cas particuliers) ?",
+          "test_methods": [
+            "Navigation audit across site",
+            "Menu + search/map verification"
+          ],
+          "references": ["WCAG 2.4.5 AA"],
+          "exceptions": "Single-page sites, search-only sites"
+        },
+        {
+          "id": "12.2",
+          "question": "Dans chaque ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place (hors cas particuliers) ?",
+          "test_methods": [
+            "Visual/DOM position check across pages",
+            "Consistency verification"
+          ],
+          "references": ["WCAG 3.2.3 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.3",
+          "question": "La page « plan du site » est-elle pertinente ?",
+          "test_methods": [
+            "Sitemap content review",
+            "Completeness and accuracy check"
+          ],
+          "references": ["WCAG 2.4.5 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.4",
+          "question": "Dans chaque ensemble de pages, la page « plan du site » est-elle accessible à partir d'une fonctionnalité identique ?",
+          "test_methods": [
+            "Link to sitemap presence/position check",
+            "Consistency across site"
+          ],
+          "references": ["WCAG 2.4.5 AA"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.5",
+          "question": "Dans chaque ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?",
+          "test_methods": [
+            "Search function position/access check",
+            "Consistency verification"
+          ],
+          "references": ["WCAG 2.4.5 AA"],
+          "exceptions": "Sites without search functionality"
+        },
+        {
+          "id": "12.6",
+          "question": "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
+          "test_methods": [
+            "Check skip links",
+            "Landmark navigation test",
+            "Screen reader region announcement"
+          ],
+          "references": ["WCAG 2.4.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.7",
+          "question": "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent (hors cas particuliers) ?",
+          "test_methods": [
+            "Check for 'skip to main' link",
+            "Keyboard accessibility test"
+          ],
+          "references": ["WCAG 2.4.1 A"],
+          "exceptions": "Single-section pages"
+        },
+        {
+          "id": "12.8",
+          "question": "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
+          "test_methods": [
+            "Tab through page sequentially",
+            "Logical order verification"
+          ],
+          "references": ["WCAG 2.4.3 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.9",
+          "question": "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
+          "test_methods": ["Keyboard trap detection", "Tab escape mechanism check"],
+          "references": ["WCAG 2.1.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.10",
+          "question": "Dans chaque page web, les raccourcis clavier n'utilisant qu'une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) sont-ils contrôlables par l'utilisateur ?",
+          "test_methods": [
+            "Single-key shortcut detection",
+            "Override/disable mechanism check"
+          ],
+          "references": ["WCAG 2.1.4 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "12.11",
+          "question": "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?",
+          "test_methods": [
+            "Keyboard access to hover content",
+            "Focus management verification"
+          ],
+          "references": ["WCAG 2.1.1 A"],
+          "exceptions": ""
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Consultation",
+      "criteria": [
+        {
+          "id": "13.1",
+          "question": "Pour chaque page web, l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu (hors cas particuliers) ?",
+          "test_methods": [
+            "Check for timeout/session expiry notifications",
+            "Control mechanism verification"
+          ],
+          "references": ["WCAG 2.2.1 A"],
+          "exceptions": "Real-time exceptions (auctions, sessions)"
+        },
+        {
+          "id": "13.2",
+          "question": "Dans chaque page web, l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. Cette règle est-elle respectée ?",
+          "test_methods": [
+            "Check for unsolicited window.open()",
+            "User action requirement verification"
+          ],
+          "references": ["WCAG 3.2.2 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "13.3",
+          "question": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible (hors cas particuliers) ?",
+          "test_methods": [
+            "PDF accessibility check",
+            "Alternative format availability check"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": "Scanned images, essential binary formats"
+        },
+        {
+          "id": "13.4",
+          "question": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "test_methods": [
+            "Content comparison between original and accessible version",
+            "Completeness check"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "13.5",
+          "question": "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?",
+          "test_methods": [
+            "Cryptic content detection",
+            "Alternative text/explanation presence"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": "Decorative content"
+        },
+        {
+          "id": "13.6",
+          "question": "Dans chaque page web, pour chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?",
+          "test_methods": [
+            "Manual review of alternative clarity",
+            "Meaning transmission check"
+          ],
+          "references": ["WCAG 1.1.1 A"],
+          "exceptions": ""
+        },
+        {
+          "id": "13.7",
+          "question": "Dans chaque page web, les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?",
+          "test_methods": [
+            "Flashing content detection (3+ per second)",
+            "Luminosity contrast check"
+          ],
+          "references": ["WCAG 2.3.1 A"],
+          "exceptions": "General flashing (not hazardous)"
+        },
+        {
+          "id": "13.8",
+          "question": "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
+          "test_methods": [
+            "Animation/blink detection",
+            "Pause/stop control verification"
+          ],
+          "references": ["WCAG 2.2.2 A"],
+          "exceptions": "Essential animations"
+        },
+        {
+          "id": "13.9",
+          "question": "Dans chaque page web, le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portrait ou paysage) (hors cas particuliers) ?",
+          "test_methods": [
+            "Responsive design test across orientations",
+            "Content accessibility in both modes"
+          ],
+          "references": ["WCAG 1.3.4 AA"],
+          "exceptions": "Media players, games, essential orientation"
+        },
+        {
+          "id": "13.10",
+          "question": "Dans chaque page web, les fonctionnalités utilisables ou disponibles au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple (hors cas particuliers) ?",
+          "test_methods": [
+            "Gesture alternative detection",
+            "Simple interaction path verification"
+          ],
+          "references": ["WCAG 2.5.1 A"],
+          "exceptions": "Essential gesture drawing"
+        },
+        {
+          "id": "13.11",
+          "question": "Dans chaque page web, les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation (hors cas particuliers) ?",
+          "test_methods": [
+            "Single-trigger action detection",
+            "Undo/cancel mechanism check"
+          ],
+          "references": ["WCAG 2.5.2 A"],
+          "exceptions": "Essential single-trigger actions (playing media)"
+        },
+        {
+          "id": "13.12",
+          "question": "Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative (hors cas particuliers) ?",
+          "test_methods": [
+            "Device motion trigger detection",
+            "Alternative control path verification"
+          ],
+          "references": ["WCAG 2.5.4 A"],
+          "exceptions": "Essential motion/orientation (level sensors)"
+        }
+      ]
+    }
+  ]
+}

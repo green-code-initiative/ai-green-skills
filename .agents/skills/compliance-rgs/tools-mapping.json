@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "description": "Data-driven tools with validation patterns",
+  "last_updated": "2026-03-25",
+  "tools": {
+    "security-scanner": {
+      "name": "SECURITY SCANNER",
+      "category": "automated",
+      "automation_level": "fully_automated",
+      "validation_patterns": [
+        {
+          "applies_to_tests": ["1.1.1"],
+          "type": "url_check",
+          "must_start_with": "https://",
+          "error_message": "HTTPS required",
+          "severity": "CRITICAL"
+        },
+        {
+          "applies_to_tests": ["1.2.1"],
+          "type": "header_check",
+          "header_name": "X-Content-Type-Options",
+          "expect": "present",
+          "error_message": "Security header missing",
+          "severity": "HIGH"
+        }
+      ]
+    }
+  }
+}

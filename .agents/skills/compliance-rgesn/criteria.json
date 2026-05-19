@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "description": "Référentiel Général d'Écoresponsabilité - Sustainability Standards",
+  "total_criteria": 4,
+  "themes": [
+    {
+      "id": "1",
+      "name": "Performance & Optimization",
+      "criteria": [
+        {
+          "id": "1.1",
+          "question": "Bundle size optimized?",
+          "tests": ["1.1.1"],
+          "references": ["RGESN 3.1"]
+        },
+        {
+          "id": "1.2",
+          "question": "Images optimized?",
+          "tests": ["1.2.1"],
+          "references": ["RGESN 3.3"]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Resource Efficiency",
+      "criteria": [
+        {
+          "id": "2.1",
+          "question": "Dark mode support?",
+          "tests": ["2.1.1"],
+          "references": ["RGESN 4.2"]
+        },
+        {
+          "id": "2.2",
+          "question": "Caching enabled?",
+          "tests": ["2.2.1"],
+          "references": ["RGESN 3.5"]
+        }
+      ]
+    }
+  ]
+}

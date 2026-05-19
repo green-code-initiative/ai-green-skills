@@ -1,0 +1,896 @@
+{
+  "version": "4.1.2",
+  "title": "RGAA 4.1.2 Compliance Matrix - Complete Mapping",
+  "description": "Mapping of 13 themes, 106 criteria, 182 tests with compliance tracking",
+  "generated_date": "2026-03-26",
+  "themes": [
+    {
+      "id": "1",
+      "name": "Images",
+      "description": "Alternative text and descriptions for images",
+      "total_criteria": 9,
+      "criteria": [
+        {
+          "id": "1.1",
+          "question": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "tests": ["1.1.1", "1.1.2"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.2",
+          "question": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "tests": ["1.2.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.3",
+          "question": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "tests": ["1.3.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.4",
+          "question": "Pour chaque image utilisée comme CAPTCHA ou image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction ?",
+          "tests": ["1.4.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.5",
+          "question": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif est-elle présente ?",
+          "tests": ["1.5.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.6",
+          "question": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "tests": ["1.6.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.7",
+          "question": "Pour chaque image ayant une description détaillée, cette description est-elle pertinente ?",
+          "tests": ["1.7.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "1.8",
+          "question": "Chaque image texte porteuse d'information doit être remplacée par du texte stylé. Cette règle est-elle respectée ?",
+          "tests": ["1.8.1"],
+          "wcag_ref": "1.4.5 AA",
+          "status": "pending"
+        },
+        {
+          "id": "1.9",
+          "question": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "tests": ["1.9.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Cadres",
+      "description": "Frame and iframe accessibility",
+      "total_criteria": 2,
+      "criteria": [
+        {
+          "id": "2.1",
+          "question": "Chaque cadre a-t-il un titre de cadre ?",
+          "tests": ["2.1.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "2.2",
+          "question": "Pour chaque cadre ayant un titre de cadre, ce titre est-il pertinent ?",
+          "tests": ["2.2.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Couleurs",
+      "description": "Color usage and contrast",
+      "total_criteria": 3,
+      "criteria": [
+        {
+          "id": "3.1",
+          "question": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
+          "tests": ["3.1.1"],
+          "wcag_ref": "1.4.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "3.2",
+          "question": "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé ?",
+          "tests": ["3.2.1"],
+          "wcag_ref": "1.4.3 AA",
+          "status": "pending"
+        },
+        {
+          "id": "3.3",
+          "question": "Dans chaque page web, les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées ?",
+          "tests": ["3.3.1"],
+          "wcag_ref": "2.4.7 AA",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Multimédia",
+      "description": "Multimedia content - video, audio, animations",
+      "total_criteria": 13,
+      "criteria": [
+        {
+          "id": "4.1",
+          "question": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription ?",
+          "tests": ["4.1.1", "4.1.2"],
+          "wcag_ref": "1.2.1 A, 1.2.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.2",
+          "question": "Pour chaque média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes ?",
+          "tests": ["4.2.1"],
+          "wcag_ref": "1.2.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.3",
+          "question": "Chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés ?",
+          "tests": ["4.3.1"],
+          "wcag_ref": "1.2.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.4",
+          "question": "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?",
+          "tests": ["4.4.1"],
+          "wcag_ref": "1.2.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.5",
+          "question": "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée ?",
+          "tests": ["4.5.1"],
+          "wcag_ref": "1.2.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.6",
+          "question": "Pour chaque média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?",
+          "tests": ["4.6.1"],
+          "wcag_ref": "1.2.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.7",
+          "question": "Chaque média temporel est-il clairement identifiable ?",
+          "tests": ["4.7.1"],
+          "wcag_ref": "2.4.4 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.8",
+          "question": "Chaque média non temporel a-t-il, si nécessaire, une alternative ?",
+          "tests": ["4.8.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.9",
+          "question": "Pour chaque média non temporel ayant une alternative, cette alternative est-elle pertinente ?",
+          "tests": ["4.9.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.10",
+          "question": "Chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?",
+          "tests": ["4.10.1"],
+          "wcag_ref": "1.4.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.11",
+          "question": "La consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?",
+          "tests": ["4.11.1"],
+          "wcag_ref": "2.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.12",
+          "question": "La consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?",
+          "tests": ["4.12.1"],
+          "wcag_ref": "2.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "4.13",
+          "question": "Chaque média temporel et non temporel est-il compatible avec les technologies d'assistance ?",
+          "tests": ["4.13.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Tableaux",
+      "description": "Data tables and layout tables accessibility",
+      "total_criteria": 8,
+      "criteria": [
+        {
+          "id": "5.1",
+          "question": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "tests": ["5.1.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.2",
+          "question": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "tests": ["5.2.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.3",
+          "question": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "tests": ["5.3.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.4",
+          "question": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé ?",
+          "tests": ["5.4.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.5",
+          "question": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "tests": ["5.5.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.6",
+          "question": "Pour chaque tableau de données, chaque en-tête de colonne et de ligne sont-ils correctement déclarés ?",
+          "tests": ["5.6.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.7",
+          "question": "Pour chaque tableau de données, la technique appropriée d'association cellule/en-têtes est-elle utilisée ?",
+          "tests": ["5.7.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "5.8",
+          "question": "Chaque tableau de mise en forme n'utilise-t-il pas les éléments des tableaux de données ?",
+          "tests": ["5.8.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Liens",
+      "description": "Link accessibility and labeling",
+      "total_criteria": 2,
+      "criteria": [
+        {
+          "id": "6.1",
+          "question": "Chaque lien est-il explicite ?",
+          "tests": ["6.1.1"],
+          "wcag_ref": "2.4.4 A",
+          "status": "pending"
+        },
+        {
+          "id": "6.2",
+          "question": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "tests": ["6.2.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Scripts",
+      "description": "JavaScript and dynamic content accessibility",
+      "total_criteria": 5,
+      "criteria": [
+        {
+          "id": "7.1",
+          "question": "Chaque script est-il compatible avec les technologies d'assistance ?",
+          "tests": ["7.1.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "7.2",
+          "question": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "tests": ["7.2.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "7.3",
+          "question": "Chaque script est-il contrôlable par le clavier et tout dispositif de pointage ?",
+          "tests": ["7.3.1"],
+          "wcag_ref": "2.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "7.4",
+          "question": "Pour chaque script initiant un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
+          "tests": ["7.4.1"],
+          "wcag_ref": "3.2.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "7.5",
+          "question": "Dans chaque page web, les messages de statut sont-ils correctement restitués ?",
+          "tests": ["7.5.1"],
+          "wcag_ref": "4.1.3 AAA",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Éléments obligatoires",
+      "description": "Required HTML elements and language declaration",
+      "total_criteria": 10,
+      "criteria": [
+        {
+          "id": "8.1",
+          "question": "Chaque page web est-elle définie par un type de document ?",
+          "tests": ["8.1.1"],
+          "wcag_ref": "4.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.2",
+          "question": "Le code source généré est-il valide selon le type de document ?",
+          "tests": ["8.2.1"],
+          "wcag_ref": "4.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.3",
+          "question": "La langue par défaut est-elle présente ?",
+          "tests": ["8.3.1"],
+          "wcag_ref": "3.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.4",
+          "question": "Le code de langue par défaut est-il pertinent ?",
+          "tests": ["8.4.1"],
+          "wcag_ref": "3.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.5",
+          "question": "Chaque page web a-t-elle un titre de page ?",
+          "tests": ["8.5.1"],
+          "wcag_ref": "2.4.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.6",
+          "question": "Le titre de page est-il pertinent ?",
+          "tests": ["8.6.1"],
+          "wcag_ref": "2.4.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.7",
+          "question": "Chaque changement de langue est-il indiqué ?",
+          "tests": ["8.7.1"],
+          "wcag_ref": "3.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.8",
+          "question": "Le code de langue de chaque changement est-il valide et pertinent ?",
+          "tests": ["8.8.1"],
+          "wcag_ref": "3.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.9",
+          "question": "Les balises ne sont-elles pas utilisées uniquement à des fins de présentation ?",
+          "tests": ["8.9.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "8.10",
+          "question": "Les changements du sens de lecture sont-ils signalés ?",
+          "tests": ["8.10.1"],
+          "wcag_ref": "1.3.2 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Structuration de l'information",
+      "description": "Information structure using headings, lists, and semantic elements",
+      "total_criteria": 4,
+      "criteria": [
+        {
+          "id": "9.1",
+          "question": "L'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "tests": ["9.1.1"],
+          "wcag_ref": "1.3.1 A, 2.4.10 AAA",
+          "status": "pending"
+        },
+        {
+          "id": "9.2",
+          "question": "La structure du document est-elle cohérente ?",
+          "tests": ["9.2.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "9.3",
+          "question": "Chaque liste est-elle correctement structurée ?",
+          "tests": ["9.3.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "9.4",
+          "question": "Chaque citation est-elle correctement indiquée ?",
+          "tests": ["9.4.1"],
+          "wcag_ref": "3.2 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Présentation de l'information",
+      "description": "Information presentation - styling, contrast, readability, focus",
+      "total_criteria": 14,
+      "criteria": [
+        {
+          "id": "10.1",
+          "question": "Des feuilles de styles sont-elles utilisées pour contrôler la présentation ?",
+          "tests": ["10.1.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.2",
+          "question": "Le contenu visible reste-t-il présent sans CSS ?",
+          "tests": ["10.2.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.3",
+          "question": "L'information reste-t-elle compréhensible sans CSS ?",
+          "tests": ["10.3.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.4",
+          "question": "Le texte reste-t-il lisible à 200% de zoom ?",
+          "tests": ["10.4.1"],
+          "wcag_ref": "1.4.4 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.5",
+          "question": "Les déclarations CSS de couleur sont-elles correctement utilisées ?",
+          "tests": ["10.5.1"],
+          "wcag_ref": "1.4.3 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.6",
+          "question": "Chaque lien non explicite est-il visible ?",
+          "tests": ["10.6.1"],
+          "wcag_ref": "2.4.7 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.7",
+          "question": "La prise de focus est-elle visible ?",
+          "tests": ["10.7.1"],
+          "wcag_ref": "2.4.7 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.8",
+          "question": "Les contenus cachés doivent-ils être ignorés par les AT ?",
+          "tests": ["10.8.1"],
+          "wcag_ref": "4.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.9",
+          "question": "L'information n'est-elle pas donnée uniquement par la forme, taille ou position ?",
+          "tests": ["10.9.1"],
+          "wcag_ref": "1.3.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.10",
+          "question": "Les alternatives à forme/taille/position sont-elles pertinentes ?",
+          "tests": ["10.10.1"],
+          "wcag_ref": "1.3.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "10.11",
+          "question": "Le contenu s'adapte-t-il aux petits viewports (320x256) ?",
+          "tests": ["10.11.1"],
+          "wcag_ref": "1.4.10 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.12",
+          "question": "L'espacement du texte est-il redéfinissable sans perte ?",
+          "tests": ["10.12.1"],
+          "wcag_ref": "1.4.12 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.13",
+          "question": "Les contenus additionnels au survol/focus sont-ils contrôlables ?",
+          "tests": ["10.13.1"],
+          "wcag_ref": "1.4.13 AA",
+          "status": "pending"
+        },
+        {
+          "id": "10.14",
+          "question": "Les contenus CSS-only sont-ils accessibles clavier ?",
+          "tests": ["10.14.1"],
+          "wcag_ref": "1.4.13 AA",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Formulaires",
+      "description": "Form accessibility - labels, validation, submission",
+      "total_criteria": 13,
+      "criteria": [
+        {
+          "id": "11.1",
+          "question": "Chaque champ de formulaire a-t-il une étiquette ?",
+          "tests": ["11.1.1"],
+          "wcag_ref": "1.3.1 A, 3.3.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.2",
+          "question": "Chaque étiquette est-elle pertinente ?",
+          "tests": ["11.2.1"],
+          "wcag_ref": "1.3.1 A, 3.3.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.3",
+          "question": "Les étiquettes répétées sont-elles cohérentes ?",
+          "tests": ["11.3.1"],
+          "wcag_ref": "3.2.4 AA",
+          "status": "pending"
+        },
+        {
+          "id": "11.4",
+          "question": "Étiquette et champ sont-ils accolés ?",
+          "tests": ["11.4.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.5",
+          "question": "Les champs de même nature sont-ils regroupés ?",
+          "tests": ["11.5.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.6",
+          "question": "Chaque regroupement a-t-il une légende ?",
+          "tests": ["11.6.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.7",
+          "question": "Chaque légende est-elle pertinente ?",
+          "tests": ["11.7.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.8",
+          "question": "Les items de même nature d'une liste sont-ils regroupés ?",
+          "tests": ["11.8.1"],
+          "wcag_ref": "1.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.9",
+          "question": "L'intitulé de chaque bouton est-il pertinent ?",
+          "tests": ["11.9.1"],
+          "wcag_ref": "2.4.4 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.10",
+          "question": "Le contrôle de saisie est-il utilisé pertinemment ?",
+          "tests": ["11.10.1"],
+          "wcag_ref": "3.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "11.11",
+          "question": "Les erreurs sont-elles accompagnées de suggestions ?",
+          "tests": ["11.11.1"],
+          "wcag_ref": "3.3.3 AA",
+          "status": "pending"
+        },
+        {
+          "id": "11.12",
+          "question": "Les données peuvent-elles être modifiées/récupérées ?",
+          "tests": ["11.12.1"],
+          "wcag_ref": "3.3.4 AA",
+          "status": "pending"
+        },
+        {
+          "id": "11.13",
+          "question": "La finalité d'un champ peut-elle être déduite ?",
+          "tests": ["11.13.1"],
+          "wcag_ref": "1.3.5 AA",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Navigation",
+      "description": "Site navigation, menus, and keyboard accessibility",
+      "total_criteria": 11,
+      "criteria": [
+        {
+          "id": "12.1",
+          "question": "Existe-t-il au moins deux systèmes de navigation différents ?",
+          "tests": ["12.1.1"],
+          "wcag_ref": "2.4.5 AA",
+          "status": "pending"
+        },
+        {
+          "id": "12.2",
+          "question": "Le menu est-il toujours à la même place ?",
+          "tests": ["12.2.1"],
+          "wcag_ref": "3.2.3 AA",
+          "status": "pending"
+        },
+        {
+          "id": "12.3",
+          "question": "La page de plan du site est-elle pertinente ?",
+          "tests": ["12.3.1"],
+          "wcag_ref": "2.4.5 AA",
+          "status": "pending"
+        },
+        {
+          "id": "12.4",
+          "question": "Le plan du site est-il accessible de manière identique ?",
+          "tests": ["12.4.1"],
+          "wcag_ref": "2.4.5 AA",
+          "status": "pending"
+        },
+        {
+          "id": "12.5",
+          "question": "Le moteur de recherche est-il atteignable identiquement ?",
+          "tests": ["12.5.1"],
+          "wcag_ref": "2.4.5 AA",
+          "status": "pending"
+        },
+        {
+          "id": "12.6",
+          "question": "Les zones de contenu peuvent-elles être atteintes ou évitées ?",
+          "tests": ["12.6.1"],
+          "wcag_ref": "2.4.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "12.7",
+          "question": "Un lien d'évitement vers le contenu principal est-il présent ?",
+          "tests": ["12.7.1"],
+          "wcag_ref": "2.4.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "12.8",
+          "question": "L'ordre de tabulation est-il cohérent ?",
+          "tests": ["12.8.1"],
+          "wcag_ref": "2.4.3 A",
+          "status": "pending"
+        },
+        {
+          "id": "12.9",
+          "question": "Y a-t-il des pièges au clavier ?",
+          "tests": ["12.9.1"],
+          "wcag_ref": "2.1.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "12.10",
+          "question": "Les raccourcis single-key sont-ils contrôlables ?",
+          "tests": ["12.10.1"],
+          "wcag_ref": "2.1.4 A",
+          "status": "pending"
+        },
+        {
+          "id": "12.11",
+          "question": "Les contenus additionnels sur hover/focus sont-ils accessibles clavier ?",
+          "tests": ["12.11.1"],
+          "wcag_ref": "2.1.1 A",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Consultation",
+      "description": "User consultation and control - timeouts, animations, documents",
+      "total_criteria": 12,
+      "criteria": [
+        {
+          "id": "13.1",
+          "question": "L'utilisateur a-t-il le contrôle des limites de temps ?",
+          "tests": ["13.1.1"],
+          "wcag_ref": "2.2.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.2",
+          "question": "Les nouvelles fenêtres sont-elles déclenchées sans action utilisateur ?",
+          "tests": ["13.2.1"],
+          "wcag_ref": "3.2.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.3",
+          "question": "Les documents téléchargeables ont-ils une version accessible ?",
+          "tests": ["13.3.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.4",
+          "question": "La version accessible offre-t-elle la même information ?",
+          "tests": ["13.4.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.5",
+          "question": "Chaque contenu cryptique a-t-il une alternative ?",
+          "tests": ["13.5.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.6",
+          "question": "L'alternative au contenu cryptique est-elle pertinente ?",
+          "tests": ["13.6.1"],
+          "wcag_ref": "1.1.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.7",
+          "question": "Les changements brusques de luminosité sont-ils contrôlés ?",
+          "tests": ["13.7.1"],
+          "wcag_ref": "2.3.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.8",
+          "question": "Chaque contenu en mouvement est-il contrôlable ?",
+          "tests": ["13.8.1"],
+          "wcag_ref": "2.2.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.9",
+          "question": "Le contenu est-il consultable en portrait et paysage ?",
+          "tests": ["13.9.1"],
+          "wcag_ref": "1.3.4 AA",
+          "status": "pending"
+        },
+        {
+          "id": "13.10",
+          "question": "Les gestes complexes ont-ils des alternatives simples ?",
+          "tests": ["13.10.1"],
+          "wcag_ref": "2.5.1 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.11",
+          "question": "Les actions single-click peuvent-elles être annulées ?",
+          "tests": ["13.11.1"],
+          "wcag_ref": "2.5.2 A",
+          "status": "pending"
+        },
+        {
+          "id": "13.12",
+          "question": "Les fonctionnalités motion ont-elles des alternatives ?",
+          "tests": ["13.12.1"],
+          "wcag_ref": "2.5.4 A",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_themes": 13,
+    "total_criteria": 106,
+    "total_tests": 182,
+    "wcag_level_a": 78,
+    "wcag_level_aa": 28,
+    "wcag_level_aaa": 1,
+    "automated_tests": 72,
+    "manual_tests": 84,
+    "semi_automated_tests": 26,
+    "test_distribution_by_theme": {
+      "1": "9 criteria, ~15 tests",
+      "2": "2 criteria, ~2 tests",
+      "3": "3 criteria, ~3 tests",
+      "4": "13 criteria, ~25 tests",
+      "5": "8 criteria, ~8 tests",
+      "6": "2 criteria, ~2 tests",
+      "7": "5 criteria, ~5 tests",
+      "8": "10 criteria, ~10 tests",
+      "9": "4 criteria, ~4 tests",
+      "10": "14 criteria, ~30 tests",
+      "11": "13 criteria, ~30 tests",
+      "12": "11 criteria, ~25 tests",
+      "13": "12 criteria, ~26 tests"
+    }
+  },
+  "instructions": {
+    "usage": "Use this compliance matrix to track RGAA 4.1.2 compliance across your project",
+    "status_values": [
+      "pending",
+      "in_progress",
+      "compliant",
+      "non_compliant",
+      "not_applicable"
+    ],
+    "testing_approach": "Combine automated testing (axe-core, jest-axe) with manual review and screen reader testing",
+    "wcag_levels": {
+      "A": "Minimum level - critical issues affecting core functionality",
+      "AA": "Enhanced accessibility - 99% of users can access content",
+      "AAA": "Optimal accessibility - all users can access content"
+    }
+  }
+}
