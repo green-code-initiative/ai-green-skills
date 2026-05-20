@@ -334,8 +334,13 @@ func remoteSkillsAtRef(baseURL, project, token, ref string) ([]string, error) {
 	return skills, nil
 }
 
-// remoteSkillVersion récupère la valeur du champ "version" dans le SKILL.md distant.
-func remoteSkillVersion(cfg GitConfig, skillName, ref string) string {
+type remoteSkillMeta struct {
+	version     string
+	description string
+}
+
+// fetchRemoteSkillMeta retrieves version and description from a remote SKILL.md in a single HTTP call.
+func fetchRemoteSkillMeta(cfg GitConfig, skillName, ref string) remoteSkillMeta {
 	skillsPath := getEnv(envGitSkillsPath, defaultGitSkillsPath)
 	filePath := skillsPath + "/" + skillName + "/" + skillFile
 	var rawURL string
@@ -351,14 +356,23 @@ func remoteSkillVersion(cfg GitConfig, skillName, ref string) string {
 		if resp != nil {
 			resp.Body.Close()
 		}
-		return ""
+		return remoteSkillMeta{}
 	}
 	defer resp.Body.Close()
 	content, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return ""
+		return remoteSkillMeta{}
 	}
-	return parseFrontmatterField(bufio.NewScanner(strings.NewReader(string(content))), "version")
+	s := string(content)
+	return remoteSkillMeta{
+		version:     parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "version"),
+		description: parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "description"),
+	}
+}
+
+// remoteSkillVersion récupère la valeur du champ "version" dans le SKILL.md distant.
+func remoteSkillVersion(cfg GitConfig, skillName, ref string) string {
+	return fetchRemoteSkillMeta(cfg, skillName, ref).version
 }
 
 // --- Installation metadata ---
@@ -576,17 +590,12 @@ func downloadSkill(cfg GitConfig, skillName, ref, destDir string) error {
 
 // --- Commands: install / update / version ---
 
-func cmdInstall(name string) {
-	if name == "" {
-		fmt.Fprintln(os.Stderr, "Usage: cli-skills install <skill-name>")
+func cmdInstall(name string, all bool) {
+	if !all && name == "" {
+		fmt.Fprintln(os.Stderr, "Usage: cli-skills install <skill-name> | --all")
 		os.Exit(1)
 	}
 	cfg := requireGitConfig()
-
-	if findSkill(name) != nil {
-		fmt.Printf("Skill %q is already installed. Use 'update' to update it.\n", name)
-		return
-	}
 
 	fmt.Printf("Connecting to %s ...\n", cfg.baseURL)
 	ref, err := latestSemverTag(cfg.baseURL, cfg.project, cfg.token)
@@ -605,6 +614,46 @@ func cmdInstall(name string) {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Remote list error: %v\n", err)
 		os.Exit(1)
+	}
+
+	if all {
+		installed := 0
+		skipped := 0
+		m := loadMeta()
+		for _, s := range remoteSkills {
+			if findSkill(s) != nil {
+				fmt.Printf("  %-35s already installed, skipped\n", s)
+				skipped++
+				continue
+			}
+			destDir := filepath.Join(skillsDirs[0].path, s)
+			fmt.Printf("  Installing %-35s", s)
+			if err := downloadSkill(cfg, s, ref, destDir); err != nil {
+				os.RemoveAll(destDir)
+				fmt.Fprintf(os.Stderr, "\033[31mERROR\033[0m: %v\n", err)
+				continue
+			}
+			skillVer := extractVersion(destDir)
+			if skillVer != "" {
+				m.Skills[s] = skillVer
+				fmt.Printf("\033[32m✓ v%s\033[0m\n", skillVer)
+			} else {
+				m.Skills[s] = ref
+				fmt.Printf("\033[32m✓\033[0m\n")
+			}
+			installed++
+		}
+		if err := saveMeta(m); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: metadata not saved: %v\n", err)
+		}
+		fmt.Printf("\n%d skill(s) installed, %d skipped.\n", installed, skipped)
+		return
+	}
+
+	// Single skill install
+	if findSkill(name) != nil {
+		fmt.Printf("Skill %q is already installed. Use 'update' to update it.\n", name)
+		return
 	}
 	found := false
 	for _, s := range remoteSkills {
@@ -726,6 +775,91 @@ func cmdVersion() {
 	fmt.Printf("cli-skills version %s\n", version)
 }
 
+func cmdSearch(query string) {
+	if query == "" {
+		fmt.Fprintln(os.Stderr, "Usage: search <query>")
+		return
+	}
+	cfg := requireGitConfig()
+	fmt.Printf("Connecting to %s ...\n", cfg.baseURL)
+
+	ref, err := latestSemverTag(cfg.baseURL, cfg.project, cfg.token)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Tag error: %v\n", err)
+		os.Exit(1)
+	}
+	defaultRef := getEnv(envGitRef, defaultGitRef)
+	if ref == defaultRef {
+		fmt.Printf("No semver tag found, using branch: %s\n", ref)
+	} else {
+		fmt.Printf("Latest tag   : %s\n", ref)
+	}
+
+	skills, err := remoteSkillsAtRef(cfg.baseURL, cfg.project, cfg.token, ref)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Skill list error: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Fetch remote info for all skills so we can search in description too
+	fmt.Printf("Fetching remote info")
+	allInfos := make(map[string]remoteSkillMeta, len(skills))
+	for _, s := range skills {
+		allInfos[s] = fetchRemoteSkillMeta(cfg, s, ref)
+		fmt.Print(".")
+	}
+	fmt.Println()
+
+	lower := strings.ToLower(query)
+	var matches []string
+	for _, s := range skills {
+		info := allInfos[s]
+		if strings.Contains(strings.ToLower(s), lower) ||
+			strings.Contains(strings.ToLower(info.description), lower) {
+			matches = append(matches, s)
+		}
+	}
+
+	if len(matches) == 0 {
+		fmt.Printf("No skill matching %q.\n", query)
+		return
+	}
+
+	// Local versions
+	localVersions := make(map[string]string)
+	installed := make(map[string]bool)
+	for _, s := range listSkills() {
+		installed[s.Name] = true
+		localVersions[s.Name] = s.Version
+	}
+
+	fmt.Printf("\n%-35s %-10s %-28s %s\n", "NAME", "VERSION", "STATUS", "DESCRIPTION")
+	fmt.Println(strings.Repeat("─", 120))
+	for _, s := range matches {
+		info := allInfos[s]
+		ver := info.version
+		if ver == "" {
+			ver = "—"
+		}
+		var status string
+		if installed[s] {
+			localVer := localVersions[s]
+			if localVer == "" {
+				localVer = "unknown"
+			}
+			if info.version != "" && localVer != info.version {
+				status = fmt.Sprintf("installed, update available (v%s)", localVer)
+			} else {
+				status = "installed"
+			}
+		} else {
+			status = "available"
+		}
+		fmt.Printf("%-35s %-10s %-28s %s\n", s, ver, status, info.description)
+	}
+	fmt.Printf("\n%d skill(s) found for %q (ref. %s).\n", len(matches), query, ref)
+}
+
 func cmdCatalog() {
 	cfg := requireGitConfig()
 	fmt.Printf("Connecting to %s ...\n", cfg.baseURL)
@@ -761,38 +895,38 @@ func cmdCatalog() {
 		localVersions[s.Name] = s.Version
 	}
 
-	// Fetch remote versions (1 call per skill)
-	fmt.Printf("Fetching remote versions")
-	remoteVersions := make(map[string]string, len(skills))
+	// Fetch remote info (1 call per skill)
+	fmt.Printf("Fetching remote info")
+	remoteInfos := make(map[string]remoteSkillMeta, len(skills))
 	for _, s := range skills {
-		remoteVersions[s] = remoteSkillVersion(cfg, s, ref)
+		remoteInfos[s] = fetchRemoteSkillMeta(cfg, s, ref)
 		fmt.Print(".")
 	}
 	fmt.Println()
 
-	fmt.Printf("\n%-35s %s\n", "NAME", "STATUS")
-	fmt.Println(strings.Repeat("─", 80))
+	fmt.Printf("\n%-35s %-10s %-28s %s\n", "NAME", "VERSION", "STATUS", "DESCRIPTION")
+	fmt.Println(strings.Repeat("─", 120))
 	for _, s := range skills {
-		remoteVer := remoteVersions[s]
+		info := remoteInfos[s]
+		ver := info.version
+		if ver == "" {
+			ver = "—"
+		}
 		var status string
 		if installed[s] {
 			localVer := localVersions[s]
 			if localVer == "" {
 				localVer = "unknown"
 			}
-			if remoteVer != "" && localVer != remoteVer {
-				status = fmt.Sprintf("installed (v%s) — update available: v%s", localVer, remoteVer)
+			if info.version != "" && localVer != info.version {
+				status = fmt.Sprintf("installed, update available (v%s)", localVer)
 			} else {
-				status = fmt.Sprintf("installed (v%s)", localVer)
+				status = "installed"
 			}
 		} else {
-			if remoteVer != "" {
-				status = fmt.Sprintf("available (v%s)", remoteVer)
-			} else {
-				status = "available"
-			}
+			status = "available"
 		}
-		fmt.Printf("%-35s %s\n", s, status)
+		fmt.Printf("%-35s %-10s %-28s %s\n", s, ver, status, info.description)
 	}
 	fmt.Printf("\n%d skill(s) available (ref. %s).\n", len(skills), ref)
 }
@@ -814,37 +948,66 @@ type Skill struct {
 	Source      string
 }
 
-// parseFrontmatterField extrait un champ depuis un scanner pointant sur du contenu SKILL.md.
-func parseFrontmatterField(scanner *bufio.Scanner, field string) string {
-	prefix := field + ":"
+// parseFrontmatter parses all key:value pairs from a SKILL.md YAML frontmatter.
+// Fields nested under a parent key (indented) are stored as "parent.child" (e.g. "metadata.version").
+// All keys are lowercased. Surrounding quotes are stripped from values.
+func parseFrontmatter(scanner *bufio.Scanner) map[string]string {
+	result := make(map[string]string)
 	firstLine := true
 	inFrontmatter := false
+	currentParent := ""
 	for scanner.Scan() {
-		trimmed := strings.TrimSpace(scanner.Text())
+		raw := scanner.Text()
+		trimmed := strings.TrimSpace(raw)
 		if firstLine {
 			firstLine = false
 			if trimmed == "---" {
 				inFrontmatter = true
 				continue
 			}
-			return ""
+			return result
 		}
-		if inFrontmatter {
-			if trimmed == "---" {
-				return ""
-			}
-			if strings.HasPrefix(trimmed, prefix) {
-				val := strings.TrimSpace(strings.TrimPrefix(trimmed, prefix))
-				if len(val) >= 2 &&
-					((val[0] == '"' && val[len(val)-1] == '"') ||
-						(val[0] == '\'' && val[len(val)-1] == '\'')) {
-					val = val[1 : len(val)-1]
-				}
-				return val
+		if !inFrontmatter || trimmed == "---" {
+			break
+		}
+		if trimmed == "" {
+			continue
+		}
+		idx := strings.Index(trimmed, ":")
+		if idx < 0 {
+			continue
+		}
+		key := strings.ToLower(strings.TrimSpace(trimmed[:idx]))
+		val := strings.TrimSpace(trimmed[idx+1:])
+		if len(val) >= 2 &&
+			((val[0] == '"' && val[len(val)-1] == '"') ||
+				(val[0] == '\'' && val[len(val)-1] == '\'')) {
+			val = val[1 : len(val)-1]
+		}
+		indent := len(raw) - len(strings.TrimLeft(raw, " \t"))
+		if indent > 0 && currentParent != "" {
+			result[currentParent+"."+key] = val
+		} else {
+			result[key] = val
+			if val == "" {
+				currentParent = key
+			} else {
+				currentParent = ""
 			}
 		}
 	}
-	return ""
+	return result
+}
+
+// parseFrontmatterField extracts a single field from a SKILL.md frontmatter scanner.
+// It looks for the field at the top level first, then under "metadata.<field>" (new header format).
+func parseFrontmatterField(scanner *bufio.Scanner, field string) string {
+	fm := parseFrontmatter(scanner)
+	key := strings.ToLower(field)
+	if v := fm[key]; v != "" {
+		return v
+	}
+	return fm["metadata."+key]
 }
 
 // extractFrontmatterField lit un champ du frontmatter YAML depuis le SKILL.md d'un skill local.
@@ -1348,7 +1511,10 @@ func buildCompleter(remoteSkillItems, localSkillItems []readline.PrefixCompleter
 		readline.PcItem("list"),
 		readline.PcItem("ls"),
 		readline.PcItem("catalog"),
-		readline.PcItem("install", remoteSkillItems...),
+		readline.PcItem("search"),
+		readline.PcItem("install",
+			append([]readline.PrefixCompleterInterface{readline.PcItem("--all")}, remoteSkillItems...)...,
+		),
 		readline.PcItem("update",
 			append([]readline.PrefixCompleterInterface{readline.PcItem("--all")}, localSkillItems...)...,
 		),
@@ -1394,11 +1560,26 @@ func replDispatch(parts []string, mc *mutableCompleter, remoteSkillItems []readl
 		cmdList()
 	case "catalog":
 		cmdCatalog()
+	case "search":
+		query := ""
+		if len(parts) > 1 {
+			query = strings.Join(parts[1:], " ")
+		}
+		cmdSearch(query)
 	case "install":
-		if len(parts) < 2 {
-			fmt.Fprintln(os.Stderr, "Usage: install <name>")
+		allFlag := false
+		name := ""
+		for _, a := range parts[1:] {
+			if a == "--all" || a == "-a" {
+				allFlag = true
+			} else {
+				name = a
+			}
+		}
+		if !allFlag && name == "" {
+			fmt.Fprintln(os.Stderr, "Usage: install <name> | --all")
 		} else {
-			cmdInstall(parts[1])
+			cmdInstall(name, allFlag)
 			refreshLocalCompleter(mc, remoteSkillItems)
 		}
 	case "update":
@@ -1454,7 +1635,9 @@ func cmdHelp(prefix string) {
 	}
 	fmt.Printf("  %-42s Lists locally installed skills\n", prefix+"list")
 	fmt.Printf("  %-42s Lists skills available on Git\n", prefix+"catalog")
+	fmt.Printf("  %-42s Searches skills by name in the catalog\n", prefix+"search <query>")
 	fmt.Printf("  %-42s Installs a skill from Git\n", prefix+"install <name>")
+	fmt.Printf("  %-42s Installs all skills from Git\n", prefix+"install --all")
 	fmt.Printf("  %-42s Updates an installed skill\n", prefix+"update <name>")
 	fmt.Printf("  %-42s Updates all installed skills\n", prefix+"update --all")
 	fmt.Printf("  %-42s Uninstalls a skill\n", prefix+"uninstall <name>")
@@ -1487,12 +1670,24 @@ func main() {
 	case "catalog":
 		cmdCatalog()
 
-	case "install":
-		name := ""
+	case "search":
+		query := ""
 		if len(os.Args) > 2 {
-			name = os.Args[2]
+			query = strings.Join(os.Args[2:], " ")
 		}
-		cmdInstall(name)
+		cmdSearch(query)
+
+	case "install":
+		allFlag := false
+		name := ""
+		for _, arg := range os.Args[2:] {
+			if arg == "--all" || arg == "-a" {
+				allFlag = true
+			} else {
+				name = arg
+			}
+		}
+		cmdInstall(name, allFlag)
 
 	case "update":
 		all := false
