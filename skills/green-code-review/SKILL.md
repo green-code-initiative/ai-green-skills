@@ -1,9 +1,8 @@
-# SKILL — Green Code Review
-
-> **Version:** 1.1  
-> **Last updated:** 2026-05-19   
-> **Description:** Use when: green code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
-
+---
+name: green-code-review
+description: reen code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
+metadata: 
+   version: 1.1.0
 ---
 
 ## Purpose
