@@ -2,8 +2,6 @@
 
 > **Version:** 1.0  
 > **Last updated:** 2026-05-19  
-> **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **File name:** `SKILL_contribute_creedengo_rule.md`  
 > **Description:** Use when: create Creedengo rule; review Creedengo rule specification; write GCI rule; update RULES.md; generate Asciidoc rule spec; generate rule metadata JSON; compliant and non-compliant examples; green code rule contribution; ecoCode rule contribution.
 
 ---

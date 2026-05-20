@@ -2,8 +2,6 @@
 
 > **Version:** 1.0  
 > **Last updated:** 2026-05-19  
-> **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **File name:** `SKILL_review_frugal_ai.md`  
 > **Description:** Use when: frugal AI review; sustainable AI; green AI; RGESN algorithmie; AI energy efficiency; LLM cost and token reduction; model inference optimization; ML training sobriety; RAG efficiency; fine-tuning justification; AI carbon measurement.
 
 ---

@@ -2,8 +2,6 @@
 
 > **Version:** 1.0  
 > **Last updated:** 2026-05-19  
-> **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **File name:** `SKILL_build_rgesn_evidence.md`  
 > **Description:** Use when: RGESN evidence builder; RGESN self-assessment; declaration d'ecoconception; eco-design compliance dossier; digital sobriety evidence; sustainability proof matrix; ecoconception declaration; public-sector eco-design audit.
 
 ---
