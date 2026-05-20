@@ -5,6 +5,7 @@ metadata:
    tag: ecoconception, front, html
    version: 1.0.0
    last-updated: 20/05/2026
+   referentiel: RGESN
 ---
 
 # Ecodesign — Frontend (HTML / CSS / JS)

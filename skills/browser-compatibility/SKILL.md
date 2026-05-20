@@ -2,9 +2,10 @@
 name: browser-compatibility
 description: Ensure retrocompatibility of code for browsers
 metadata:
-  tag: RGESN 2.4
+  tag: browser, compatibility
   version: 1.0.0
   last-updated: 20/05/2026
+  referentiel: RGESN
 ---
 
 ## Purpose
