@@ -1,3 +1,11 @@
+---
+metadata:
+   name: Name of the folder containing the skill
+   tag: rule
+   version: "1.0"
+   last-updated: ISO date of the last change
+---
+
 <!--
   SKILL TEMPLATE — copy this file, rename it SKILL_<verb>_<subject>.md, and replace every
   [placeholder] with real content. Delete all HTML comments before committing.
@@ -5,22 +13,7 @@
 
 # SKILL — [SKILL_NAME]
 
-<!--
-  METADATA
-  --------
-  version      : increment on every breaking change to Instructions or Output Format
-  last-updated : ISO date of the last change
-  description  : CRITICAL — this is the discovery surface used by the agent to decide whether
-                 to load this skill. Write it as "Use when: <trigger phrases>".
-                 Include specific keywords the user or context will contain.
--->
-
-> **Version:** 1.0  
-> **Last updated:** YYYY-MM-DD  
-> **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **Naming convention:** `corresponding-rule/SKILL.md`  
-> **Description:** Rule reference
-> **When to use (agent discovery):** [trigger phrase 1]; [trigger phrase 2]; [trigger phrase 3].
+> **Context:** 
 
 ---
 
