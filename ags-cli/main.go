@@ -1673,7 +1673,22 @@ func cmdHelp(prefix string) {
 	}
 }
 
+func printBanner() {
+	enableANSIOutput()
+	green := "\033[32m"
+	reset := "\033[0m"
+	fmt.Printf("%s\n", green)
+	fmt.Println(`    _    _____ ____          ____  _     ___ `)
+	fmt.Println(`   / \  / ____/ ___|        / ___|| |   |_ _|`)
+	fmt.Println(`  / _ \| |  _\___ \ _____  | |    | |    | | `)
+	fmt.Println(` / ___ \ |_| |___) |_____| | |___ | |___ | | `)
+	fmt.Println(`/_/   \_\____|____/          \____||_____|___|`)
+	fmt.Printf("\n         AI Green Skills CLI v%s%s\n\n", version, reset)
+}
+
 func main() {
+	printBanner()
+
 	if len(os.Args) < 2 {
 		cmdInteractive()
 		return
