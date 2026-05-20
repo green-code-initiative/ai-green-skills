@@ -1,7 +1,7 @@
 ---
 name: review-frugal-ai
 description: frugal AI review; sustainable AI; green AI; RGESN algorithmie; AI energy efficiency; LLM cost and token reduction; model inference optimization; ML training sobriety; RAG efficiency; fine-tuning justification; AI carbon measurement.
-version: 1.0.0
+version: 1.2.0
 ---
 
 ## Purpose
@@ -36,6 +36,30 @@ It must **never** invent official criteria, rule IDs, or measurement claims.
 | Creedengo rule specifications | `https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/src/main/rules/<RULE_ID>/` |
 | Green Software Foundation SCI | https://greensoftware.foundation/standards/sci/ |
 | W3C Web Sustainability Guidelines | https://www.w3.org/TR/web-sustainability-guidelines/ |
+| RGAA | https://accessibilite.numerique.gouv.fr/ |
+| axe-core rule descriptions | https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md |
+| EcoIndex / GreenIT Analysis | https://www.ecoindex.fr/ and https://github.com/cnumr/GreenIT-Analysis |
+| CNIL RGPD principles | https://www.cnil.fr/fr/comprendre-le-rgpd/les-six-grands-principes-du-rgpd |
+
+---
+
+## Tagging Model
+
+Every finding should expose two tag families:
+
+| Tag family | Purpose | Examples |
+|---|---|---|
+| `Rule tags` | Stable identifiers from verified references | `RGESN-9.7`, `CREEDENGO-GCI89`, `AXE:button-name`, `wcag412`, `RGAAv4`, `RGAA-11.9.1`, `SCI`, `W3C-WSG`, `ECOINDEX` |
+| `Context tags` | Project-specific AI, data, product, or operational context | `ai-inference`, `llm-tokens`, `rag`, `embedding`, `cache`, `retry`, `training`, `chat-ui`, `accessibility`, `measurement-missing` |
+
+Rules:
+
+- Use official RGESN or Creedengo IDs only after verifying the source.
+- If a mapping is plausible but not verified, use `REF-TBD` and explain the missing verification.
+- For AI user-interface accessibility issues, use `AXE:<rule-id>` plus native axe tags from `rule-descriptions.md` when verified, for example `AXE:button-name`, `wcag412`, `RGAAv4`, `RGAA-11.9.1`.
+- Write context tags in lowercase kebab-case.
+- Do not use a context tag as proof of compliance; it only describes the evidence or risk.
+- Prefer RGESN Algorithmie and Creedengo as primary mappings. Use axe-core, SCI, W3C WSG, EcoIndex, RGAA, and CNIL/RGPD only when the finding needs supporting context.
 
 ---
 
@@ -88,6 +112,9 @@ Execute the following steps **in order**. Do not skip any step.
    - `Training` - training or fine-tuning is unjustified, too frequent, or unmeasured
    - `Operations` - hosting region, hardware, batch strategy, or monitoring is missing
 
+   Assign `Rule tags` and `Context tags` to each risk. Keep verified reference identifiers separate from
+   AI-context descriptors such as `llm-tokens`, `rag`, or `cache`.
+
 7. **Recommend fixes**  
    For each finding, propose the smallest safe change first. Prefer changes that preserve product quality:
    prompt compaction, output schema, lower token ceiling, response cache, semantic cache, smaller model
@@ -136,14 +163,16 @@ The agent **must** produce output in exactly this structure:
     Model / provider:
     Data sources:
     Sources consulted:
+    Rule tags:
+    Context tags:
 
     ## Decision
     Verdict: <Acceptable | Acceptable with changes | High risk | Insufficient evidence>
     Short rationale:
 
     ## Findings
-    | ID | Category | Severity | Evidence | Impact | Recommendation | RGESN mapping | Creedengo mapping |
-    |---|---|---|---|---|---|---|---|
+    | ID | Category | Severity | Rule tags | Context tags | Evidence | Impact | Recommendation | RGESN mapping | Creedengo mapping |
+    |---|---|---|---|---|---|---|---|---|---|
 
     ## Simpler Alternative Check
     Current AI approach:
@@ -163,6 +192,8 @@ The agent **must** produce output in exactly this structure:
     ## Self-check
     - Official RGESN criteria used: <yes/no>
     - Creedengo IDs verified: <yes/no/not applicable>
+    - Rule tags verified: <yes/no/not applicable>
+    - Context tags normalized: <yes/no>
     - No unsupported CO2 claim: <yes/no>
     - User value preserved: <yes/no>
 
@@ -172,6 +203,8 @@ The agent **must** produce output in exactly this structure:
 
     Feature:
     Current assumptions:
+    Rule tags:
+    Context tags:
 
     Questions to answer:
     - <question>
@@ -195,6 +228,9 @@ The agent **must never**:
 - [ ] Optimize token or energy use by weakening safety, privacy, security, accessibility, or correctness
 - [ ] Expose prompts, API keys, personal data, training data, or secrets in the output
 - [ ] Report a Creedengo finding without checking the official rule specification
+- [ ] Invent official rule tags or use unverified reference identifiers as if they were confirmed
+- [ ] Mix rule identifiers and AI context descriptors in the same tag field
+- [ ] Use an axe-core rule ID or native axe tag without checking `rule-descriptions.md`
 - [ ] Produce output in a format different from the one defined in Output Format
 
 ---
@@ -220,6 +256,8 @@ The agent **must never**:
     Model / provider: local PyTorch model, size unknown
     Data sources: single text input
     Sources consulted: RGESN Algorithmie, Creedengo rules support matrix
+    Rule tags: `REF-TBD`
+    Context tags: `ai-inference`, `pytorch`, `measurement-missing`
 
     ## Decision
     Verdict: Acceptable with changes
@@ -227,9 +265,9 @@ The agent **must never**:
     token limits, batching, and measurement.
 
     ## Findings
-    | ID | Category | Severity | Evidence | Impact | Recommendation | RGESN mapping | Creedengo mapping |
-    |---|---|---|---|---|---|---|---|
-    | AI-1 | Inference | Major | `model(...)` is called without visible `torch.no_grad()` | Unnecessary gradient tracking can increase memory and compute during inference | Wrap inference in `with torch.no_grad():` and set model to eval mode | Use official Algorithmie criteria after verification | Verify current PyTorch inference rule in Creedengo before citing its ID |
+    | ID | Category | Severity | Rule tags | Context tags | Evidence | Impact | Recommendation | RGESN mapping | Creedengo mapping |
+    |---|---|---|---|---|---|---|---|---|---|
+    | AI-1 | Inference | Major | `REF-TBD` | `ai-inference`, `pytorch`, `weak-evidence` | `model(...)` is called without visible `torch.no_grad()` | Unnecessary gradient tracking can increase memory and compute during inference | Wrap inference in `with torch.no_grad():` and set model to eval mode | Use official Algorithmie criteria after verification | Verify current PyTorch inference rule in Creedengo before citing its ID |
 
 ### Example 2 - No measurement data
 
@@ -284,4 +322,6 @@ The agent **must never**:
 
 | Version | Date | Change |
 |---|---|---|
+| 1.2 | 2026-05-20 | Added axe-core rule IDs and native axe tags to the tagging model |
+| 1.1 | 2026-05-20 | Added rule/context tagging model and supporting references |
 | 1.0 | 2026-05-19 | Initial version |

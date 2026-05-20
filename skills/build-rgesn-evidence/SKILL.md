@@ -1,7 +1,7 @@
 ---
 name: build-rgesn-evidence
 description: Use when RGESN evidence builder; RGESN self-assessment; declaration d'ecoconception; eco-design compliance dossier; digital sobriety evidence; sustainability proof matrix; ecoconception declaration; public-sector eco-design audit.
-version: 1.0.1
+version: 1.2.0
 ---
 
 ## Purpose
@@ -34,6 +34,32 @@ It must **never** invent criteria, weights, N/A conditions, or compliance claims
 | Official evaluation spreadsheet | Use the XLSX or ODS linked from the RGESN 2024 publication page |
 | Official declaration example | Use the DOCX or ODT linked from the RGESN 2024 publication page |
 | Creedengo rules specifications | https://github.com/green-code-initiative/creedengo-rules-specifications |
+| RGAA | https://accessibilite.numerique.gouv.fr/ |
+| axe-core rule descriptions | https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md |
+| EcoIndex / GreenIT Analysis | https://www.ecoindex.fr/ and https://github.com/cnumr/GreenIT-Analysis |
+| W3C Web Sustainability Guidelines | https://www.w3.org/TR/web-sustainability-guidelines/ |
+| Green Software Foundation SCI | https://greensoftware.foundation/standards/sci/ |
+| CNIL RGPD principles | https://www.cnil.fr/fr/comprendre-le-rgpd/les-six-grands-principes-du-rgpd |
+
+---
+
+## Tagging Model
+
+Every dossier item should expose two tag families:
+
+| Tag family | Purpose | Examples |
+|---|---|---|
+| `Rule tags` | Stable identifiers from verified references | `RGESN-1.5`, `RGESN-4.3`, `AXE:color-contrast`, `wcag2aa`, `wcag143`, `RGAAv4`, `RGAA-3.2.1`, `CREEDENGO-GCI89`, `ECOINDEX`, `SCI` |
+| `Context tags` | Project-specific evidence or domain context | `frontend`, `backend`, `hosting`, `accessibility`, `contrast`, `automated-a11y-check`, `performance-budget`, `strong-evidence`, `needs-human-confirmation` |
+
+Rules:
+
+- Use official rule or criterion identifiers only after verifying the source.
+- If a reference mapping is plausible but not verified, use `REF-TBD` and explain the missing verification.
+- For accessibility findings from axe-core, use `AXE:<rule-id>` plus the native axe tags from `rule-descriptions.md` when verified, for example `AXE:color-contrast`, `wcag2aa`, `wcag143`, `RGAAv4`, `RGAA-3.2.1`.
+- Write context tags in lowercase kebab-case.
+- Separate reference compliance from context: `RGESN-9.7` is a rule tag; `ai-inference` is a context tag.
+- Keep RGESN as the primary reference. Use RGAA, axe-core, EcoIndex/GreenIT, W3C WSG, SCI, Creedengo, and CNIL/RGPD only as supporting references when the evidence actually relates to them.
 
 ---
 
@@ -68,6 +94,9 @@ Execute the following steps **in order**. Do not skip any step.
    - `Strong` - direct proof from code, config, document, or measurement
    - `Weak` - indirect signal requiring human confirmation
    - `Missing` - no usable proof found
+
+   Assign `Rule tags` and `Context tags` to every evidence item. Do not mix official identifiers and
+   contextual tags in the same field.
 
 5. **Evaluate each criterion**  
    For each applicable criterion, assign:
@@ -140,6 +169,8 @@ The agent **must** produce output in exactly this structure:
     Not validated criteria:
     Not applicable criteria:
     Needs human confirmation:
+    Rule tags:
+    Context tags:
     Main risks:
 
     ## Theme Scores
@@ -147,8 +178,8 @@ The agent **must** produce output in exactly this structure:
     |---|---:|---:|---|
 
     ## Evidence Matrix
-    | Criterion | Theme | Priority | Applicability | Status | Evidence | Evidence strength | Gap |
-    |---|---|---|---|---|---|---|---|
+    | Criterion | Theme | Priority | Applicability | Status | Rule tags | Context tags | Evidence | Evidence strength | Gap |
+    |---|---|---|---|---|---|---|---|---|---|
 
     ## Declaration Draft
     <Draft declaration d'ecoconception text. Mark assumptions and unverified claims.>
@@ -164,6 +195,8 @@ The agent **must** produce output in exactly this structure:
     - Official criteria used: <yes/no>
     - N/A decisions justified: <yes/no>
     - Score formula applied: <yes/no>
+    - Rule tags verified: <yes/no/not applicable>
+    - Context tags normalized: <yes/no>
     - Unsupported claims removed: <yes/no>
 
 ### When evidence is insufficient for scoring
@@ -175,6 +208,9 @@ The agent **must** produce output in exactly this structure:
     RGESN version:
 
     The available material is insufficient to produce a reliable RGESN score.
+
+    Rule tags:
+    Context tags:
 
     Missing inputs:
     - <input needed>
@@ -196,6 +232,9 @@ The agent **must never**:
 - [ ] Claim environmental impact reduction in CO2, water, or resources without a measurement method and data
 - [ ] Hide uncertainty; use `Needs human confirmation` when evidence is not available
 - [ ] Produce output in a format different from the one defined in Output Format
+- [ ] Invent or normalize official rule tags without verifying the reference source
+- [ ] Mix rule identifiers and contextual descriptors in the same tag field
+- [ ] Use an axe-core rule ID or native axe tag without checking `rule-descriptions.md`
 
 ---
 
@@ -224,6 +263,8 @@ The agent **must never**:
     Not validated criteria: <count>
     Not applicable criteria: <count>
     Needs human confirmation: <count>
+    Rule tags: `RGESN-*`, `AXE:color-contrast`, `wcag2aa`, `RGAA-3.2.1`, `ECOINDEX`
+    Context tags: `frontend`, `accessibility`, `hosting`, `measurement-missing`
     Main risks: missing declaration, no documented service utility, no hosting environmental data
 
     ## Theme Scores
@@ -232,9 +273,9 @@ The agent **must never**:
     | Frontend | <score> | <count>/<count> | Missing media budget |
 
     ## Evidence Matrix
-    | Criterion | Theme | Priority | Applicability | Status | Evidence | Evidence strength | Gap |
-    |---|---|---|---|---|---|---|---|
-    | <official ID> | Frontend | Prioritaire | Applicable | Not validated | No performance budget found | Missing | Add budget and measurement |
+    | Criterion | Theme | Priority | Applicability | Status | Rule tags | Context tags | Evidence | Evidence strength | Gap |
+    |---|---|---|---|---|---|---|---|---|---|
+    | <official ID> | Frontend | Prioritaire | Applicable | Not validated | `RGESN-*` | `frontend`, `performance-budget`, `missing-evidence` | No performance budget found | Missing | Add budget and measurement |
 
 ### Example 2 - Missing scope
 
@@ -272,4 +313,6 @@ The agent **must never**:
 
 | Version | Date | Change |
 |---|---|---|
+| 1.2 | 2026-05-20 | Added axe-core rule IDs and native axe tags to the tagging model |
+| 1.1 | 2026-05-20 | Added rule/context tagging model and supporting reference tags |
 | 1.0 | 2026-05-19 | Initial version |

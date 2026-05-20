@@ -1,7 +1,7 @@
 ---
 name: contribute-creedengo-rule
 description: review Creedengo rule specification; write GCI rule; update RULES.md; generate Asciidoc rule spec; generate rule metadata JSON; compliant and non-compliant examples; green code rule contribution; ecoCode rule contribution..
-version: 1.0.0
+version: 1.2.0
 ---
 
 ## Purpose
@@ -36,6 +36,32 @@ It must **never** invent final rule IDs, schema fields, language applicability, 
 | Green Code Initiative | https://green-code-initiative.org |
 | cnumr best practices | https://github.com/cnumr/best-practices |
 | RGESN 2024 publication page | https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/ |
+| RGAA | https://accessibilite.numerique.gouv.fr/ |
+| axe-core rule descriptions | https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md |
+| EcoIndex / GreenIT Analysis | https://www.ecoindex.fr/ and https://github.com/cnumr/GreenIT-Analysis |
+| W3C Web Sustainability Guidelines | https://www.w3.org/TR/web-sustainability-guidelines/ |
+| Green Software Foundation SCI | https://greensoftware.foundation/standards/sci/ |
+| CNIL RGPD principles | https://www.cnil.fr/fr/comprendre-le-rgpd/les-six-grands-principes-du-rgpd |
+
+---
+
+## Tagging Model
+
+Every rule proposal should expose two tag families:
+
+| Tag family | Purpose | Examples |
+|---|---|---|
+| `Rule tags` | Stable identifiers from verified references | `CREEDENGO-GCI89`, `CREEDENGO-GCI-TBD`, `AXE:image-alt`, `wcag111`, `RGAAv4`, `RGAA-1.1.1`, `RGESN-9.7`, `W3C-WSG`, `SCI` |
+| `Context tags` | Project-specific detection, language, or contribution context | `javascript`, `python`, `ai-inference`, `retry`, `cache`, `accessibility`, `static-analysis`, `heuristic-rule`, `false-positive-risk` |
+
+Rules:
+
+- Use existing Creedengo IDs only after checking `RULES.md` or a rule folder.
+- For a new rule, use `CREEDENGO-GCI-TBD`; never assign a final numeric GCI ID.
+- For accessibility rule candidates, use `AXE:<rule-id>` plus native axe tags from `rule-descriptions.md` when verified, for example `AXE:image-alt`, `wcag111`, `RGAAv4`, `RGAA-1.1.1`.
+- If an RGESN, RGAA, SCI, W3C, EcoIndex, or CNIL mapping is plausible but unverified, use `REF-TBD`.
+- Write context tags in lowercase kebab-case.
+- Keep tags descriptive but compact enough to fit metadata JSON or review tables.
 
 ---
 
@@ -67,6 +93,7 @@ Execute the following steps **in order**. Do not skip any step.
    - a language scope
    - a false-positive risk analysis
    - source references or measurements
+   - `Rule tags` and `Context tags` kept in separate fields
 
 4. **Choose the rule identifier policy**  
    Use an existing official rule ID only when it already exists in `RULES.md` or a rule folder.
@@ -79,7 +106,8 @@ Execute the following steps **in order**. Do not skip any step.
 
 6. **Draft or review metadata JSON**  
    Check or produce metadata with the fields used by comparable rules, such as title, type, remediation cost,
-   severity, tags, and language-specific metadata when present. If a field cannot be determined, use
+   severity, tags, `ruleTags`, `contextTags`, and language-specific metadata when present. If comparable
+   rules do not use split tag fields, keep the split in the report and mark metadata field names as
    `TBD - maintainer input required` rather than guessing.
 
 7. **Draft or review Asciidoc specification**  
@@ -129,6 +157,8 @@ The agent **must** produce output in exactly this structure:
     Proposed rule:
     Language(s):
     Source references consulted:
+    Rule tags:
+    Context tags:
 
     ## Duplicate Check
     Existing related rules:
@@ -137,6 +167,8 @@ The agent **must** produce output in exactly this structure:
     ## Rule Candidate
     Rule ID:
     Title:
+    Rule tags:
+    Context tags:
     Anti-pattern:
     Compliant alternative:
     Environmental rationale:
@@ -169,6 +201,8 @@ The agent **must** produce output in exactly this structure:
     ## Self-check
     - Duplicate check completed: <yes/no>
     - Official IDs preserved: <yes/no>
+    - Rule tags verified: <yes/no/not applicable>
+    - Context tags normalized: <yes/no>
     - Schema copied from existing rules: <yes/no/not applicable>
     - Examples verified or marked pseudocode: <yes/no>
     - Unsupported claims removed: <yes/no>
@@ -179,6 +213,8 @@ The agent **must** produce output in exactly this structure:
 
     Proposed rule:
     Matching existing rule:
+    Rule tags:
+    Context tags:
     Evidence:
     Recommendation:
     Suggested update instead:
@@ -196,6 +232,8 @@ The agent **must never**:
 - [ ] Claim an environmental benefit without a source, accepted best practice, or measurement rationale
 - [ ] Produce examples that change application behavior without saying so
 - [ ] Treat runtime-only issues as deterministic static rules
+- [ ] Invent official rule tags or mix verified rule IDs with context tags
+- [ ] Use an axe-core rule ID or native axe tag without checking `rule-descriptions.md`
 - [ ] Produce output in a format different from the one defined in Output Format
 
 ---
@@ -234,6 +272,8 @@ The agent **must never**:
     Proposed rule: detect unbounded LLM retries in an API route
     Language(s): JavaScript / TypeScript
     Source references consulted: RULES.md, similar JavaScript rules, RGESN Algorithmie
+    Rule tags: `CREEDENGO-GCI-TBD`, `RGESN-9.7`
+    Context tags: `javascript`, `typescript`, `ai-inference`, `retry`, `heuristic-rule`
 
     ## Duplicate Check
     Existing related rules: <list after checking RULES.md>
@@ -242,6 +282,8 @@ The agent **must never**:
     ## Rule Candidate
     Rule ID: GCI-TBD
     Title: Avoid unbounded retries around AI inference calls
+    Rule tags: `CREEDENGO-GCI-TBD`, `RGESN-9.7`
+    Context tags: `javascript`, `typescript`, `ai-inference`, `retry`, `false-positive-risk`
     Anti-pattern: retry loops around model calls without max attempts, timeout, or backoff
     Compliant alternative: bounded retry with timeout, max attempts, and error handling
     Environmental rationale: unbounded retries can multiply inference calls and resource consumption
@@ -273,4 +315,6 @@ The agent **must never**:
 
 | Version | Date | Change |
 |---|---|---|
+| 1.2 | 2026-05-20 | Added axe-core rule IDs and native axe tags to the tagging model |
+| 1.1 | 2026-05-20 | Added rule/context tagging model and supporting references |
 | 1.0 | 2026-05-19 | Initial version |
