@@ -835,7 +835,9 @@ func cmdSearch(query string) {
 	for _, s := range skills {
 		info := allInfos[s]
 		if strings.Contains(strings.ToLower(s), lower) ||
-			strings.Contains(strings.ToLower(info.description), lower) {
+			strings.Contains(strings.ToLower(info.description), lower) ||
+			strings.Contains(strings.ToLower(info.tag), lower) ||
+			strings.Contains(strings.ToLower(info.referentiel), lower) {
 			matches = append(matches, s)
 		}
 	}
@@ -1682,7 +1684,7 @@ func printBanner() {
 	fmt.Println(`   / \  / ____/ ___|        / ___|| |   |_ _|`)
 	fmt.Println(`  / _ \| |  _\___ \ _____  | |    | |    | | `)
 	fmt.Println(` / ___ \ |_| |___) |_____| | |___ | |___ | | `)
-	fmt.Println(`/_/   \_\____|____/          \____||_____|___|`)
+	fmt.Println(`/_/   \_\____|____/         \____||_____|___|`)
 	fmt.Printf("\n         AI Green Skills CLI v%s%s\n\n", version, reset)
 }
 
