@@ -1,4 +1,4 @@
-module cli-skills
+module ags-cli
 
 go 1.22
 

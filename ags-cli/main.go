@@ -20,7 +20,7 @@ import (
 )
 
 const skillFile = "SKILL.md"
-const version = "0.0.1"
+const version = "1.0.0"
 
 // Configuration Git
 const (
@@ -106,7 +106,7 @@ func getEnv(key, defaultVal string) string {
 		envFileCache = loadEnvFile(".env")
 		if len(envFileCache) == 0 {
 			home, _ := os.UserHomeDir()
-			envFileCache = loadEnvFile(filepath.Join(home, ".config", "cli-skills", ".env"))
+			envFileCache = loadEnvFile(filepath.Join(home, ".config", "ags-cli", ".env"))
 		}
 	}
 	if v := envFileCache[key]; v != "" {
@@ -218,9 +218,25 @@ func GitGetPaged[T any](apiURL, token string) ([]T, error) {
 		switch resp.StatusCode {
 		case http.StatusOK:
 			// OK, continue
-		case http.StatusUnauthorized, http.StatusForbidden:
+		case http.StatusUnauthorized:
 			resp.Body.Close()
-			return nil, fmt.Errorf("authentication refused — check GIT_TOKEN")
+			if token != "" {
+				// The token in the environment is invalid/expired.
+				// For public repos, retry transparently without it.
+				return GitGetPaged[T](apiURL, "")
+			}
+			return nil, fmt.Errorf("access denied (HTTP 401) — if the repository is private, set GIT_TOKEN")
+		case http.StatusForbidden:
+			// GitHub rate limit: X-RateLimit-Remaining == "0"
+			if resp.Header.Get("X-RateLimit-Remaining") == "0" {
+				resp.Body.Close()
+				return nil, fmt.Errorf("GitHub API rate limit exceeded — set GIT_TOKEN to raise the limit (60 → 5 000 req/h)")
+			}
+			resp.Body.Close()
+			if token == "" {
+				return nil, fmt.Errorf("access denied (HTTP 403) — if the repository is private, set GIT_TOKEN")
+			}
+			return nil, fmt.Errorf("authentication refused (HTTP 403) — check GIT_TOKEN")
 		case http.StatusNotFound:
 			resp.Body.Close()
 			return nil, fmt.Errorf("project not found — check GIT_PROJECT")
@@ -337,6 +353,8 @@ func remoteSkillsAtRef(baseURL, project, token, ref string) ([]string, error) {
 type remoteSkillMeta struct {
 	version     string
 	description string
+	tag         string
+	referentiel string
 }
 
 // fetchRemoteSkillMeta retrieves version and description from a remote SKILL.md in a single HTTP call.
@@ -367,6 +385,8 @@ func fetchRemoteSkillMeta(cfg GitConfig, skillName, ref string) remoteSkillMeta 
 	return remoteSkillMeta{
 		version:     parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "version"),
 		description: parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "description"),
+		tag:         parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "tag"),
+		referentiel: parseFrontmatterField(bufio.NewScanner(strings.NewReader(s)), "referentiel"),
 	}
 }
 
@@ -383,7 +403,7 @@ type meta struct {
 
 func metaFilePath() string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".config", "cli-skills", "meta.json")
+	return filepath.Join(home, ".config", "ags-cli", "meta.json")
 }
 
 func loadMeta() meta {
@@ -421,7 +441,7 @@ type appConfig struct {
 
 func appConfigFilePath() string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".config", "cli-skills", "config.json")
+	return filepath.Join(home, ".config", "ags-cli", "config.json")
 }
 
 func loadAppConfig() appConfig {
@@ -592,7 +612,7 @@ func downloadSkill(cfg GitConfig, skillName, ref, destDir string) error {
 
 func cmdInstall(name string, all bool) {
 	if !all && name == "" {
-		fmt.Fprintln(os.Stderr, "Usage: cli-skills install <skill-name> | --all")
+		fmt.Fprintln(os.Stderr, "Usage: ags-cli install <skill-name> | --all")
 		os.Exit(1)
 	}
 	cfg := requireGitConfig()
@@ -772,7 +792,7 @@ func cmdUpdate(name string, all bool) {
 }
 
 func cmdVersion() {
-	fmt.Printf("cli-skills version %s\n", version)
+	fmt.Printf("ags-cli version %s\n", version)
 }
 
 func cmdSearch(query string) {
@@ -904,29 +924,25 @@ func cmdCatalog() {
 	}
 	fmt.Println()
 
-	fmt.Printf("\n%-35s %-10s %-28s %s\n", "NAME", "VERSION", "STATUS", "DESCRIPTION")
-	fmt.Println(strings.Repeat("─", 120))
+	fmt.Printf("\n%-35s %-10s %-15s %s\n", "NAME", "VERSION", "REFERENTIEL", "TAG")
+	fmt.Println(strings.Repeat("─", 85))
 	for _, s := range skills {
 		info := remoteInfos[s]
 		ver := info.version
 		if ver == "" {
 			ver = "—"
 		}
-		var status string
-		if installed[s] {
-			localVer := localVersions[s]
-			if localVer == "" {
-				localVer = "unknown"
-			}
-			if info.version != "" && localVer != info.version {
-				status = fmt.Sprintf("installed, update available (v%s)", localVer)
-			} else {
-				status = "installed"
-			}
-		} else {
-			status = "available"
+		tag := info.tag
+		if tag == "" {
+			tag = "—"
 		}
-		fmt.Printf("%-35s %-10s %-28s %s\n", s, ver, status, info.description)
+		ref_ := info.referentiel
+		if ref_ == "" {
+			ref_ = "—"
+		}
+		_ = installed
+		_ = localVersions
+		fmt.Printf("%-35s %-10s %-15s %s\n", s, ver, ref_, tag)
 	}
 	fmt.Printf("\n%d skill(s) available (ref. %s).\n", len(skills), ref)
 }
@@ -1133,7 +1149,7 @@ func cmdUninstall(name string, force, all bool) {
 	}
 
 	if name == "" {
-		fmt.Fprintln(os.Stderr, "Usage: cli-skills uninstall <skill-name> | --all")
+		fmt.Fprintln(os.Stderr, "Usage: ags-cli uninstall <skill-name> | --all")
 		os.Exit(1)
 	}
 
@@ -1393,7 +1409,7 @@ func checkUpdates(cfg GitConfig) (updates []skillUpdate, ref string) {
 
 func cmdInteractive() {
 	enableANSIOutput()
-	fmt.Printf("\n\033[1;36m  cli-skills v%s — Interactive Mode\033[0m\n", version)
+	fmt.Printf("\n\033[1;36m  ags-cli v%s — Interactive Mode\033[0m\n", version)
 	fmt.Printf("  Type a command or 'help'. Quit with 'exit'.\n\n")
 
 	var (
@@ -1463,7 +1479,7 @@ func cmdInteractive() {
 	// Boucle REPL avec autocomplétion
 	mc := &mutableCompleter{current: buildCompleter(remoteSkillItems, localSkillItems)}
 	rl, err := readline.NewEx(&readline.Config{
-		Prompt:          "\033[1;36mcli-skills\033[0m> ",
+		Prompt:          "\033[1;36mags-cli\033[0m> ",
 		AutoComplete:    mc,
 		HistoryLimit:    100,
 		InterruptPrompt: "^C",
@@ -1473,7 +1489,7 @@ func cmdInteractive() {
 		// Fall back to bufio.Scanner if readline cannot initialise
 		sc := bufio.NewScanner(os.Stdin)
 		for {
-			fmt.Print("\033[1;36mcli-skills\033[0m> ")
+			fmt.Print("\033[1;36mags-cli\033[0m> ")
 			if !sc.Scan() {
 				break
 			}
@@ -1626,7 +1642,7 @@ func replDispatch(parts []string, mc *mutableCompleter, remoteSkillItems []readl
 }
 
 func cmdHelp(prefix string) {
-	fmt.Printf("cli-skills %s — AI Skills Manager for VSCode\n\n", version)
+	fmt.Printf("ags-cli %s — AI Skills Manager for VSCode\n\n", version)
 	fmt.Println("Usage:")
 	if prefix == "" {
 		// Interactive mode header
@@ -1700,7 +1716,7 @@ func main() {
 			}
 		}
 		if !all && name == "" {
-			fmt.Fprintln(os.Stderr, "Usage: cli-skills update <name> | --all")
+			fmt.Fprintln(os.Stderr, "Usage: ags-cli update <name> | --all")
 			os.Exit(1)
 		}
 		cmdUpdate(name, all)
@@ -1728,11 +1744,11 @@ func main() {
 		cmdVersion()
 
 	case "help", "--help", "-h":
-		cmdHelp("cli-skills ")
+		cmdHelp("ags-cli ")
 
 	default:
 		fmt.Fprintf(os.Stderr, "Unknown command: %q\n\n", os.Args[1])
-		cmdHelp("cli-skills ")
+		cmdHelp("ags-cli ")
 		os.Exit(1)
 	}
 }
