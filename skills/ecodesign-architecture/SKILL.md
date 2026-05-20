@@ -1,11 +1,20 @@
 ---
 name: ecodesign-architecture
-description: Eco-designed architectural decisions for a web digital service. Use whenever the user starts a new project, chooses a framework, hesitates between SPA and MPA, considers a PWA, structures a monorepo, or asks about lifetime, hardware compatibility, or maintainability of an application. Covers the upstream technical choices that shape the footprint of the entire project: tech stack, dependencies, modularity, support for older devices. Trigger even if the user just says "what framework for a sober site" or "I want it to work on old phones". Always mobilize this skill before writing any structural code for a project starting up.
+description: Eco-designed architectural decisions for a web digital service
+context: 
+  Use whenever the user starts a new project, chooses a framework, hesitates between SPA and MPA, considers a PWA, structures a monorepo, 
+  or asks about lifetime, hardware compatibility, or maintainability of an application. Covers the upstream technical choices that shape the
+  footprint of the entire project (tech stack, dependencies, modularity, support for older devices). 
+  Trigger even if the user just says "what framework for a sober site" or "I want it to work on old phones". 
+  Always mobilize this skill before writing any structural code for a project starting up.
 metadata:
-   tag: ecoconception, backend, api
-   version: 1.0.0
-   last-updated: 20/05/2026
-   referentiel: RGESN
+    version: 1.0.0
+    referentiel: 
+      RGESN, RGESN-3.1, RGESN-3.2, RGESN-3.3, RGESN-3.4, RGESN-3.5, RGESN-3.6, RGESN-3.7,
+      AFNOR-2201, AFNOR-2201-7, AFNOR-2201-8,
+      WSG, WSG-1, WSG-4
+    tag: architecture, api
+    last-updated: 20/05/2026
 ---
 
 # Ecodesign — Technical architecture

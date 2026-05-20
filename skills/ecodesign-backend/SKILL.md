@@ -1,11 +1,21 @@
 ---
 name: ecodesign-backend
-description: Write an eco-designed backend: REST/GraphQL APIs, SQL queries, caching, pagination, compression, async processing. Mobilize whenever the user asks for server code (Node.js, Python, PHP, Go, Ruby...), API endpoints, data models, database queries, caching (Redis, in-memory, HTTP cache), response compression, queued tasks, or server optimizations. Trigger also for questions about payload size, N+1 queries, pagination, or expensive business logic. The backend directly influences the datacenter footprint — mobilize this skill for any server code, even a simple endpoint.
+description: Write an eco-designed backend
+context: 
+  REST/GraphQL APIs, SQL queries, caching, pagination, compression, async processing. 
+  Mobilize whenever the user asks for server code (Node.js, Python, PHP, Go, Ruby...), API endpoints, 
+  data models, database queries, caching (Redis, in-memory, HTTP cache), response compression, queued tasks, or server optimizations. 
+  Trigger also for questions about payload size, N+1 queries, pagination, or expensive business logic. 
+  The backend directly influences the datacenter footprint — mobilize this skill for any server code, even a simple endpoint.
 metadata:
-   tag: ecoconception, backend, api
    version: 1.0.0
+   referentiel: 
+     RGESN, RGESN-7.1, RGESN-7.2, RGESN-7.3, RGESN-7.4, 
+     RGESN-8.1, RGESN-8.2, RGESN-8.3, RGESN-8.4, RGESN-8.5, RGESN-8.6, RGESN-8.7, RGESN-8.8, RGESN-8.9, RGESN-8.10
+     AFNOR-2201, AFNOR-2201-12, AFNOR-2201-13,
+     WSG, WSG-4.2, WSG-4.3, WSG-5
+   tag: backend, api
    last-updated: 20/05/2026
-   referentiel: RGESN
 ---
 
 # Ecodesign — Backend
@@ -14,7 +24,7 @@ Practices to reduce server-side footprint: energy consumed by datacenter CPU/RAM
 
 ## Frameworks covered
 
-- **RGESN 2024**: family 8 (Backend), criteria 8.1 to 8.6 and family 9 (Hosting) in part
+- **RGESN 2024**: family 7 (Backend), criteria 7.1 to 7.4 and family 8 (Hosting) in part
 - **AFNOR SPEC 2201**: §12 (Back-end), §13 (Server architecture)
 - **WSG**: Web Development 4.x (4.2, 4.3), Hosting/Infrastructure 5.x
 

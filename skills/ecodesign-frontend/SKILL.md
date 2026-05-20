@@ -1,11 +1,16 @@
 ---
 name: ecodesign-frontend
-description: Write eco-designed HTML, CSS and JavaScript on the client side. Use every time the user asks to generate or refactor UI components, pages, markup, styling, or JS code running in the browser. Covers: light DOM, semantic HTML, minimal performant CSS, parsimonious JavaScript, sober animations, removal of heavy libraries, web performance practices with direct environmental impact. Trigger even for micro-tasks ("write me a sober menu", "make this component in pure CSS"). Always activate for any frontend code production, alongside the media and content-ux skills when relevant.
+description: Write eco-designed HTML, CSS and JavaScript on the client side.
+context: Use every time the user asks to generate or refactor UI components, pages, markup, styling, or JS code running in the browser. Covers - light DOM, semantic HTML, minimal performant CSS, parsimonious JavaScript, sober animations, removal of heavy libraries, web performance practices with direct environmental impact. Trigger even for micro-tasks ("write me a sober menu", "make this component in pure CSS"). Always activate for any frontend code production, alongside the media and content-ux skills when relevant.
 metadata:
-   tag: ecoconception, front, html
    version: 1.0.0
+   referentiel: RGESN, RGESN-4.1, RGESN-4.2, RGESN-4.3, RGESN-4.4, RGESN-4.5, RGESN-4.6, RGESN-4.7, 
+    RGESN-4.8, RGESN-4.9, RGESN-4.10, RGESN-4.11, RGESN-4.12, RGESN-4.13, RGESN-4.14, RGESN-4.15,
+    RGESN-6.1, RGESN-6.2, RGESN-6.3, RGESN-6.4, RGESN-6.5, RGESN-6.6, RGESN-6.7, 
+    AFNOR-2201, AFNOR-2201-9, AFNOR-2201-10,
+    WSG, WSG-4.4, WSG-4.5, WSG-4.6, WSG-4.7, WSG-4.8, WSG-4.9
+   tag: front, html
    last-updated: 20/05/2026
-   referentiel: RGESN
 ---
 
 # Ecodesign — Frontend (HTML / CSS / JS)
@@ -14,7 +19,7 @@ Practices to write minimalist, performant, energy-sober client code. Each byte s
 
 ## Frameworks covered
 
-- **RGESN 2024**: families 6 (UX/UI) and 7 (Frontend), criteria 6.1 to 7.10
+- **RGESN 2024**: families 4 (UX/UI, criteria 4.1 to 4.15)  and 6 (Frontend), criteria 6.1 to 6.7
 - **AFNOR SPEC 2201**: §9 (User interface), §10 (Front-end)
 - **WSG**: Web Development 4.x (especially 4.4 to 4.9)
 
