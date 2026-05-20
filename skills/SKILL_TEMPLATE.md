@@ -18,8 +18,9 @@
 > **Version:** 1.0  
 > **Last updated:** YYYY-MM-DD  
 > **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM  
-> **Naming convention:** `SKILL_<verb>_<subject>.md`  
-> **Description (agent discovery):** Use when: [trigger phrase 1]; [trigger phrase 2]; [trigger phrase 3].
+> **Naming convention:** `corresponding-rule/SKILL.md`  
+> **Description:** Rule reference
+> **When to use (agent discovery):** [trigger phrase 1]; [trigger phrase 2]; [trigger phrase 3].
 
 ---
 
