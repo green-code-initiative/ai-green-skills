@@ -795,94 +795,7 @@ func cmdVersion() {
 	fmt.Printf("ags-cli version %s\n", version)
 }
 
-func cmdSearch(query string) {
-	if query == "" {
-		fmt.Fprintln(os.Stderr, "Usage: search <query>")
-		return
-	}
-	cfg := requireGitConfig()
-	fmt.Printf("Connecting to %s ...\n", cfg.baseURL)
-
-	ref, err := latestSemverTag(cfg.baseURL, cfg.project, cfg.token)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Tag error: %v\n", err)
-		os.Exit(1)
-	}
-	defaultRef := getEnv(envGitRef, defaultGitRef)
-	if ref == defaultRef {
-		fmt.Printf("No semver tag found, using branch: %s\n", ref)
-	} else {
-		fmt.Printf("Latest tag   : %s\n", ref)
-	}
-
-	skills, err := remoteSkillsAtRef(cfg.baseURL, cfg.project, cfg.token, ref)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Skill list error: %v\n", err)
-		os.Exit(1)
-	}
-
-	// Fetch remote info for all skills so we can search in description too
-	fmt.Printf("Fetching remote info")
-	allInfos := make(map[string]remoteSkillMeta, len(skills))
-	for _, s := range skills {
-		allInfos[s] = fetchRemoteSkillMeta(cfg, s, ref)
-		fmt.Print(".")
-	}
-	fmt.Println()
-
-	lower := strings.ToLower(query)
-	var matches []string
-	for _, s := range skills {
-		info := allInfos[s]
-		if strings.Contains(strings.ToLower(s), lower) ||
-			strings.Contains(strings.ToLower(info.description), lower) ||
-			strings.Contains(strings.ToLower(info.tag), lower) ||
-			strings.Contains(strings.ToLower(info.referentiel), lower) {
-			matches = append(matches, s)
-		}
-	}
-
-	if len(matches) == 0 {
-		fmt.Printf("No skill matching %q.\n", query)
-		return
-	}
-
-	// Local versions
-	localVersions := make(map[string]string)
-	installed := make(map[string]bool)
-	for _, s := range listSkills() {
-		installed[s.Name] = true
-		localVersions[s.Name] = s.Version
-	}
-
-	fmt.Printf("\n%-35s %-10s %-28s %s\n", "NAME", "VERSION", "STATUS", "DESCRIPTION")
-	fmt.Println(strings.Repeat("─", 120))
-	for _, s := range matches {
-		info := allInfos[s]
-		ver := info.version
-		if ver == "" {
-			ver = "—"
-		}
-		var status string
-		if installed[s] {
-			localVer := localVersions[s]
-			if localVer == "" {
-				localVer = "unknown"
-			}
-			if info.version != "" && localVer != info.version {
-				status = fmt.Sprintf("installed, update available (v%s)", localVer)
-			} else {
-				status = "installed"
-			}
-		} else {
-			status = "available"
-		}
-		fmt.Printf("%-35s %-10s %-28s %s\n", s, ver, status, info.description)
-	}
-	fmt.Printf("\n%d skill(s) found for %q (ref. %s).\n", len(matches), query, ref)
-}
-
-func cmdCatalog() {
+func cmdCatalog(filter string) {
 	cfg := requireGitConfig()
 	fmt.Printf("Connecting to %s ...\n", cfg.baseURL)
 
@@ -909,14 +822,6 @@ func cmdCatalog() {
 		return
 	}
 
-	// Local versions
-	localVersions := make(map[string]string)
-	installed := make(map[string]bool)
-	for _, s := range listSkills() {
-		installed[s.Name] = true
-		localVersions[s.Name] = s.Version
-	}
-
 	// Fetch remote info (1 call per skill)
 	fmt.Printf("Fetching remote info")
 	remoteInfos := make(map[string]remoteSkillMeta, len(skills))
@@ -926,7 +831,25 @@ func cmdCatalog() {
 	}
 	fmt.Println()
 
-	fmt.Printf("\n%-35s %-10s %-15s %s\n", "NAME", "VERSION", "REFERENTIEL", "TAG")
+	// Apply --filter if provided
+	if filter != "" {
+		lower := strings.ToLower(filter)
+		var filtered []string
+		for _, s := range skills {
+			info := remoteInfos[s]
+			if strings.Contains(strings.ToLower(s), lower) ||
+				strings.Contains(strings.ToLower(info.tag), lower) {
+				filtered = append(filtered, s)
+			}
+		}
+		if len(filtered) == 0 {
+			fmt.Printf("No skill matching %q.\n", filter)
+			return
+		}
+		skills = filtered
+	}
+
+	fmt.Printf("\n%-35s %-10s %s\n", "NAME", "VERSION", "TAG")
 	fmt.Println(strings.Repeat("─", 85))
 	for _, s := range skills {
 		info := remoteInfos[s]
@@ -938,13 +861,7 @@ func cmdCatalog() {
 		if tag == "" {
 			tag = "—"
 		}
-		ref_ := info.referentiel
-		if ref_ == "" {
-			ref_ = "—"
-		}
-		_ = installed
-		_ = localVersions
-		fmt.Printf("%-35s %-10s %-15s %s\n", s, ver, ref_, tag)
+		fmt.Printf("%-35s %-10s %s\n", s, ver, tag)
 	}
 	fmt.Printf("\n%d skill(s) available (ref. %s).\n", len(skills), ref)
 }
@@ -1528,8 +1445,9 @@ func buildCompleter(remoteSkillItems, localSkillItems []readline.PrefixCompleter
 	return readline.NewPrefixCompleter(
 		readline.PcItem("list"),
 		readline.PcItem("ls"),
-		readline.PcItem("catalog"),
-		readline.PcItem("search"),
+		readline.PcItem("catalog",
+			readline.PcItem("--filter"),
+		),
 		readline.PcItem("install",
 			append([]readline.PrefixCompleterInterface{readline.PcItem("--all")}, remoteSkillItems...)...,
 		),
@@ -1577,13 +1495,14 @@ func replDispatch(parts []string, mc *mutableCompleter, remoteSkillItems []readl
 	case "list", "ls":
 		cmdList()
 	case "catalog":
-		cmdCatalog()
-	case "search":
-		query := ""
-		if len(parts) > 1 {
-			query = strings.Join(parts[1:], " ")
+		filter := ""
+		for i, a := range parts[1:] {
+			if (a == "--filter" || a == "-f") && i+1 < len(parts[1:]) {
+				filter = strings.Join(parts[i+2:], " ")
+				break
+			}
 		}
-		cmdSearch(query)
+		cmdCatalog(filter)
 	case "install":
 		allFlag := false
 		name := ""
@@ -1653,7 +1572,7 @@ func cmdHelp(prefix string) {
 	}
 	fmt.Printf("  %-42s Lists locally installed skills\n", prefix+"list")
 	fmt.Printf("  %-42s Lists skills available on Git\n", prefix+"catalog")
-	fmt.Printf("  %-42s Searches skills by name in the catalog\n", prefix+"search <query>")
+	fmt.Printf("  %-42s Filters catalog by name or tag\n", prefix+"catalog --filter <query>")
 	fmt.Printf("  %-42s Installs a skill from Git\n", prefix+"install <name>")
 	fmt.Printf("  %-42s Installs all skills from Git\n", prefix+"install --all")
 	fmt.Printf("  %-42s Updates an installed skill\n", prefix+"update <name>")
@@ -1701,14 +1620,14 @@ func main() {
 		cmdList()
 
 	case "catalog":
-		cmdCatalog()
-
-	case "search":
-		query := ""
-		if len(os.Args) > 2 {
-			query = strings.Join(os.Args[2:], " ")
+		filter := ""
+		for i, arg := range os.Args[2:] {
+			if (arg == "--filter" || arg == "-f") && i+1 < len(os.Args[2:]) {
+				filter = strings.Join(os.Args[i+3:], " ")
+				break
+			}
 		}
-		cmdSearch(query)
+		cmdCatalog(filter)
 
 	case "install":
 		allFlag := false
