@@ -3,7 +3,7 @@ name: Name of the folder containing the skill
 description: Synthetic description of the skill
 metadata:
    tag: rule
-   version: "1.0"
+   version: 1.0.0
    last-updated: ISO date of the last change
 ---
 

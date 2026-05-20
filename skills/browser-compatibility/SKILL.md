@@ -3,8 +3,8 @@ name: browser-compatibility
 description: Ensure retrocompatibility of code for browsers
 metadata:
   tag: RGESN 2.4
-  version: "1.0"
-  last-updated: ISO date of the last change
+  version: 1.0.0
+  last-updated: 20/05/2026
 ---
 
 # SKILL — Backward compatibility (RGESN 2.4)

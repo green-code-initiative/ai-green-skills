@@ -3,7 +3,7 @@ name: frugal-ai
 description: Skill creator for AFNOR frugal AI rules
 metadata:
    tag: N/A
-   version: 1.0
+   version: 1.0.0
    last-updated: 20/05/2026
 ---
 

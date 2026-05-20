@@ -3,7 +3,7 @@ name: rgesn
 description: Skill creator for RGESN rules
 metadata:
    tag: N/A
-   version: 1.0
+   version: 1.0.0
    last-updated: 20/05/2026
 ---
 
