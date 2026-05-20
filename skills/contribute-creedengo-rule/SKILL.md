@@ -1,8 +1,7 @@
 ---
 name: contribute-creedengo-rule
 description: review Creedengo rule specification; write GCI rule; update RULES.md; generate Asciidoc rule spec; generate rule metadata JSON; compliant and non-compliant examples; green code rule contribution; ecoCode rule contribution..
-metadata: 
-   version: 1.0.0
+version: 1.0.0
 ---
 
 ## Purpose

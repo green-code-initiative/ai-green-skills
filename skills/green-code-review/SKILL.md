@@ -1,8 +1,7 @@
 ---
 name: green-code-review
-description: reen code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
-metadata: 
-   version: 1.1.0
+description: green code review; Creedengo violations; eco-design code analysis; sustainable code audit; GCI rules; energy-efficient code.
+version: 1.1.0
 ---
 
 ## Purpose

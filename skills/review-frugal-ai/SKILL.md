@@ -1,8 +1,7 @@
 ---
 name: review-frugal-ai
 description: frugal AI review; sustainable AI; green AI; RGESN algorithmie; AI energy efficiency; LLM cost and token reduction; model inference optimization; ML training sobriety; RAG efficiency; fine-tuning justification; AI carbon measurement.
-metadata: 
-   version: 1.0.0
+version: 1.0.0
 ---
 
 ## Purpose
