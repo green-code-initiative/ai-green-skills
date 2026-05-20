@@ -1,7 +1,10 @@
 ---
-name: build-rgesn-evidence
-description: Use when RGESN evidence builder; RGESN self-assessment; declaration d'ecoconception; eco-design compliance dossier; digital sobriety evidence; sustainability proof matrix; ecoconception declaration; public-sector eco-design audit.
-version: 1.2.0
+name: rgesn
+description: Skill creator for RGESN rules
+metadata:
+   tag: N/A
+   version: 1.0
+   last-updated: 20/05/2026
 ---
 
 ## Purpose

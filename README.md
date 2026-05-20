@@ -21,11 +21,16 @@ The aim of AGS is to integrate both concepts into a single harmonious system, en
 
 ```
 skills/
-  SKILL_TEMPLATE.md                    # Template for creating a new skill
-  SKILL_green_code_review.md           # Detect Creedengo green code rule violations
-  SKILL_build_rgesn_evidence.md        # Build an RGESN self-assessment evidence dossier
-  SKILL_review_frugal_ai.md            # Review AI/ML/LLM features for frugality
-  SKILL_contribute_creedengo_rule.md   # Create or review Creedengo rule contributions
+  browser-compatibility/
+    SKILL.md                           # Help an agent taking in consideration backward compatibility with browsers
+  contribute/
+    frugal-ai/
+      SKILL.md                         # Help an agent creating a skill matching AFNOR frugal AI considerations
+    rgesn/
+      SKILL.md                         # Help an agent creating a skill AFNOR matching RGESN considerations
+    w3c/
+      SKILL.md                         # Help an agent creating a skill matching w3c considerations
+    SKILL_TEMPLATE.md                    # Template for creating a new skill
 ```
 
 ---

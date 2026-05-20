@@ -1,7 +1,10 @@
 ---
-name: review-frugal-ai
-description: frugal AI review; sustainable AI; green AI; RGESN algorithmie; AI energy efficiency; LLM cost and token reduction; model inference optimization; ML training sobriety; RAG efficiency; fine-tuning justification; AI carbon measurement.
-version: 1.2.0
+name: frugal-ai
+description: Skill creator for AFNOR frugal AI rules
+metadata:
+   tag: N/A
+   version: 1.0
+   last-updated: 20/05/2026
 ---
 
 ## Purpose
