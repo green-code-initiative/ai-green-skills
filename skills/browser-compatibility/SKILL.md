@@ -7,16 +7,6 @@ metadata:
   last-updated: 20/05/2026
 ---
 
-# SKILL — Backward compatibility (RGESN 2.4)
-
-> **Version:** 1.0
-> **Last updated:** 2026-05-20
-> **Agent targets:** Claude, GitHub Copilot, ChatGPT, Cursor, or any LLM
-> **Description:** RGESN 2.4
-> **When to use (agent discovery):** writing code that must run on older OS/browser versions; declaring `minSdkVersion`, `browserslist`, `IPHONEOS_DEPLOYMENT_TARGET`, or Python/Node minimum version; reviewing code for RGESN 2.4 compliance; introducing a new dependency or modern API.
-
----
-
 ## Purpose
 
 Produce code, configuration, and review feedback that comply with criterion **RGESN 2.4** of the French General Eco-design Framework for Digital Services, so that the resulting service remains usable on older operating systems and browsers and does not force premature device replacement.
